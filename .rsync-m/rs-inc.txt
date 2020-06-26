@@ -1,0 +1,13 @@
+*.h
+*.hh
+*.hxx
+*.c
+*.cc
+*.cpp
+*.cxx
+*.am
+*.sh
+*.py
+configure.ac
+CMakeLists.txt
+CMakeLists.txt.in

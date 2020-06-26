@@ -1,0 +1,6 @@
+*.in
+.deps
+.libs
+*.o
+*.so*
+*.a

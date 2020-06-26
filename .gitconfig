@@ -1,0 +1,10 @@
+[core]
+	editor = vim
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[pull]
+	rebase = false
