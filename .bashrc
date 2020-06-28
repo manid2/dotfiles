@@ -58,7 +58,7 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 else
     # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
@@ -70,8 +70,8 @@ case "$TERM" in
 xterm* | rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-*) ;;
-
+*)
+    ;;
 esac
 
 # enable color support of ls and also add handy aliases
@@ -132,16 +132,23 @@ alias rsync-lnw="rsync -n -zamvh --no-l -L --exclude=$EXC_PATTERN --include-from
 alias diff='diff --color'
 alias diff-wBu3='diff -wBu3' # ignore space changes and blank lines
 
-alias xclip-no-n="sed -z '$ s/\n$//' | xclip -sel clip"
+# Disable gpu in vscode to prevent flickering
+# applies only on certain graphics cards
+alias code='code --disable-gpu'
 
-# disbale gpu in vscode to prevent flickering - applies only on certain graphics cards
-#alias code='code --disable-gpu'
-
-# Ruby gems installed to /home/dam/gems, used only for ruby gems installation
+# Ruby gems installed to $HOME/gems, used only for ruby gems installation
 #export GEM_HOME="$HOME/gems"
 #export PATH="$GEM_HOME/bin:$PATH"
 
 # Workspace aliases for faster navigation
-export ECLIPSE_WORKSPACE_PATH=$HOME/Documents/eclipse-workspace
+export ECLIPSE_WORKSPACE_PATH="$HOME/Documents/eclipse-workspace"
 export ewp=$ECLIPSE_WORKSPACE_PATH
-alias ewp="cd $ewp"
+alias ewp="cd \"$ewp\""
+
+# Alias to Xclip select clipboard as it is most used
+alias xclip-sc='xclip -sel clip'
+# Alias to trim trailing newline when piped to xclip
+alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
+
+# Alias to print history without cmd num
+alias history-no-num="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
