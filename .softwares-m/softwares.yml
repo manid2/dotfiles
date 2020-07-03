@@ -1,0 +1,13 @@
+%YAML 1.2
+---
+title: "Softwares"
+description: "Track useful cross platform softwares"
+detailed_description: "TBD"
+
+system_info: # neofetch --stdout
+    os: "cross-platform"
+# TODO: list cross platform softwares
+
+platforms:
+    - "linux"
+    - "win10"

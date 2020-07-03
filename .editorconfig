@@ -12,3 +12,6 @@ insert_final_newline = true
 [.gitconfig]
 indent_style = tab
 indent_size = 8
+
+[*.md]
+trim_trailing_whitespace = false

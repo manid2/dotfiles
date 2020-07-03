@@ -1,0 +1,9 @@
+%YAML 1.2
+---
+title: "Softwares"
+description: "Track useful softwares in kali linux systems"
+detailed_description: "TBD"
+
+system_info: # neofetch --stdout
+    os: "kali_os"
+# TODO: list kali linux softwares
