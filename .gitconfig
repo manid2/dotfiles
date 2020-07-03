@@ -9,6 +9,7 @@
 [pull]
 	rebase = false
 
+# TODO: Create git aliases
 # git log
 # --pretty=format:"%h%x09%cn%x09%ce%x09%cd%x09%an%x09%ae%x09%ad%x09%s"
 # --date=format:"%Y/%m/%d%t%T"
