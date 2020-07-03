@@ -1,0 +1,9 @@
+%YAML 1.2
+---
+title: "Softwares"
+description: "Track useful softwares common to linux systems"
+detailed_description: "TBD"
+
+system_info: # neofetch --stdout
+    os: "linux_os"
+# TODO: list common linux softwares
