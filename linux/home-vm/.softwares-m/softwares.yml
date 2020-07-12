@@ -59,6 +59,7 @@ software_categories:
         - htop
         - grsync
         - bleachbit
+        - stow
     - terminal:
         - terminator
     - gnome:
