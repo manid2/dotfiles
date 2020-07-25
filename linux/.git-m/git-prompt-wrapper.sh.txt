@@ -1,0 +1,2 @@
+# sym link file
+git-prompt-wrapper.sh -> git-core-prompt-wrapper.sh
