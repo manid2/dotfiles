@@ -156,3 +156,8 @@ alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
 
 # Alias to print history without cmd num
 alias history-no-num="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
+
+# git bash prompt
+if [ -f ~/.git-m/git-prompt-wrapper.sh ]; then
+    source ~/.git-m/git-prompt-wrapper.sh
+fi
