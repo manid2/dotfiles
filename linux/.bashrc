@@ -2,6 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# TODO logically group customizations to separate scripts
 # If not running interactively, don't do anything
 case $- in
 *i*) ;;
@@ -12,6 +13,7 @@ esac
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
+# TODO: learn unknown bash configs, commands in bashrc
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -23,6 +25,7 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# TODO: remove all unused code
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
@@ -30,6 +33,7 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# TODO move all prompt customization logic to separate script
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -152,3 +156,8 @@ alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
 
 # Alias to print history without cmd num
 alias history-no-num="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
+
+# git bash prompt
+if [ -f ~/.git-m/git-prompt-wrapper.sh ]; then
+    source ~/.git-m/git-prompt-wrapper.sh
+fi
