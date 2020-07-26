@@ -1,17 +1,9 @@
 #!/bin/bash
 # Prompt customization wrapper
 
-# TODO: add logic to handle non-color prompts
-# Check if terminal supports color prompt
-#case "$TERM" in
-#xterm-color | *-256color)
-#    color_prompt=yes
-#    ;;
-#esac
-
 # Bash colors
-if [ -f common/bash_colors.sh ]; then
-    source common/bash_colors.sh
+if [ -f ~/.config/.bash-m/common/bash_colors.sh ]; then
+    source ~/.config/.bash-m/common/bash_colors.sh
 fi
 
 # Variable to identify the chroot for display in prompt
@@ -24,7 +16,7 @@ function set_terminal_title() {
     # Check if this is an xterm
     case "$TERM" in
     xterm* | rxvt*)
-        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        PS1="${debian_chroot:+($debian_chroot)}$PS1"
         ;;
     *) ;;
     esac
@@ -77,7 +69,7 @@ function make_color_tail_ps1() {
 }
 
 # __ps1_line = __head_ps1 + __body_ps1_git + __tail_ps1
-function make_prompt_line() {
+function make_color_prompt_line() {
     local __ps1_line="$make_color_head_ps1"
     __ps1_line+="$make_color_body_ps1_git"
     __ps1_line+="$make_color_tail_ps1"
@@ -86,15 +78,48 @@ function make_prompt_line() {
     PS1="$__ps1_line"
 }
 
+# make colorless prompt line
+function make_colorless_prompt_line() {
+    local __head_ps1="${debian_chroot:+($debian_chroot)}\u@\h:";
+    local __body_ps1='\w\';
+    local __tail_ps1='$ ';
+    local __ps1_line=$__head_ps1 + $__body_ps1 + $__tail_ps1;
+
+    # PS1 controls prompt line
+    PS1="$__ps1_line"
+}
+
+# Check if terminal supports color prompt
+case "$TERM" in
+xterm-color | *-256color)
+    color_prompt=no
+    ;;
+esac
+
+# make prompt wrapper
+function make_prompt_line() {
+   if [ "$color_prompt" = yes ]; then
+       make_color_prompt_line
+   else
+       make_colorless_prompt_line
+   fi
+}
+
+# wrapper function
+function prompt_command() {
+    make_prompt_line;
+    set_terminal_title
+}
+
 # `trap` with DEBUG manipulates prompt attributes on output from bash commands
 trap 'tput sgr0' DEBUG
 
 # FIXME: PROMPT_COMMAND not working as expected, test in docker image
 # PROMPT_COMMAND colors the prompt text and bash commands
-export PROMPT_COMMAND=$make_prompt_line$set_terminal_title
+export PROMPT_COMMAND=prompt_command
 
 # Bash prompt cusomtization for git
-if [ -f common/git_prompt_wrapper.sh ]; then
+if [ -f ~/.config/.bash-m/common/git_prompt_wrapper.sh ]; then
     # git ps1 options
     GIT_PS1_SHOWDIRTYSTATE='y'
     GIT_PS1_SHOWCOLORHINTS='y'
@@ -104,5 +129,5 @@ if [ -f common/git_prompt_wrapper.sh ]; then
     GIT_PS1_SHOWUPSTREAM='auto'
 
     # source git prompt wrapper script
-    source common/git_prompt_wrapper.sh
+    source ~/.config/.bash-m/common/git_prompt_wrapper.sh
 fi
