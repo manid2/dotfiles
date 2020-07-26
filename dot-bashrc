@@ -21,16 +21,6 @@ shopt -s checkwinsize
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Bash aliases wrapper
-if [ -f ~/bash/bash_aliases_wrapper.sh ]; then
-    source ~/bash/bash_aliases_wrapper.sh
-fi
-
-# Bash prompt customization wrapper
-if [ -f ~/bash/bash_prompt_wrapper.sh ]; then
-    source ~/bash/bash_prompt_wrapper.sh
-fi
-
 # Enable programmable completion features
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -40,7 +30,18 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# TODO: move app/system specific to separate scripts
-# Ruby gems installed to $HOME/gems, used only for ruby gems installation
-#export GEM_HOME="$HOME/gems"
-#export PATH="$GEM_HOME/bin:$PATH"
+#-- begin logical grouping
+# Bash aliases wrapper
+if [ -f ~/.config/.bash-m/bash_aliases_wrapper.sh ]; then
+    source ~/.config/.bash-m/bash_aliases_wrapper.sh
+fi
+
+# Bash prompt customization wrapper
+if [ -f ~/.config/.bash-m/bash_prompt_wrapper.sh ]; then
+    source ~/.config/.bash-m/bash_prompt_wrapper.sh
+fi
+
+# Bash system specific config wrapper
+if [ -f ~/.config/.bash-m/bash_system_config_wrapper.sh ]; then
+    source ~/.config/.bash-m/bash_system_config_wrapper.sh
+fi

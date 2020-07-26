@@ -10,8 +10,8 @@
 #esac
 
 # Bash colors
-if [ -f ~/bash/bash_colors.sh ]; then
-    source ~/bash/bash_colors.sh
+if [ -f common/bash_colors.sh ]; then
+    source common/bash_colors.sh
 fi
 
 # Variable to identify the chroot for display in prompt
@@ -94,7 +94,7 @@ trap 'tput sgr0' DEBUG
 export PROMPT_COMMAND=$make_prompt_line$set_terminal_title
 
 # Bash prompt cusomtization for git
-if [ -f ~/bash/git_prompt_wrapper.sh ]; then
+if [ -f common/git_prompt_wrapper.sh ]; then
     # git ps1 options
     GIT_PS1_SHOWDIRTYSTATE='y'
     GIT_PS1_SHOWCOLORHINTS='y'
@@ -104,5 +104,5 @@ if [ -f ~/bash/git_prompt_wrapper.sh ]; then
     GIT_PS1_SHOWUPSTREAM='auto'
 
     # source git prompt wrapper script
-    source ~/bash/git_prompt_wrapper.sh
+    source common/git_prompt_wrapper.sh
 fi
