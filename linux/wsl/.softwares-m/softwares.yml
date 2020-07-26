@@ -1,9 +1,0 @@
-%YAML 1.2
----
-title: "Softwares"
-description: "Track useful softwares specific to wsl systems"
-detailed_description: "TBD"
-
-system_info: # neofetch --stdout
-    os: "wsl_os"
-# TODO: list wsl linux softwares
