@@ -1,9 +1,0 @@
-%YAML 1.2
----
-title: "Softwares"
-description: "Track useful Win10 softwares"
-detailed_description: "TBD"
-
-system_info: # neofetch --stdout
-    os: "win10"
-# TODO: list win10 softwares
