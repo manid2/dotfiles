@@ -6,22 +6,6 @@ if [ -f ~/.config/.bash-m/common/bash_colors.sh ]; then
     source ~/.config/.bash-m/common/bash_colors.sh
 fi
 
-# Variable to identify the chroot for display in prompt
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# Set the terminal title
-function set_terminal_title() {
-    # Check if this is an xterm
-    case "$TERM" in
-    xterm* | rxvt*)
-        PS1="${debian_chroot:+($debian_chroot)}$PS1"
-        ;;
-    *) ;;
-    esac
-}
-
 # __head_ps1 = debian_chroot + user + host + cwd
 function make_color_head_ps1() {
     local __user_and_host="$GREEN\u@\h"
@@ -70,51 +54,66 @@ function make_color_tail_ps1() {
 
 # __ps1_line = __head_ps1 + __body_ps1_git + __tail_ps1
 function make_color_prompt_line() {
-    local __ps1_line="$make_color_head_ps1"
-    __ps1_line+="$make_color_body_ps1_git"
-    __ps1_line+="$make_color_tail_ps1"
-
-    # PS1 controls prompt line
+    local __ps1_line="$(make_color_head_ps1)"
+    __ps1_line+="$(make_color_body_ps1_git)"
+    __ps1_line+="$(make_color_tail_ps1)"
     PS1="$__ps1_line"
 }
 
 # make colorless prompt line
 function make_colorless_prompt_line() {
-    local __head_ps1="${debian_chroot:+($debian_chroot)}\u@\h:";
-    local __body_ps1='\w\';
-    local __tail_ps1='$ ';
-    local __ps1_line=$__head_ps1 + $__body_ps1 + $__tail_ps1;
+    local __head_ps1="${debian_chroot:+($debian_chroot)}\u@\h:"
+    local __body_ps1='\W'
+    local __tail_ps1='$ '
+    local __ps1_line="$__head_ps1$__body_ps1$(__git_ps1 " (%s)")$__tail_ps1"
+    PS1=$__ps1_line
+}
 
-    # PS1 controls prompt line
-    PS1="$__ps1_line"
+# Variable to identify the chroot for display in prompt
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# Set the terminal title
+function set_terminal_title() {
+    local __xterm_title=''
+    # Check if this is an xterm
+    case "$TERM" in
+    xterm* | rxvt*)
+        __xterm_title='\[\e]0;\u@\h:\w\a\]'
+        ;;
+    *)
+        __xterm_title=''
+        ;;
+    esac
+    PS1=${__xterm_title}${PS1}
 }
 
 # Check if terminal supports color prompt
 case "$TERM" in
 xterm-color | *-256color)
-    color_prompt=no
+    color_prompt=yes
     ;;
 esac
 
 # make prompt wrapper
 function make_prompt_line() {
-   if [ "$color_prompt" = yes ]; then
-       make_color_prompt_line
-   else
-       make_colorless_prompt_line
-   fi
+    if [ "$color_prompt" = yes ]; then
+        make_color_prompt_line
+    else
+        make_colorless_prompt_line
+    fi
 }
 
 # wrapper function
 function prompt_command() {
-    make_prompt_line;
+    make_prompt_line
     set_terminal_title
 }
 
 # `trap` with DEBUG manipulates prompt attributes on output from bash commands
 trap 'tput sgr0' DEBUG
 
-# FIXME: PROMPT_COMMAND not working as expected, test in docker image
 # PROMPT_COMMAND colors the prompt text and bash commands
 export PROMPT_COMMAND=prompt_command
 
