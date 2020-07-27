@@ -32,16 +32,16 @@ fi
 
 #-- begin logical grouping
 # Bash aliases wrapper
-if [ -f ~/.config/.bash-m/bash_aliases_wrapper.sh ]; then
-    source ~/.config/.bash-m/bash_aliases_wrapper.sh
+if [ -f ~/.bash-m/bash_aliases_wrapper.sh ]; then
+    source ~/.bash-m/bash_aliases_wrapper.sh
 fi
 
 # Bash prompt customization wrapper
-if [ -f ~/.config/.bash-m/bash_prompt_wrapper.sh ]; then
-    source ~/.config/.bash-m/bash_prompt_wrapper.sh
+if [ -f ~/.bash-m/bash_prompt_wrapper.sh ]; then
+    source ~/.bash-m/bash_prompt_wrapper.sh
 fi
 
 # Bash system specific config wrapper
-if [ -f ~/.config/.bash-m/bash_system_config_wrapper.sh ]; then
-    source ~/.config/.bash-m/bash_system_config_wrapper.sh
+if [ -f ~/.bash-m/bash_system_config_wrapper.sh ]; then
+    source ~/.bash-m/bash_system_config_wrapper.sh
 fi
