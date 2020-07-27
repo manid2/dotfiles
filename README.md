@@ -11,6 +11,23 @@ System specific settings are stored in their respective directories.\
 Branch based settings storage is reverted due to difficulty in merging
 the common settings.
 
+## Tips
+
+* Use `stow` to install dotfiles.
+
+  ```bash
+  stow --dotfiles bashrc -t ~/
+  stow --dotfiles vimrc -t ~/
+
+  # result
+  # ls -la ~/
+  # .bash-m -> ../../home/.../dotfiles/bashrc/dot-bash-m/
+  # .bashrc -> ../../home/.../dotfiles/bashrc/dot-bashrc
+  # .vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
+  ```
+
+* FIXME: `stow` not deleting sym links for dot-config packages.
+
 ## Notes
 
 * Commit only formatted, compact and working state code.
