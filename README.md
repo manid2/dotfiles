@@ -1,5 +1,9 @@
 # dotfiles
 
+![dotfiles logo][dotfiles_logo]
+
+Logo based on [jglovier/dotfiles-logo][dotfiles_logo_repo]
+
 `dotfiles` repo to save and share system settings and configs.
 
 ## Installation
@@ -49,3 +53,7 @@ instead of sym links, e.g. `.config/` for apps.
 ## TODO
 
 * Handle softwares info using python script.
+
+<!-- Links -->
+[dotfiles_logo]: dotfiles_logo_edited.png "dotfiles logo"
+[dotfiles_logo_repo]: https://github.com/jglovier/dotfiles-logo "go to jglovier/dotfiles-logo"
