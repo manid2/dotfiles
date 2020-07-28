@@ -1,5 +1,9 @@
 # dotfiles
 
+![dotfiles logo][dotfiles_logo]
+
+Logo based on [jglovier/dotfiles-logo][dotfiles_logo_repo]
+
 `dotfiles` repo to save and share system settings and configs.
 
 ## Installation
@@ -14,7 +18,7 @@ stow --dotfiles vimrc -t ~/
 
 # result
 # ls -la ~/
-# .bash-m -> ../../home/.../dotfiles/bashrc/dot-bash-m/
+# .bashrc_parts -> ../../home/.../dotfiles/bashrc/dot-bashrc_parts/
 # .bashrc -> ../../home/.../dotfiles/bashrc/dot-bashrc
 # .vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
 ```
@@ -49,3 +53,7 @@ instead of sym links, e.g. `.config/` for apps.
 ## TODO
 
 * Handle softwares info using python script.
+
+<!-- Links -->
+[dotfiles_logo]: dotfiles_logo_edited.png "dotfiles logo"
+[dotfiles_logo_repo]: https://github.com/jglovier/dotfiles-logo "go to jglovier/dotfiles-logo"
