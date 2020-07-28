@@ -2,8 +2,8 @@
 # Prompt customization wrapper
 
 # Bash colors
-if [ -f ~/.bash-m/common/bash_colors.sh ]; then
-    source ~/.bash-m/common/bash_colors.sh
+if [ -f ~/.bashrc_parts/common/bash_colors.sh ]; then
+    source ~/.bashrc_parts/common/bash_colors.sh
 fi
 
 # __head_ps1 = debian_chroot + user + host + cwd
@@ -118,7 +118,7 @@ trap 'tput sgr0' DEBUG
 export PROMPT_COMMAND=prompt_command
 
 # Bash prompt cusomtization for git
-if [ -f ~/.bash-m/common/git_prompt_wrapper.sh ]; then
+if [ -f ~/.bashrc_parts/common/git_prompt_wrapper.sh ]; then
     # git ps1 options
     GIT_PS1_SHOWDIRTYSTATE='y'
     GIT_PS1_SHOWCOLORHINTS='y'
@@ -128,5 +128,5 @@ if [ -f ~/.bash-m/common/git_prompt_wrapper.sh ]; then
     GIT_PS1_SHOWUPSTREAM='auto'
 
     # source git prompt wrapper script
-    source ~/.bash-m/common/git_prompt_wrapper.sh
+    source ~/.bashrc_parts/common/git_prompt_wrapper.sh
 fi
