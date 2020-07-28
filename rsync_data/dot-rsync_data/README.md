@@ -42,15 +42,15 @@ $SRC $DST
 
 ```bash
 rsync -zauvh \
---include-from=rs-inc.txt \
---exclude-from=rs-exc.txt \
+--include-from=rsync_include_patterns.txt \
+--exclude-from=rsync_exclude_patterns.txt \
 $SRC $DST
 ```
 
 ## Sample rsync include/exclude patterns
 
 ```bash
-$ cat rs-inc.txt
+$ cat rsync_include_patterns.txt
 *.h
 *.hh
 *.hxx
@@ -67,7 +67,7 @@ CMakeLists.txt.in
 ```
 
 ```bash
-$ cat rs-exc.txt
+$ cat rsync_exclude_patterns.txt
 .git
 CVS
 ```
@@ -75,37 +75,37 @@ CVS
 ## Sample working rsync aliases
 
 ```bash
-export RSYNC_HOME=$HOME/.rsync-m
+export RSYNC_HOME=$HOME/.rsync_data
 
 alias rsync-m="rsync -zamvh --no-l \
---include-from=$RSYNC_HOME/rs-inc.txt \
---exclude-from=$RSYNC_HOME/rs-exc.txt"
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 alias rsync-n="rsync -n -zamvh --no-l \
---include-from=$RSYNC_HOME/rs-inc.txt \
---exclude-from=$RSYNC_HOME/rs-exc.txt"
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 alias rsync-lm="rsync -zamvh --no-l -L \
---include-from=$RSYNC_HOME/rs-inc.txt \
---exclude-from=$RSYNC_HOME/rs-exc.txt"
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 alias rsync-ln="rsync -n -zamvh --no-l -L \
---include-from=$RSYNC_HOME/rs-inc.txt \
---exclude-from=$RSYNC_HOME/rs-exc.txt"
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 alias rsync-lmw="rsync -zamvh --no-l -L \
---exclude=$EXC_PATTERN \
---include-from=$RSYNC_HOME/rs-inc.txt \
---exclude-from=$RSYNC_HOME/rs-exc.txt"
+--exclude=$EXCLUDE_PATTERN \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 alias rsync-lnw="rsync -n -zamvh --no-l -L \
---exclude=$EXC_PATTERN \
---include-from=$RSYNC_HOME/rs-inc.txt \
---exclude-from=$RSYNC_HOME/rs-exc.txt"
+--exclude=$EXCLUDE_PATTERN \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 ```
 
 ## Tips
 
-1. Always use rsync from a wrapper script to avoid misplacing \$SRC and $DST
+1. Always use rsync from a wrapper script to avoid misplacing $SRC and $DST
    directories. It leads to serious serious loss of data.
 2. Create and use aliases to rsync options for faster command line usage.

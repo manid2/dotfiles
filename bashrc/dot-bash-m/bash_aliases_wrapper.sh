@@ -21,14 +21,33 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # Rsync aliases
-export RSYNC_HOME=$HOME/.rsync-m
-# TODO: break the long line aliases into 80 column lines
-alias rsync-m="rsync -zamvh --no-l --include-from=$RSYNC_HOME/rs-inc.txt --exclude-from=$RSYNC_HOME/rs-exc.txt"
-alias rsync-n="rsync -n -zamvh --no-l --include-from=$RSYNC_HOME/rs-inc.txt --exclude-from=$RSYNC_HOME/rs-exc.txt"
-alias rsync-lm="rsync -zamvh --no-l -L --include-from=$RSYNC_HOME/rs-inc.txt --exclude-from=$RSYNC_HOME/rs-exc.txt"
-alias rsync-ln="rsync -n -zamvh --no-l -L --include-from=$RSYNC_HOME/rs-inc.txt --exclude-from=$RSYNC_HOME/rs-exc.txt"
-alias rsync-lmw="rsync -zamvh --no-l -L --exclude=$EXC_PATTERN --include-from=$RSYNC_HOME/rs-inc.txt --exclude-from=$RSYNC_HOME/rs-exc.txt"
-alias rsync-lnw="rsync -n -zamvh --no-l -L --exclude=$EXC_PATTERN --include-from=$RSYNC_HOME/rs-inc.txt --exclude-from=$RSYNC_HOME/rs-exc.txt"
+export RSYNC_HOME=$HOME/.rsync_data
+
+alias rsync-m="rsync -zamvh --no-l \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
+
+alias rsync-n="rsync -n -zamvh --no-l \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
+
+alias rsync-lm="rsync -zamvh --no-l -L \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
+
+alias rsync-ln="rsync -n -zamvh --no-l -L \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
+
+alias rsync-lmw="rsync -zamvh --no-l -L \
+--exclude=$EXCLUDE_PATTERN \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
+
+alias rsync-lnw="rsync -n -zamvh --no-l -L \
+--exclude=$EXCLUDE_PATTERN \
+--include-from=$RSYNC_HOME/rsync_include_patterns.txt \
+--exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 # Diff aliases
 # Ignore space changes and blank lines, use unified format with 3 context lines

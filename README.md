@@ -2,45 +2,50 @@
 
 `dotfiles` repo to save and share system settings and configs.
 
-> NOTE: Use with caution as not all parts of the dotfiles are tested.
+## Installation
 
-Copy and paste the required parts of the dotfiles.
+Use `stow` to install/uninstall dotfiles.
 
-`master` branch contains settings and info common to all systems.\
-System specific settings are stored in their respective directories.\
-Branch based settings storage is reverted due to difficulty in merging
-the common settings.
+### Install
 
-## Tips
+```bash
+stow --dotfiles bashrc -t ~/
+stow --dotfiles vimrc -t ~/
 
-* Use `stow` to install dotfiles.
+# result
+# ls -la ~/
+# .bash-m -> ../../home/.../dotfiles/bashrc/dot-bash-m/
+# .bashrc -> ../../home/.../dotfiles/bashrc/dot-bashrc
+# .vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
+```
 
-  ```bash
-  stow --dotfiles bashrc -t ~/
-  stow --dotfiles vimrc -t ~/
+### Uninstall
 
-  # result
-  # ls -la ~/
-  # .bash-m -> ../../home/.../dotfiles/bashrc/dot-bash-m/
-  # .bashrc -> ../../home/.../dotfiles/bashrc/dot-bashrc
-  # .vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
-  ```
+```bash
+stow -D --dotfiles bashrc -t ~/
+stow -D --dotfiles vimrc -t ~/
 
-* FIXME: `stow` not deleting sym links for dot-config packages.
+# result
+# ls -la ~/
+# .
+# ..
+```
+
+### Tips
+
+Structure the project folder so it is easy to install with gnu stow.
+Don't stow directories starting with `_`, use `cp` to overwrite the
+corresponding directory. Useful for storing data that requires actual files,
+instead of sym links, e.g. `.config/` for apps.
 
 ## Notes
 
-* Commit only formatted, compact and working state code.
-* Use `tmp/*` with `WIP: <commit-msg>` commits for unclean commits.
-* `tmp/*` branches are used for syncing temporary WIP code.
 * Use `shfmt` to format shell scripts.
 * Use `shellcheck` to lint shell scripts.
 * Use `cloc` to count source code line stats.
 * Use `ruby-github-linguist` from apt in ubuntu to get language stats.
+* Use GNU `stow` to manage dotfiles.
 
 ## TODO
 
-* Write `install.sh` script to install dotfiles in below cases.
-  * When GNU `stow` is available.
-  * When no gnu stow use own logic to create sym links.
-* Update `README.md` on how to install.
+* Handle softwares info using python script.
