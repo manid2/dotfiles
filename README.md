@@ -18,7 +18,7 @@ stow --dotfiles vimrc -t ~/
 
 # result
 # ls -la ~/
-# .bash-m -> ../../home/.../dotfiles/bashrc/dot-bash-m/
+# .bashrc_parts -> ../../home/.../dotfiles/bashrc/dot-bashrc_parts/
 # .bashrc -> ../../home/.../dotfiles/bashrc/dot-bashrc
 # .vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
 ```
