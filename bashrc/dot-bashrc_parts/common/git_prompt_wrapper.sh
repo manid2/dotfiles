@@ -1,4 +1,4 @@
-# sym link to git prompt script from git core team
-if [[ -e /etc/bash_completion.d/git-prompt ]]; then
-    . /etc/bash_completion.d/git-prompt
+# sym link to git prompt script
+if [ -f ~/.bashrc_part_git_prompt_sym_link ]; then
+    source ~/.bashrc_part_git_prompt_sym_link
 fi

@@ -1,4 +1,4 @@
 # sym link to system specific bashrc here
-if [ -f ~/.bash_system_config_sym_link.sh ]; then
-    source ~/.bash_system_config_sym_link.sh
+if [ -f ~/.bashrc_part_system_specific_config_sym_link.sh ]; then
+    source ~/.bashrc_part_system_specific_config_sym_link.sh
 fi
