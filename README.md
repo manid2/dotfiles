@@ -23,6 +23,13 @@ stow --dotfiles vimrc -t ~/
 # .vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
 ```
 
+When gnu stow is not available use `ln` command
+
+```bash
+ln -s `realpath --relative-to=$HOME ~/scripts/git-prompt` ~/.bashrc_part_git_prompt_sym_link.sh
+ln -s `realpath --relative-to=$HOME ~/scripts/system_specific_settings.sh` ~/.bashrc_part_system_specific_config_sym_link.sh
+```
+
 ### Uninstall
 
 ```bash
