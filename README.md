@@ -1,6 +1,9 @@
 # dotfiles
 
-![dotfiles logo][dotfiles_logo]
+<img src="dotfiles_logo_edited.png"
+    alt="dotfiles logo"
+    title="dotfiles logo"
+    width="320">
 
 Logo based on [jglovier/dotfiles-logo][dotfiles_logo_repo]
 
@@ -62,5 +65,4 @@ instead of sym links, e.g. `.config/` for apps.
 * Handle softwares info using python script.
 
 <!-- Links -->
-[dotfiles_logo]: dotfiles_logo_edited.png "dotfiles logo"
 [dotfiles_logo_repo]: https://github.com/jglovier/dotfiles-logo "go to jglovier/dotfiles-logo"
