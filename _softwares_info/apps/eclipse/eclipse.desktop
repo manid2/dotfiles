@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Eclipse 2020-06-R 4.16
+Version=1.1
+Comment=Eclipse Cpp IDE
+# WARN: Use full path eclipse executable
+Exec=/apps/eclipse/eclipse
+# WARN: Use full path for eclipse icon
+Icon=/apps/eclipse/icon.xpm
+Categories=Development;IDE
+Terminal=false
+X-Desktop-File-Install-Version=0.24
