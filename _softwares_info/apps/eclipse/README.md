@@ -65,8 +65,8 @@ linux.
   ```bash
   # Change default values of min and max heap in eclipse.ini
   # NOTE: this settings need hardware support, i.e. set according to RAM
-  -Xms1G # min heap
-  -Xmx6G # max heap
+  -Xms1G # jvm param: initial memory allocation pool
+  -Xmx6G # jvm param: maximum memory allocation pool
   ```
 
 - Create soft link to eclipse binary directory from apps directory.
@@ -81,10 +81,10 @@ linux.
   Refer [gnome desktop entry spec][gnome_desktop_entry_spec] for detailed inforomation.
 - Use full paths for eclipse executable and icon files.
 
-```bash
-Exec=/apps/eclipse/eclipse
-Icon=/apps/eclipse/icon.xpm
-```
+  ```bash
+  Exec=/apps/eclipse/eclipse
+  Icon=/apps/eclipse/icon.xpm
+  ```
 
 - Validate eclipse.desktop file using `desktop-file-validate`.\
   Returns no output on success.
@@ -97,3 +97,71 @@ Icon=/apps/eclipse/icon.xpm
 
 <!-- External links -->
 [gnome_desktop_entry_spec]: https://developer.gnome.org/desktop-entry-spec/
+
+## Critical settings for Eclipse Cpp
+
+TODO: Automate the below settings.
+
+### UI settings
+
+Personal UI and editor settings.
+
+```text
+Preferences > General >
+    Appearance > UI theme: Dark
+    Editors > Text Editors >
+        Show print margin
+            Print margin column: 80
+        Show whitespace characters
+        Appearance color options:
+            Current line highlight: #404040
+        Annotations > Annontation types:
+            C/C++ Ocurrences: #484848
+        When mouse moved into hover: Enrich immediately
+Preferences > C/C++ >
+    Editor > Appearence color options
+        Inactive code highlight: #555555
+    Editor > Folding: <Enable all folding types>
+```
+
+### Eclipse CDT Mozilla settings
+
+Optimized for large C++ source code such as the Mozilla projects
+
+Refer [Mozilla Eclipse CDT Manual Setup][moz_eclipse_link1] for more
+information.
+
+<!-- External links -->
+[moz_eclipse_link1]: https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Eclipse/Eclipse_CDT_Manual_Setup
+
+#### Workspace settings
+
+```text
+Preferences > General >
+    Workspace > Build
+        Build automatically: disable
+    Workspace > Enable:
+        "Refresh using native hooks or polling"
+        "Refresh on access"
+        # Prevents Eclipse "Resource is out of sync" messages
+        # when files change from under it due to external activity.
+Preferences > C/C++ > Build > Console >
+    Limit console output (number of lines): 1000000
+Preferences > C/C++ > Editor
+    Workspace default: Doxygen
+    Content Assist > Auto-Activation delay: 0
+    Scalability > Enable scalability... > 100000
+Preferences > Run/Debug > Console
+    Limit console output: disable
+```
+
+#### Project properties
+
+Project descriptor files for eclipse `.project` (Eclipse) and `.cproject` (CDT).
+
+##### Tips
+
+We can use:
+
+- `CMake` generated eclipse project in out of source build mode or
+- create empty eclipse project and import source code as linked resources.
