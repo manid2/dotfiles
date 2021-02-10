@@ -1,0 +1,73 @@
+# This is the ssh client system-wide configuration file.  See
+# ssh_config(5) for more information.  This file provides defaults for
+# users, and the values can be changed in per-user configuration files
+# or on the command line.
+
+# Configuration data is parsed as follows:
+#  1. command line options
+#  2. user-specific file
+#  3. system-wide file
+# Any configuration value is only changed the first time it is set.
+# Thus, host-specific definitions should be at the beginning of the
+# configuration file, and defaults at the end.
+
+# Site-wide defaults for some commonly used options.  For a comprehensive
+# list of available options, their meanings and defaults, please see the
+# ssh_config(5) man page.
+
+# example: `ssh me_dev_2` to login, `scp me_dev_2:<path> <dst>` to copy
+
+#== dev build servers
+# NOTE: using placeholders ips and user names
+Host me_dev_2 you_dev_2
+    HostName 192.168.0.2
+
+Host me_dev_4 you_dev_4
+    HostName 192.168.0.4
+
+Host me_dev_2 me_dev_4
+    User me
+    IdentityFile ~/.ssh/id_rsa_me
+
+Host you_dev_2 you_dev_4
+    User you
+    IdentityFile ~/.ssh/id_rsa_you
+
+#== dev test servers
+# sample development test server
+Host my_dev_ts_xx
+    HostName 192.168.0.6
+    User root
+    IdentityFile ~/.ssh/id_rsa_my_dev_ts
+
+#== ST testbed servers
+# sample ST test server
+Host my_st_ts_xx
+    HostName 192.168.0.8
+    User root
+    IdentityFile ~/.ssh/id_rsa_my_st_ts
+
+#== Others i.e. github, gitlab
+# NOTE: if key was created with passphrase, then add this key to ssh-agent
+# NOTE: change git remote url to use below ssh host in local repo.
+# example: git@<md2_gh>:manid2/dotfiles.git
+
+# manid2 on github
+Host md2_gh
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa-md2_gh
+
+# manid2 on gitlab
+Host md2_gl
+    HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/id_rsa-md2_gl
+
+# NOTE: To prevent trying all possible keys by ssh client use only identities
+# provided on command line or in ssh_config. Ignore keys provided by ssh-agent.
+# This prevents too many authentication failure error.
+# To do this set `IdentitiesOnly=yes` as below.
+
+Host *
+    IdentitiesOnly=yes
