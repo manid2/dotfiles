@@ -34,6 +34,11 @@
 # * `/var/log/secure` -> CentOS
 #=== doc end ===
 
+#== dev git servers
+# NOTE: using placeholder git server and its mirror urls
+Host code.git_server.com mirror*.git_server.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_git_srvr_key
 
 #== dev build servers
 # NOTE: using placeholder ips and user names
