@@ -71,16 +71,14 @@ Host my_st_ts_xx
 # example: git@<md2_gh>:manid2/dotfiles.git
 
 # manid2 on github
-Host md2_gh
-    HostName github.com
+Host github.com
     User git
-    IdentityFile ~/.ssh/id_rsa-md2_gh
+    IdentityFile ~/.ssh/id_rsa_md2_gh
 
 # manid2 on gitlab
-Host md2_gl
-    HostName gitlab.com
+Host gitlab.com
     User git
-    IdentityFile ~/.ssh/id_rsa-md2_gl
+    IdentityFile ~/.ssh/id_rsa_md2_gl
 
 # NOTE: To prevent trying all possible keys by ssh client use only identities
 # provided on command line or in ssh_config. Ignore keys provided by ssh-agent.
