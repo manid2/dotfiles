@@ -15,10 +15,28 @@
 # list of available options, their meanings and defaults, please see the
 # ssh_config(5) man page.
 
-# example: `ssh me_dev_2` to login, `scp me_dev_2:<path> <dst>` to copy
+#=== doc start ===
+# Caution:
+# Don't directly install this config file as it contains mainly placeholder
+# configs. Instead replace placeholders and modify configs as required before
+# installing.
+
+# Examples:
+# * SSH Login: `ssh <host_alias>`
+# * SCP: `scp <host_alias>:<path> <dst>`
+
+# SSH public key authentication steps:
+# * Generate ssh key `ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_me -C "tbd"`
+# * Copy ssh key to target: `ssh-copy-id -i ~/.ssh/id_rsa_me user@host`
+
+# Check authentication logs for any error, e.g:
+# * `/var/log/auth.log`-> Debian
+# * `/var/log/secure` -> CentOS
+#=== doc end ===
+
 
 #== dev build servers
-# NOTE: using placeholders ips and user names
+# NOTE: using placeholder ips and user names
 Host me_dev_2 you_dev_2
     HostName 192.168.0.2
 
@@ -34,14 +52,14 @@ Host you_dev_2 you_dev_4
     IdentityFile ~/.ssh/id_rsa_you
 
 #== dev test servers
-# sample development test server
+# NOTE: using placeholder ips and user names
 Host my_dev_ts_xx
     HostName 192.168.0.6
     User root
     IdentityFile ~/.ssh/id_rsa_my_dev_ts
 
 #== ST testbed servers
-# sample ST test server
+# NOTE: using placeholder ips and user names
 Host my_st_ts_xx
     HostName 192.168.0.8
     User root
