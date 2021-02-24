@@ -72,8 +72,6 @@ Host my_st_ts_xx
 
 #== Others i.e. github, gitlab
 # NOTE: if key was created with passphrase, then add this key to ssh-agent
-# NOTE: change git remote url to use below ssh host in local repo.
-# example: git@<md2_gh>:manid2/dotfiles.git
 
 # manid2 on github
 Host github.com
