@@ -1,3 +1,28 @@
+#=== doc start ===
+# NOTE: Create git aliases if used frequently
+#
+# Git log to excel sheet table format:
+#
+# ```sh
+# git log
+# --pretty=format:"%h%x09%cn%x09%ce%x09%cd%x09%an%x09%ae%x09%ad%x09%s"
+# --date=format:"%Y/%m/%d%t%T"
+#
+# #git log pretty format table headers
+# #Commit id	Committer name	Committer email	Commit date	Commit time
+# #Author name	Author email	Author date	Author time	Commit message
+# ```
+#
+# Merge a range of commits from one permanent branch to another via
+# `cherry-pick`
+#
+# ```sh
+# #Pipe commits range to git cherry-pick.
+# git rev-list --reverse --no-merges PERM_BRANCH_1..feature/ABC | git\
+#  cherry-pick -x --stdin
+# ```
+#=== doc end ===
+
 [core]
 	editor = vim
 [diff]
@@ -8,13 +33,5 @@
 	prompt = false
 [pull]
 	rebase = false
-
-# TODO: Create git aliases
-# git log
-# --pretty=format:"%h%x09%cn%x09%ce%x09%cd%x09%an%x09%ae%x09%ad%x09%s"
-# --date=format:"%Y/%m/%d%t%T"
-#
-# git log pretty format table headers
-# Commit id	Committer name	Committer email	Commit date	Commit time
-# Author name	Author email	Author date	Author time	Commit message
-#
+[init]
+	defaultBranch = main
