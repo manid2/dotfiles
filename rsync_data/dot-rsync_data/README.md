@@ -51,6 +51,7 @@ $SRC $DST
 
 ```bash
 $ cat rsync_include_patterns.txt
+*/
 *.h
 *.hh
 *.hxx
@@ -70,6 +71,7 @@ CMakeLists.txt.in
 $ cat rsync_exclude_patterns.txt
 .git
 CVS
+*
 ```
 
 ## Sample working rsync aliases
@@ -102,6 +104,16 @@ alias rsync-lnw="rsync -n -zamvh --no-l -L \
 --exclude=$EXCLUDE_PATTERN \
 --include-from=$RSYNC_HOME/rsync_include_patterns.txt \
 --exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
+```
+
+## Working examples
+
+```bash
+# pwd: ~/my_ws
+rsync-lm my_remote:~/remote-repos/repo_1/ repo_1/
+rsync-lm my_remote:~/remote-repos/repo_2/ repo_2/
+
+rsync-lm my_remote:/home/aUser/aRepo1/aFolder2/ aFolder2/
 ```
 
 ## Tips
