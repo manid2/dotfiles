@@ -1,3 +1,9 @@
 # Ruby gems installed to $HOME/gems, used only for ruby gems installation
 export GEM_HOME="$HOME/gems"
 export PATH="$GEM_HOME/bin:$PATH"
+
+# add eclipse binary to path
+export PATH="$HOME/apps/eclipse:$PATH"
+
+# Git PS1 customizations
+GIT_PS1_SHOWUPSTREAM=' verbose'
