@@ -1,0 +1,18 @@
+# ~/.zshrc file for zsh interactive shells.
+# see /usr/share/doc/zsh/examples/zshrc for examples
+
+# NOTE: the order of sourcing is important as some commands/plugins will have
+# pre-requisites/dependencies to work correctly.
+# WARN: Hence don't change the order of scripts sourced.
+
+# TODO: source zsh options files
+
+# TODO: source zsh keymaps files
+
+# TODO: source zsh configs files
+
+# TODO: source zsh aliases files
+
+# TODO: source prompt files
+
+# TODO: source plugins files
