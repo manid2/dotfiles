@@ -62,8 +62,24 @@ call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
 Plug 'junegunn/vim-easy-align'
-Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
+
+" Commented due to slowing vim on large files
+"Plug 'vim-airline/vim-airline'
+
+" Uncomment when needed
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-syntastic/syntastic'
+"Plug 'honza/vim-snippets'
+"Plug 'dhruvasagar/vim-table-mode'
+"Plug 'google/vim-searchindex'
+"Plug 'jlanzarotta/bufexplorer'
+"Plug 'mbbill/undotree'
+"Plug 'preservim/vim-pencil'
+"Plug 'inkarkat/vim-SpellCheck'
+"Plug 'yegappan/taglist'
+"Plug 'jsfaint/gen_tags.vim'
+"Plug 'bling/vim-bufferline'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " --- vim-plug section, end ---
