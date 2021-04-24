@@ -25,15 +25,26 @@ venv_info() {
 function make_color_sys_ps1() {
     # TODO: make color prompt line
     # ┌──([{debian_chroot}][{venv_info}] {user}@{host})──[{cwd}]
+    prompt_symbol=㉿
+    [ "$EUID" -eq 0 ] && prompt_symbol=💀
 
-    # Sample working PROMPT with git ps1 appended
-    # TODO optimize for speed using precmd as suggested in `git-sh-prompt`
-    # script
+    # Error occurred when sourcing this file multiple times in same terminal.
+    # This error is recurring.
+    # Err: _zsh_autosuggest_bound_5_accept-line:2: maximum nested function level reached; increase FUNCNEST?
+    # {debian_chroot}{venv_info}
     PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)──}$(venv_info)'
-    PROMPT+=$'(%B%F{%(#.red.blue)}%n%(#.💀.㉿)%m%b%F{%(#.blue.green)})-'
-    PROMPT+=$'[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]-'
-    PROMPT+=$'%B%F{reset}$(__git_ps1 "(%s)")\n'
-    PROMPT+=$'%b%F{%(#.blue.green)}└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+    # (user@host)
+    PROMPT+=$'(%B%F{%(#.red.blue)}%n$prompt_symbol%m%b%F{%(#.blue.green)})'
+    # [cwd]
+    PROMPT+=$'-[%F{%(#.magenta.cyan)}%1~%F{%(#.blue.green)}]'
+    # [date time] in %W dd/mm/yy and %* H:M:S in 24 hr format
+    PROMPT+=$'-[%F{%(#.cyan.magenta)}%W %*%F{%(#.blue.green)}]'
+    # [last command exit success/error symbol and code]
+    PROMPT+=$'-[%(?.%F{green}√%?%f.%F{red}?%?%f)%F{%(#.blue.green)}]'
+    # (git ps1 line)
+    PROMPT+=$'%F{%(#.blue.green)}%F{reset}$(__git_ps1 " (%s)")%F{%(#.blue.green)}'
+    # user command line
+    PROMPT+=$'\n%b%F{%(#.blue.green)}└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
     RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 }
 
