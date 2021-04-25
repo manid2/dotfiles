@@ -36,8 +36,8 @@ also easily manageable.
 #
 # ```sh
 # cd dotfiles/shell/
-# stow   dotfiles bashrc -t ~/ # if using bash
-# stow   dotfiles zshrc -t ~/  # if using zsh
+# stow --dotfiles bashrc -t ~/ # if using bash
+# stow --dotfiles zshrc -t ~/  # if using zsh
 # ```
 
 # After install we get
