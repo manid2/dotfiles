@@ -1,4 +1,3 @@
-
 # zsh colors file, to be sourced into *.zsh files
 
 # TODO: Use ZSH colors
