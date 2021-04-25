@@ -20,4 +20,3 @@ CYAN='\[\033[00;36m\]'
 
 # reset colors
 RESET='\[\033[00m\]'
-

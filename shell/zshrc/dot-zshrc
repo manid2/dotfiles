@@ -31,12 +31,12 @@ if [ -f ~/.zshrc_parts/aliases/aliases.zsh ]; then
     . ~/.zshrc_parts/aliases/aliases.zsh
 fi
 
-# TODO: source prompt files, prompt files are not ready
-#if [ -f ~/.zshrc_parts/prompt/prompt.zsh ]; then
-#    . ~/.zshrc_parts/prompt/prompt.zsh
-#fi
+# source prompt files, prompt files are not ready
+if [ -f ~/.zshrc_parts/prompt/prompt.zsh ]; then
+    . ~/.zshrc_parts/prompt/prompt.zsh
+fi
 
-# TODO: source plugins files
+# source plugins files
 if [ -f ~/.zshrc_parts/plugins/plugins.zsh ]; then
     . ~/.zshrc_parts/plugins/plugins.zsh
 fi
