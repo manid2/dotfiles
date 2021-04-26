@@ -60,7 +60,14 @@ function git_current_user_email() {
 # Get user name and email info [Mani]
 function git_current_user_info() {
   local git_user_info
-  git_user_info="$(git_current_user_name) <$(git_current_user_email)>"
+  local gcue
+  local gcun
+  gcun=$(git_current_user_name)
+  gcue=$(git_current_user_email)
+  if [[ -n "$gcun" && -n "$gcue" ]]; then
+    git_user_info="$gcun <$gcue>"
+    echo $git_user_info
+  fi
 }
 
 # Output the name of the root directory of the git repository
