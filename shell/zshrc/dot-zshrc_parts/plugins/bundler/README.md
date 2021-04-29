@@ -5,6 +5,14 @@ an easier experience with bundler.
 
 To use it, add `bundler` to the plugins array in your zshrc file:
 
+FIXME: bundler completions script is not working.
+It only works after we force rebuild zcompdump, using
+`rm -f ~/.zcompdump; compinit` command.
+
+NOTE: will remove this plugin once migrated to hugo.
+As this plugin is only needed to work with jekyll for my theme and blog.
+Will move both to hugo to make development and maintainence easier.
+
 ```zsh
 plugins=(... bundler)
 ```
