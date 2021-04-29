@@ -21,6 +21,8 @@ plugins=(... git)
 * git remote prune origin - prune remote branches
 * prune and delete local branches
 * git worktree - shortcuts
+* Add git archive zip and tar
+* git log in pretty formats
 
 ## Aliases
 
