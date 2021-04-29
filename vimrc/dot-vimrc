@@ -26,20 +26,20 @@ if filereadable("/etc/vim/vimrc.local")
 endif
 
 " Add cscope db if available
-if has("cscope") && filereadable("/usr/bin/cscope")
-   set csprg=/usr/bin/cscope
-   set csto=0
-   set cst
-   set nocsverb
-   " add any database in current directory
-   if filereadable("cscope.out")
-      cs add $PWD/cscope.out
-   " else add database pointed to by environment
-   elseif $CSCOPE_DB != ""
-      cs add $CSCOPE_DB
-   endif
-   set csverb
-endif
+"if has("cscope") && filereadable("/usr/bin/cscope")
+"   set csprg=/usr/bin/cscope
+"   set csto=0
+"   set cst
+"   set nocsverb
+"   " add any database in current directory
+"   if filereadable("cscope.out")
+"      cs add $PWD/cscope.out
+"   " else add database pointed to by environment
+"   elseif $CSCOPE_DB != ""
+"      cs add $CSCOPE_DB
+"   endif
+"   set csverb
+"endif
 
 " custom settings
 set showcmd		" Show (partial) command in status line.
@@ -83,3 +83,18 @@ Plug 'tpope/vim-surround'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " --- vim-plug section, end ---
+
+" --- keymaps ---
+" TBD: Enumerate and fill keymaps for all possible vim tasks
+" Common
+" Save buffer
+nnoremap <C-s>       :update<cr>
+inoremap <C-s> <C-O> :update<cr>
+" Text editing
+" Text processing
+" Vim buffer
+" Vim window
+" Vim tabs
+" Source browsing
+" Source editing
+" Custom
