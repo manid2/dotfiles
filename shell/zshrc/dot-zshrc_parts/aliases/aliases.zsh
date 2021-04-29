@@ -50,8 +50,8 @@ alias rsync-lnw="rsync -n -zamvh --no-l -L \
 --exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 # Diff aliases
-# Ignore space changes and blank lines, use unified format with 3 context lines
-alias diff-wBu3='diff -wBu3'
+alias diff-u3='diff -u3' # unified format with 3 context lines
+alias diff-wBu3='diff -wBu3' # ignore blank lines, space changes
 
 # Alias to Xclip select clipboard as it is most used
 alias xclip-sc='xclip -sel clip'

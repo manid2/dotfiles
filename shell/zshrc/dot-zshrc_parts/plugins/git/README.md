@@ -16,6 +16,12 @@ To use it, add `git` to the plugins array in your zshrc file:
 plugins=(... git)
 ```
 
+## TODO: [Mani]
+
+* git remote prune origin - prune remote branches
+* prune and delete local branches
+* git worktree - shortcuts
+
 ## Aliases
 
 | Alias                | Command                                                                                                                          |
