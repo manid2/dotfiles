@@ -58,6 +58,9 @@ alias xclip-sc='xclip -sel clip'
 # Alias to trim trailing newline when piped to xclip
 alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
 
+# add alias/func to `cp --no-preserve=mode/owner/links/time'
+alias cp-nm='cp --no-preserve=mode' # cp no mode
+
 # force zsh to show the complete history
 alias history="history 0"
 # Alias to print history without cmd num
