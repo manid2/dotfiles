@@ -25,7 +25,9 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
-" Add cscope db if available
+" Uncomment if cscope is available, but prefer Gnnu global gtags
+" note: Don't use 'gtags-cscope.vim' as we want to use gtags only.
+" Uncomment if gtags is not available but cscope is, e.g. remote servers
 "if has("cscope") && filereadable("/usr/bin/cscope")
 "   set csprg=/usr/bin/cscope
 "   set csto=0
@@ -42,14 +44,19 @@ endif
 "endif
 
 " custom settings
-set showcmd		" Show (partial) command in status line.
-set showmatch		" Show matching brackets.
-set smartindent
+set showcmd         " Show (partial) command in status line.
+set showmatch       " Show matching brackets.
+set autoindent smartindent  " Do smart autoindenting when starting a new line.
 set hlsearch
-"set number
-"set tabstop=2 shiftwidth=2 expandtab
-"colorscheme darkblue " for dark terminals
-"set background=dark
+"set number " Useful but too distracting, enable as needed.
+"set textwidth=80
+"set tabstop=8 shiftwidth=2 expandtab
+" Use this in dark background makes vim text hard to read
+"colorscheme darkblue set background=dark
+" TODO: use simple custom statusline as vim-airline is slow for very
+" large files, e.g. log files of 60MB.
+"set laststatus=2
+"set statusline=%F
 
 " --- vim-plug section, vim plugin manager ---
 " https://github.com/junegunn/vim-plug
@@ -63,21 +70,17 @@ Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
-
-" Commented due to slowing vim on large files
-"Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-syntastic/syntastic'
+Plug 'honza/vim-snippets'
 
 " Uncomment when needed
-"Plug 'vim-airline/vim-airline-themes'
-"Plug 'vim-syntastic/syntastic'
-"Plug 'honza/vim-snippets'
 "Plug 'dhruvasagar/vim-table-mode'
 "Plug 'google/vim-searchindex'
 "Plug 'jlanzarotta/bufexplorer'
 "Plug 'mbbill/undotree'
 "Plug 'preservim/vim-pencil'
 "Plug 'inkarkat/vim-SpellCheck'
-"Plug 'yegappan/taglist'
 "Plug 'jsfaint/gen_tags.vim'
 "Plug 'bling/vim-bufferline'
 " List ends here. Plugins become visible to Vim after this call.
@@ -86,15 +89,93 @@ call plug#end()
 
 " --- keymaps ---
 " TBD: Enumerate and fill keymaps for all possible vim tasks
+" TBD: use leader & localleader keymaps when a key is used to start all
+" keymaps
+let mapleader="\<space>"
 " Common
-" Save buffer
-nnoremap <C-s>       :update<cr>
-inoremap <C-s> <C-O> :update<cr>
+"   Save file in normal and also in insert mode
+"   note: `inoremap <C-S>     <C-O>:update<cr>` has issue in qterminal
+"   (0.16.1) it needs <C-s> + <C-O> to be pressed to trigger update command
+"   instead of just <C-s> as documented & expected.
+"   Can't figure out this a.t.m. but we need it so added.
+inoremap <C-S>         <C-O>:update<cr>
+nnoremap <C-S>         :update<cr>
+
+"   Quit
+inoremap <C-Q>          <esc>:q<cr>
+nnoremap <C-Q>          :q<cr>
+nnoremap <Leader>q      :q<cr>
+nnoremap <Leader>qa     :qa<cr>
+nnoremap <Leader>fq     :q!<cr>
+nnoremap <Leader>fqa    :qa!<cr>
+
+" Vim buffers
+nnoremap <Leader>bfr    :buffer<space>
+nnoremap <Leader>ls     :ls<cr>
+nnoremap <Leader>bf     :bfirst<cr>
+nnoremap <Leader>bl     :blast<cr>
+nnoremap <Leader>bn     :bnext<cr>
+nnoremap <Leader>bp     :bprev<cr>
+nnoremap <Leader>ba     :ball<cr>
+nnoremap <Leader>bad    :badd<cr>
+nnoremap <Leader>bd     :bdelete<cr>
+
+" Vim quickfix
+nnoremap <Leader>co     :copen<cr>
+nnoremap <Leader>cc     :cclose<cr>
+nnoremap <Leader>cw     :cwindow<cr>
+nnoremap <Leader>cf     :cfile<cr>
+nnoremap <Leader>cg     :cgetfile<cr>
+nnoremap <Leader>cb     :cbuffer<cr>
+nnoremap <Leader>cn     :cnext<cr>
+nnoremap <Leader>cp     :cprevious<cr>
+nnoremap <Leader>cad    :caddbuffer<cr>
+nnoremap <Leader>caf    :cafter<cr>
+nnoremap <Leader>cbe    :cbefore<cr>
+nnoremap <Leader>cbo    :cbottom<cr>
+
+" Vim location list
+nnoremap <Leader>lo     :lopen<cr>
+nnoremap <Leader>lc     :lclose<cr>
+nnoremap <Leader>lw     :lwindow<cr>
+nnoremap <Leader>lf     :lfile<cr>
+nnoremap <Leader>lg     :lgetfile<cr>
+nnoremap <Leader>lb     :lbuffer<cr>
+nnoremap <Leader>ln     :lnext<cr>
+nnoremap <Leader>lp     :lprevious<cr>
+nnoremap <Leader>lad    :laddbuffer<cr>
+nnoremap <Leader>laf    :lafter<cr>
+nnoremap <Leader>lbe    :lbefore<cr>
+nnoremap <Leader>lbo    :lbottom<cr>
+
+" Vim grep ':vimgrep'
+nnoremap <Leader>vg     :vimgre<space>
+
+" Vim diff 'vimdiff'
+nnoremap <Leader>dfu    :diffupdate<cr>
+nnoremap <Leader>dfg    :diffget<cr>
+nnoremap <Leader>dfp    :diffput<cr>
+nnoremap <Leader>dfo    :diffoff<cr>
+
+" Toggle file/project browser
+nnoremap <leader>ntt    :NERDTreeToggle<cr>
+
+" Toggle tags view
+nnoremap <leader>tbt    :TagbarToggle<cr>
+
+" Gnu global gtags
+" TODO set gtags keymaps
+":nmap <F5> :Gtags<SPACE>
+":nmap <F6> :Gtags -f %<cr>
+":nmap <F7> :GtagsCursor<cr>
+":nmap <F8> :Gozilla<cr>
+":nmap <C-\><C-]> :GtagsCursor<cr>
+
 " Text editing
+" TBD
+
 " Text processing
-" Vim buffer
-" Vim window
-" Vim tabs
-" Source browsing
-" Source editing
-" Custom
+" TBD
+
+" Custom commands & functions
+" TBD
