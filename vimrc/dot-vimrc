@@ -119,6 +119,7 @@ nnoremap <Leader>bp     :bprev<cr>
 nnoremap <Leader>ba     :ball<cr>
 nnoremap <Leader>bad    :badd<cr>
 nnoremap <Leader>bd     :bdelete<cr>
+nnoremap <Leader>bh     :b#<cr>
 
 " Vim quickfix
 nnoremap <Leader>co     :copen<cr>
@@ -133,6 +134,8 @@ nnoremap <Leader>cad    :caddbuffer<cr>
 nnoremap <Leader>caf    :cafter<cr>
 nnoremap <Leader>cbe    :cbefore<cr>
 nnoremap <Leader>cbo    :cbottom<cr>
+nnoremap <Leader>cff    :cfirst<cr>
+nnoremap <Leader>cfl    :clast<cr>
 
 " Vim location list
 nnoremap <Leader>lo     :lopen<cr>
@@ -147,29 +150,44 @@ nnoremap <Leader>lad    :laddbuffer<cr>
 nnoremap <Leader>laf    :lafter<cr>
 nnoremap <Leader>lbe    :lbefore<cr>
 nnoremap <Leader>lbo    :lbottom<cr>
+nnoremap <Leader>lff    :lfirst<cr>
+nnoremap <Leader>lfl    :llast<cr>
 
 " Vim grep ':vimgrep'
-nnoremap <Leader>vg     :vimgre<space>
+nnoremap <Leader>vg     :vimgrep<space>
 
 " Vim diff 'vimdiff'
 nnoremap <Leader>dfu    :diffupdate<cr>
 nnoremap <Leader>dfg    :diffget<cr>
 nnoremap <Leader>dfp    :diffput<cr>
 nnoremap <Leader>dfo    :diffoff<cr>
+nnoremap <Leader>dfn    ]c<cr>
+nnoremap <Leader>dfp    [c<cr>
 
 " Toggle file/project browser
-nnoremap <leader>ntt    :NERDTreeToggle<cr>
+nnoremap <Leader>ntt    :NERDTreeToggle<cr>
 
 " Toggle tags view
-nnoremap <leader>tbt    :TagbarToggle<cr>
+nnoremap <Leader>tbt    :TagbarToggle<cr>
 
 " Gnu global gtags
-" TODO set gtags keymaps
-":nmap <F5> :Gtags<SPACE>
-":nmap <F6> :Gtags -f %<cr>
-":nmap <F7> :GtagsCursor<cr>
-":nmap <F8> :Gozilla<cr>
-":nmap <C-\><C-]> :GtagsCursor<cr>
+nnoremap <Leader>gt      :Gtags<space>
+nnoremap <Leader>gtr     :Gtags -r<space>
+nnoremap <Leader>gts     :Gtags -s<space>
+nnoremap <Leader>gtg     :Gtags -g<space>
+nnoremap <Leader>gtf     :Gtags -f<space>
+nnoremap <Leader>gtd     :Gtags -f %<cr>
+nnoremap <Leader>gtp     :Gtags -P<space>
+nnoremap <Leader>gtu     :GtagsCursor<cr>
+" TBD: gtags input completion is not useful, use alternative vim's <C-N>
+" NOTE: use all options of global(1)
+" except for -c -n -p -q -u -v and all long name options.
+" They are sent to global(1) as is. E.g.,
+":Gtags -gi paTtern # matches both ’PATTERN’ and ’pattern’
+":Gtags -POi make   # matches Makefile but not makeit.c
+"
+" For more options please see global
+" https://www.gnu.org/software/global/globaldoc_toc.html#global
 
 " Text editing
 " TBD
