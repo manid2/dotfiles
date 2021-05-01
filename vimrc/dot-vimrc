@@ -72,6 +72,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-syntastic/syntastic'
 Plug 'honza/vim-snippets'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/vim-peekaboo'
+Plug 'mg979/vim-visual-multi'
+Plug 'easymotion/vim-easymotion'
+Plug 'simeji/winresizer'
 
 " Uncomment when needed
 "Plug 'dhruvasagar/vim-table-mode'
@@ -104,7 +109,7 @@ function! s:statusline_expr()
     let pos = ' %-12(%l:%c%V%) '
     let higrp='%*'
     let pct = ' %P'
-    hi StatusLine ctermbg=Green ctermfg=DarkBlue
+    hi StatusLine ctermbg=Green ctermfg=DarkGrey
     hi StatusLineNC ctermbg=LightGray ctermfg=DarkGrey
     return cmode.bfno.relflnm.trunc.modflg.ro.ft.
             \ftfmt.ften.gitst.sep.pos.higrp.pct
@@ -112,8 +117,6 @@ endfunction
 let &statusline = s:statusline_expr()
 
 " --- keymaps ---
-" TBD: Enumerate and fill keymaps for all possible vim tasks
-" TBD: use leader & localleader keymaps when a key is used to start all
 " keymaps
 let mapleader="\<space>"
 " Common
@@ -189,12 +192,10 @@ nnoremap <Leader>dfn    ]c<cr>
 nnoremap <Leader>dfp    [c<cr>
 
 " Vim registers
-" TBD
-"   Browse regsiter contents
-"   Copy registers to system clipboard
+" TBD: vim registers to clipboard - w to xclip -sel clip
 
 " Vim windows
-" TBD
+" TBD: vim window - resize, split, cycle, change split orientation, rotate
 
 " Vim macros
 " TBD
@@ -239,6 +240,4 @@ vnoremap <Leader>mlu    :m '<-2<CR>gv=gv
 " TBD: Search and replace
 
 " Custom commands & functions
-"   Copy to system clipboard
-"nnoremap <Leader>xcp    :
-"vnoremap <Leader>xcp    :
+" TBD
