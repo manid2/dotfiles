@@ -43,20 +43,19 @@ endif
 "   set csverb
 "endif
 
-" custom settings
-set showcmd         " Show (partial) command in status line.
-set showmatch       " Show matching brackets.
-set autoindent smartindent  " Do smart autoindenting when starting a new line.
-set hlsearch
+" --- Basic vim settings
+set showcmd          " Show (partial) command in status line.
+set showmatch        " Show matching brackets.
+set autoindent smartindent  " Smart autoindent on new lines.
+set hlsearch         " Highlight searches
 "set number " Useful but too distracting, enable as needed.
-"set textwidth=80
-"set tabstop=8 shiftwidth=2 expandtab
-" Use this in dark background makes vim text hard to read
-"colorscheme darkblue set background=dark
-" TODO: use simple custom statusline as vim-airline is slow for very
-" large files, e.g. log files of 60MB.
-"set laststatus=2
-"set statusline=%F
+"set textwidth=80 formatoptions=tcq    " Automatic word wrapping
+"set tabstop=8 shiftwidth=8 softtabstop=8 expandtab " handle tabs
+" TBD: spellchecking options & settings
+"colorscheme darkblue set background=dark " Handle dark backgrounds
+" TBD: Toggle whitespaces highlight
+
+" TODO: Add error checks
 
 " --- vim-plug section, vim plugin manager ---
 " https://github.com/junegunn/vim-plug
@@ -87,6 +86,31 @@ Plug 'honza/vim-snippets'
 call plug#end()
 " --- vim-plug section, end ---
 
+" note: Don't use vim-airline or dynamic statuslines to make vim fast for
+" very large files ~=50MB
+set laststatus=2     " Always show statusline
+function! s:statusline_expr()
+    let cmode=" [%{mode('0')}] "
+    let bfno="[%n] "
+    let relflnm="[%f] "
+    let trunc="%<"
+    let modflg = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
+    let ro  = "%{&readonly ? '[RO] ' : ''}"
+    let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
+    let ftfmt = "[%{&fileformat}] "
+    let ften = "[%{&fileencoding ? &fileencoding : &encoding}] "
+    let gitst = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+    let sep = ' %= '
+    let pos = ' %-12(%l:%c%V%) '
+    let higrp='%*'
+    let pct = ' %P'
+    hi StatusLine ctermbg=Green ctermfg=DarkBlue
+    hi StatusLineNC ctermbg=LightGray ctermfg=DarkGrey
+    return cmode.bfno.relflnm.trunc.modflg.ro.ft.
+            \ftfmt.ften.gitst.sep.pos.higrp.pct
+endfunction
+let &statusline = s:statusline_expr()
+
 " --- keymaps ---
 " TBD: Enumerate and fill keymaps for all possible vim tasks
 " TBD: use leader & localleader keymaps when a key is used to start all
@@ -111,7 +135,7 @@ nnoremap <Leader>fqa    :qa!<cr>
 
 " Vim buffers
 nnoremap <Leader>bfr    :buffer<space>
-nnoremap <Leader>ls     :ls<cr>
+nnoremap <Leader>bls    :ls<cr>
 nnoremap <Leader>bf     :bfirst<cr>
 nnoremap <Leader>bl     :blast<cr>
 nnoremap <Leader>bn     :bnext<cr>
@@ -164,6 +188,20 @@ nnoremap <Leader>dfo    :diffoff<cr>
 nnoremap <Leader>dfn    ]c<cr>
 nnoremap <Leader>dfp    [c<cr>
 
+" Vim registers
+" TBD
+"   Browse regsiter contents
+"   Copy registers to system clipboard
+
+" Vim windows
+" TBD
+
+" Vim macros
+" TBD
+
+" Vim functions
+" TBD
+
 " Toggle file/project browser
 nnoremap <Leader>ntt    :NERDTreeToggle<cr>
 
@@ -190,10 +228,17 @@ nnoremap <Leader>gtu     :GtagsCursor<cr>
 " https://www.gnu.org/software/global/globaldoc_toc.html#global
 
 " Text editing
-" TBD
-
-" Text processing
-" TBD
+"   Line editing
+nnoremap <Leader>mld    :m .+1<CR>==
+nnoremap <Leader>mlu    :m .-2<CR>==
+vnoremap <Leader>mld    :m '>+1<CR>gv=gv
+vnoremap <Leader>mlu    :m '<-2<CR>gv=gv
+"   Word editing
+" TBD: e, E, b, B, viw, vaw -> word navigation & slection
+" TBD: transformation, tolower/toupper case, sorting
+" TBD: Search and replace
 
 " Custom commands & functions
-" TBD
+"   Copy to system clipboard
+"nnoremap <Leader>xcp    :
+"vnoremap <Leader>xcp    :
