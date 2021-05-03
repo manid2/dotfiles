@@ -25,24 +25,6 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
-" Uncomment if cscope is available, but prefer Gnnu global gtags
-" note: Don't use 'gtags-cscope.vim' as we want to use gtags only.
-" Uncomment if gtags is not available but cscope is, e.g. remote servers
-"if has("cscope") && filereadable("/usr/bin/cscope")
-"   set csprg=/usr/bin/cscope
-"   set csto=0
-"   set cst
-"   set nocsverb
-"   " add any database in current directory
-"   if filereadable("cscope.out")
-"      cs add $PWD/cscope.out
-"   " else add database pointed to by environment
-"   elseif $CSCOPE_DB != ""
-"      cs add $CSCOPE_DB
-"   endif
-"   set csverb
-"endif
-
 " --- Basic vim settings
 set showcmd          " Show (partial) command in status line.
 set showmatch        " Show matching brackets.
@@ -72,7 +54,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-syntastic/syntastic'
 Plug 'honza/vim-snippets'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-peekaboo'
 Plug 'mg979/vim-visual-multi'
 Plug 'easymotion/vim-easymotion'
@@ -215,9 +197,9 @@ nnoremap <Leader>gtr     :Gtags -r<space>
 nnoremap <Leader>gts     :Gtags -s<space>
 nnoremap <Leader>gtg     :Gtags -g<space>
 nnoremap <Leader>gtf     :Gtags -f<space>
-nnoremap <Leader>gtd     :Gtags -f %<cr>
+nnoremap <Leader>gtd     :Gtags -d<space>
 nnoremap <Leader>gtp     :Gtags -P<space>
-nnoremap <Leader>gtu     :GtagsCursor<cr>
+nnoremap <Leader>gtc     :GtagsCursor<cr>
 " TBD: gtags input completion is not useful, use alternative vim's <C-N>
 " NOTE: use all options of global(1)
 " except for -c -n -p -q -u -v and all long name options.
@@ -227,6 +209,63 @@ nnoremap <Leader>gtu     :GtagsCursor<cr>
 "
 " For more options please see global
 " https://www.gnu.org/software/global/globaldoc_toc.html#global
+
+" note: Don't use 'gtags-cscope.vim' as we want to use gtags only.
+" Uncomment if gtags is not available but cscope is, e.g. remote servers
+if has("cscope") && filereadable("/usr/bin/cscope")
+  set csprg=/usr/bin/cscope
+  set csto=0
+  set cst
+  set nocsverb
+  " add any database in current directory
+  if filereadable("cscope.out")
+     cs add $PWD/cscope.out
+  " else add database pointed to by environment
+  elseif $CSCOPE_DB != ""
+     cs add $CSCOPE_DB
+  endif
+  set csverb
+  " show cscope results in quickfix & location list windows
+  "set cscopequickfix=s-,c-,d-,i-,t-,e-,a-,g
+  set cscopequickfix=a-,c-,d-,e-,f-,g-,i-,s-,t-
+  " keymaps
+  " cs find commands
+  nnoremap <Leader>css       :cs find s <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>csg       :cs find g <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>csc       :cs find c <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>cst       :cs find t <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>cse       :cs find e <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>csf       :cs find f <C-R>=expand("<cfile>")<CR><CR>
+  nnoremap <Leader>csi       :cs find i <C-R>=expand("<cfile>")<CR>$<CR>
+  nnoremap <Leader>csd       :cs find d <C-R>=expand("<cword>")<CR><CR>
+  " scs find commands
+  nnoremap <Leader>scss      :scs find s <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>scsg      :scs find g <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>scsc      :scs find c <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>scst      :scs find t <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>scse      :scs find e <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>scsf      :scs find f <C-R>=expand("<cfile>")<CR><CR>
+  nnoremap <Leader>scsi      :scs find i <C-R>=expand("<cfile>")<CR>$<CR>
+  nnoremap <Leader>scsd      :scs find d <C-R>=expand("<cword>")<CR><CR>
+  " vertical scs find commands
+  nnoremap <Leader>vcss      :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>vcsg      :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>vcsc      :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>vcst      :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>vcse      :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>vcsf      :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+  nnoremap <Leader>vcsi      :vert scs find i <C-R>=expand("<cfile>")<CR>$<CR>
+  nnoremap <Leader>vcsd      :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+  " lcs find commands
+  nnoremap <Leader>lcss      :lcs find s <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>lcsg      :lcs find g <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>lcsc      :lcs find c <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>lcst      :lcs find t <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>lcse      :lcs find e <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <Leader>lcsf      :lcs find f <C-R>=expand("<cfile>")<CR><CR>
+  nnoremap <Leader>lcsi      :lcs find i <C-R>=expand("<cfile>")<CR>$<CR>
+  nnoremap <Leader>lcsd      :lcs find d <C-R>=expand("<cword>")<CR><CR>
+endif
 
 " Text editing
 "   Line editing
