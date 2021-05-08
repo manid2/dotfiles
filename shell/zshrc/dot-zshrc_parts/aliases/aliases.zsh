@@ -61,10 +61,12 @@ alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
 # add alias/func to `cp --no-preserve=mode/owner/links/time'
 alias cp-nm='cp --no-preserve=mode' # cp no mode
 
-# force zsh to show the complete history
-alias history="history 0"
+# short alias to history
+alias hst='history'
+# detailed history using zsh built-in fc
+alias hstd="fc -lt '%d-%m-%Y %H:%M:%S %s'"
 # Alias to print history without cmd num
-alias history-no-num="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
+alias hstnn="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
 
 # Workspace aliases for faster navigation
 export mwp="$HOME/Documents/myworkspace"
