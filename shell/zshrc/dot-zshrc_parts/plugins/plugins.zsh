@@ -54,7 +54,6 @@ fi
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    bundler
 )
 
 # code borrowed from ohmyzsh/oh-my-zsh.sh plugins handler
@@ -81,14 +80,6 @@ for plugin ($plugins); do
         source $ZSHRC_PARTS_DIR/plugins/$plugin/$plugin.plugin.zsh
     fi
 done
-
-# Source zsh-autosuggestions plugin if available
-# NOTE: this should be sourced at the end as suggested in official docs
-#if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-#    . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-#    # change suggestion color
-#    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
-#fi
 
 # Source command-not-found plugin if available
 if [ -f /etc/zsh_command_not_found ]; then
