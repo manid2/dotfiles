@@ -5,7 +5,6 @@
 # pre-requisites/dependencies to work correctly.
 # WARN: Hence don't change the order of scripts sourced.
 
-# TODO: test all the scripts
 # source zsh options files
 if [ -f ~/.zshrc_parts/options/options.zsh ]; then
     . ~/.zshrc_parts/options/options.zsh

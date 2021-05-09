@@ -32,45 +32,34 @@ also easily manageable.
 ## Practical shell setup info
 
 ```text
-# Install command
-#
-# ```sh
-# cd dotfiles/shell/
-# stow --dotfiles bashrc -t ~/ # if using bash
-# stow --dotfiles zshrc -t ~/  # if using zsh
-# ```
-
 # After install we get
 #
 # ~/.bashrc -> dotfiles/shell/bashrc/dot-bashrc
 # ~/.bashrc_parts -> dotfiles/shell/bashrc/dot-bashrc_parts/
 
-# TODO: mv bashrc to shell directory
-@ TODO: refactor bashrc directory names and structure
-# files specific to bash
+# TODO: refactor bashrc directory names and files in below order.
 dotfiles/
     `-- shell/
-        |-- zshrc/
-        |   |-- dot-zshrc_parts/
+        |-- bashrc/
+        |   |-- dot-bashrc_parts/
         |   |   |-- aliases/
-        |   |   |   `-- aliases.zsh
+        |   |   |   `-- aliases.bash
         |   |   |-- common/
-        |   |   |   `-- colors.zsh
+        |   |   |   `-- colors.bash
         |   |   |-- completions/
-        |   |   |   |-- completions.zsh
-        |   |   |   `-- README.md
+        |   |   |   `-- completions.bash
         |   |   |-- configs/
-        |   |   |   `-- configs.zsh
+        |   |   |   `-- configs.bash
         |   |   |-- keymaps/
-        |   |   |   `-- keymaps.zsh
+        |   |   |   `-- keymaps.bash
         |   |   |-- options/
-        |   |   |   `-- options.zsh
+        |   |   |   `-- options.bash
         |   |   |-- plugins/
-        |   |   |   `-- plugins.zsh
+        |   |   |   `-- plugins.bash
         |   |   |-- prompt/
-        |   |   |   `-- prompt.zsh
+        |   |   |   `-- prompt.bash
         |   |   `-- theme/
-        |   `-- dot-zshrc
+        |   `-- dot-bashrc
         `-- README.md
 
 # After install we get
@@ -78,7 +67,6 @@ dotfiles/
 # ~/.zshrc -> dotfiles/shell/zshrc/dot-zshrc
 # ~/.zshrc_parts -> dotfiles/shell/zshrc/dot-zshrc_parts/
 
-# files specific to zsh
 dotfiles/
     `-- shell/
         |-- zshrc/
@@ -88,8 +76,7 @@ dotfiles/
         |   |   |-- common/
         |   |   |   `-- colors.zsh
         |   |   |-- completions/
-        |   |   |   |-- completions.zsh
-        |   |   |   `-- README.md
+        |   |   |   `-- completions.zsh
         |   |   |-- configs/
         |   |   |   `-- configs.zsh
         |   |   |-- keymaps/
@@ -103,7 +90,4 @@ dotfiles/
         |   |   `-- theme/
         |   `-- dot-zshrc
         `-- README.md
-
-# TODO Add README todos details.
-dotfiles/shell/README.md
 ```

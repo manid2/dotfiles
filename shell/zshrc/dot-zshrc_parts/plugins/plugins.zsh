@@ -13,8 +13,6 @@ fi
 # NOTE: plugins should not interfer with performance or have conflicting
 # functions.
 
-# TODO: add highly productive plugins
-# TODO group plugins in their order usefulness and present use.
 # plugins=(
 #    adb
 #    alias-finder

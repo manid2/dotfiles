@@ -52,17 +52,5 @@ Don't stow directories starting with `_`, use `cp` to overwrite the
 corresponding directory. Useful for storing data that requires actual files,
 instead of sym links, e.g. `.config/` for apps.
 
-## Notes
-
-* Use `shfmt` to format shell scripts.
-* Use `shellcheck` to lint shell scripts.
-* Use `cloc` to count source code line stats.
-* Use `ruby-github-linguist` from apt in ubuntu to get language stats.
-* Use GNU `stow` to manage dotfiles.
-
-## TODO
-
-* Handle softwares info using python script.
-
 <!-- Links -->
 [dotfiles_logo_repo]: https://github.com/jglovier/dotfiles-logo "go to jglovier/dotfiles-logo"
