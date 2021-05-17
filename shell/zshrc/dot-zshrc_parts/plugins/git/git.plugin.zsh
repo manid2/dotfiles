@@ -26,6 +26,7 @@ alias gf='git fetch'
 alias gfa='git fetch --all'
 alias gpl='git pull'
 alias gps='git push'
+alias gpsf='git push --force'
 alias gm='git merge'
 alias gma='git merge --abort'
 alias gmc='git merge --continue'
@@ -135,6 +136,11 @@ function gbrn() {
   # Rename branch locally
   git branch -m "$1" "$2"
 }
+
+# --- aliases ---
+# aliases for above functions
+alias grpp='git_repo_path'
+alias grpn='git_repo_name'
 
 # TODO
 #
