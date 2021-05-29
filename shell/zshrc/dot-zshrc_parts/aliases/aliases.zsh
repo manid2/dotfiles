@@ -71,3 +71,5 @@ alias hstnn="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
 # Workspace aliases for faster navigation
 export mwp="$HOME/Documents/myworkspace"
 alias mwp="cd \"$mwp\""
+
+# TODO: add date aliases

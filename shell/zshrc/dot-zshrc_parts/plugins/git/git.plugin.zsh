@@ -42,6 +42,8 @@ alias gst='git status'
 alias gam='git am'
 alias gamc='git am --continue'
 alias gama='git am --abort'
+alias gl='git log'
+alias glo='git log --oneline'
 
 # --- functions ---
 # Theese functions should be read-only and should not interfere with other
@@ -141,6 +143,7 @@ function gbrn() {
 # aliases for above functions
 alias grpp='git_repo_path'
 alias grpn='git_repo_name'
+alias gpsu='git push -u origin $(git_current_branch)'
 
 # TODO
 #
