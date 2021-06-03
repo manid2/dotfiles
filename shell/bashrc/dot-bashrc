@@ -41,7 +41,7 @@ if [ -f ~/.bashrc_parts/bash_prompt_wrapper.sh ]; then
     source ~/.bashrc_parts/bash_prompt_wrapper.sh
 fi
 
-# Bash system specific config wrapper
-if [ -f ~/.bashrc_parts/bash_system_config_wrapper.sh ]; then
-    source ~/.bashrc_parts/bash_system_config_wrapper.sh
+# source plugins files
+if [ -f ~/.bashrc_parts/plugins/plugins.sh ]; then
+    . ~/.bashrc_parts/plugins/plugins.sh
 fi
