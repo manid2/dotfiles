@@ -55,7 +55,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'honza/vim-snippets'
 "Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-peekaboo'
-Plug 'mg979/vim-visual-multi'
 Plug 'easymotion/vim-easymotion'
 Plug 'simeji/winresizer'
 
@@ -226,8 +225,9 @@ if has("cscope") && filereadable("/usr/bin/cscope")
   endif
   set csverb
   " show cscope results in quickfix & location list windows
-  "set cscopequickfix=s-,c-,d-,i-,t-,e-,a-,g
-  set cscopequickfix=a-,c-,d-,e-,f-,g-,i-,s-,t-
+  if has("cscopequickfix")
+    set cscopequickfix=a-,c-,d-,e-,f-,g-,i-,s-,t-
+  endif
   " keymaps
   " cs find commands
   nnoremap <Leader>css       :cs find s <C-R>=expand("<cword>")<CR><CR>
