@@ -37,14 +37,13 @@ set hlsearch         " Highlight searches
 "colorscheme darkblue set background=dark " Handle dark backgrounds
 " TBD: Toggle whitespaces highlight
 
-" TODO: Add error checks
-
 " --- vim-plug section, vim plugin manager ---
 " https://github.com/junegunn/vim-plug
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+silent! if plug#begin('~/.vim/plugged')
+"call plug#begin('~/.vim/plugged')
 " List all plugins here
 " Shorthand notation, fetches https://github.com/{user}/{repo}
 Plug 'preservim/nerdtree'
@@ -71,6 +70,7 @@ Plug 'simeji/winresizer'
 "Plug 'bling/vim-bufferline'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+endif
 " --- vim-plug section, end ---
 
 " note: Don't use vim-airline or dynamic statuslines to make vim fast for
