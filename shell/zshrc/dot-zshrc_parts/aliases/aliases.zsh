@@ -74,3 +74,4 @@ alias mwp="cd \"$mwp\""
 
 # TODO: add date aliases
 # TODO: add hexdump aliases
+# TODO: add tar aliases
