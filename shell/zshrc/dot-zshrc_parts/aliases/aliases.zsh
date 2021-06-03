@@ -73,3 +73,4 @@ export mwp="$HOME/Documents/myworkspace"
 alias mwp="cd \"$mwp\""
 
 # TODO: add date aliases
+# TODO: add hexdump aliases
