@@ -11,7 +11,8 @@
 # aliases for git commands
 alias ga='git add'
 alias gb='git branch'
-alias gcm='git commit -v'
+alias gbv='git branch -vv'
+alias gcm='git commit'
 alias gcmv='git commit -v'
 alias gcho='git checkout'
 alias gchb='git checkout -b'
@@ -147,6 +148,7 @@ alias gpsu='git push -u origin $(git_current_branch)'
 
 # TODO
 #
+# * Use common files for bash & zsh shells
 # * alias: git fetch, pull with --prune option
 # * alias: git remote prune branches
 # * alias: git worktree add, remove, prune

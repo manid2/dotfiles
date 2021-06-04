@@ -11,7 +11,8 @@
 # aliases for git commands
 alias ga='git add'
 alias gb='git branch'
-alias gcm='git commit -v'
+alias gbv='git branch -vv'
+alias gcm='git commit'
 alias gcmv='git commit -v'
 alias gcho='git checkout'
 alias gchb='git checkout -b'
