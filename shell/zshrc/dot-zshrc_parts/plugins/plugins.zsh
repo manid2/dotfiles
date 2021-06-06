@@ -1,10 +1,5 @@
 # zsh plugins file, to be sourced into ~/.zshrc
 
-# source common file
-if [ -f ~/.zshrc_parts/common/common.zsh ]; then
-    . ~/.zshrc_parts/common/common.zsh
-fi
-
 # Using ohmyzsh style plugins handler to enable/disable plugin using simple
 # names instead of complete path to plugin scripts where possible.
 
@@ -52,6 +47,7 @@ fi
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
+    my
 )
 
 # code borrowed from ohmyzsh/oh-my-zsh.sh plugins handler
@@ -62,11 +58,11 @@ is_plugin() {
 }
 
 # Add all defined plugins to fpath. This must be done before running compinit.
-# zshrc parts dir: ZSHRC_PARTS_DIR="~/.zshrc_parts"
-# plugins path: ZSHRC_PARTS_DIR/plugins/{plugin}/{plugin}.plugin.zsh
+# zshrc parts dir "~/.zshrc_parts"
+# plugins path "~/.zshrc_parts/plugins/{plugin}/{plugin}.plugin.zsh"
 for plugin ($plugins); do
-    if is_plugin $ZSHRC_PARTS_DIR $plugin; then
-        fpath=($ZSHRC_PARTS_DIR/plugins/$plugin $fpath)
+    if is_plugin ~/.zshrc_parts $plugin; then
+        fpath=(~/.zshrc_parts/plugins/$plugin $fpath)
     else
         echo "ZSHRC_PARTS_DIR plugin '$plugin' not found"
     fi
@@ -74,8 +70,8 @@ done
 
 # Source all plugins
 for plugin ($plugins); do
-    if [ -f $ZSHRC_PARTS_DIR/plugins/$plugin/$plugin.plugin.zsh ]; then
-        source $ZSHRC_PARTS_DIR/plugins/$plugin/$plugin.plugin.zsh
+    if [ -f ~/.zshrc_parts/plugins/$plugin/$plugin.plugin.zsh ]; then
+        source ~/.zshrc_parts/plugins/$plugin/$plugin.plugin.zsh
     fi
 done
 

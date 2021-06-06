@@ -19,6 +19,7 @@ alias lla='ls -alF'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+# TODO: add more ls aliases to ls only dirs, sym links, etc.
 
 # Rsync aliases
 export RSYNC_HOME=$HOME/.rsync_data
@@ -68,10 +69,7 @@ alias hstd="fc -lt '%d-%m-%Y %H:%M:%S %s'"
 # Alias to print history without cmd num
 alias hstnn="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
 
-# Workspace aliases for faster navigation
-export mwp="$HOME/Documents/myworkspace"
-alias mwp="cd \"$mwp\""
-
 # TODO: add date aliases
 # TODO: add hexdump aliases
 # TODO: add tar aliases
+# TODO: add find aliases
