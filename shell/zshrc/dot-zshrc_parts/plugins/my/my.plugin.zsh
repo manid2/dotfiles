@@ -9,7 +9,7 @@ fi
 # workspace aliases
 export mydp="$mwp/mydocs"
 export myrp="$mwp/myrepos"
-export mybp="$myrp/blog"
+export mybp="$myrp/blog/manid2.gitlab.io"
 
 alias mydp="cd \"$mydp\""
 alias myrp="cd \"$myrp\""

@@ -69,7 +69,18 @@ alias hstd="fc -lt '%d-%m-%Y %H:%M:%S %s'"
 # Alias to print history without cmd num
 alias hstnn="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
 
-# TODO: add date aliases
+# date aliases
+alias dt='date'
+alias dty='date +"%Y"'
+alias dtm='date +"%m"'
+alias dtd='date +"%d"'
+alias dtymd='date +"%Y-%m-%d"'
+alias dtdmy='date +"%d-%m-%Y"'
+alias dtftm='date +"%H:%M:%S:%N"'
+alias dtr='date -R'
+alias dtu='date -u'
+alias dtdnw='date -d "now"'
+
 # TODO: add hexdump aliases
 # TODO: add tar aliases
 # TODO: add find aliases
