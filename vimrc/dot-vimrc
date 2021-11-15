@@ -49,6 +49,7 @@ silent! if plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 "Plug 'vim-syntastic/syntastic'
@@ -57,6 +58,7 @@ Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-peekaboo'
 Plug 'easymotion/vim-easymotion'
 Plug 'simeji/winresizer'
+Plug 'nathanalderson/yang.vim'
 
 " Uncomment when needed
 "Plug 'dhruvasagar/vim-table-mode'
