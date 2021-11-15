@@ -77,8 +77,8 @@ function make_color_prompt_line() {
 
 # make colorless prompt line
 function make_colorless_prompt_line() {
-    local __head_ps1="${debian_chroot:+($debian_chroot)}\u@\h:"
-    local __body_ps1='\W'
+    local __head_ps1="${debian_chroot:+($debian_chroot)}[\u@\h "
+    local __body_ps1='\W]'
     local __tail_ps1='$ '
     local __ps1_line="$__head_ps1$__body_ps1"
 
