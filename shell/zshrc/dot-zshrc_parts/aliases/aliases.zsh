@@ -84,3 +84,4 @@ alias dtdnw='date -d "now"'
 # TODO: add hexdump aliases
 # TODO: add tar aliases
 # TODO: add find aliases
+# TODO: add tmux aliases
