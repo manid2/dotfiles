@@ -5,6 +5,9 @@ if [ -f ~/.zshrc_parts/common/common.zsh ]; then
     . ~/.zshrc_parts/common/common.zsh
 fi
 
+# --- paths ---
+path+=("$HOME/apps/eclipse/latest")
+
 # --- aliases ---
 # workspace aliases
 export mydp="$mwp/mydocs"
