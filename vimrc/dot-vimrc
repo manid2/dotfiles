@@ -48,10 +48,11 @@ silent! if plug#begin('~/.vim/plugged')
 " Shorthand notation, fetches https://github.com/{user}/{repo}
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf'
+Plug 'junegunn/vim-easy-align'
 "Plug 'vim-syntastic/syntastic'
 Plug 'honza/vim-snippets'
 "Plug 'airblade/vim-gitgutter'
@@ -78,6 +79,8 @@ endif
 " very large files ~=50MB
 set laststatus=2     " Always show statusline
 function! s:statusline_expr()
+    " Show vim-obsession status if available
+    let session = "%{ObsessionStatus()}"
     let cmode=" [%{mode('0')}] "
     let bfno="[%n] "
     let relflnm="[%f] "
@@ -94,7 +97,7 @@ function! s:statusline_expr()
     let pct = ' %P'
     hi StatusLine ctermbg=Green ctermfg=Black
     hi StatusLineNC ctermbg=LightGray ctermfg=Black
-    return cmode.bfno.relflnm.trunc.modflg.ro.ft.
+    return session.cmode.bfno.relflnm.trunc.modflg.ro.ft.
             \ftfmt.ften.gitst.sep.pos.higrp.pct
 endfunction
 let &statusline = s:statusline_expr()
@@ -174,11 +177,38 @@ nnoremap <Leader>dfo    :diffoff<cr>
 nnoremap <Leader>dfn    ]c<cr>
 nnoremap <Leader>dfp    [c<cr>
 
-" Vim registers
-" TBD: vim registers to clipboard - w to xclip -sel clip
+" Vim registers to system clipboard
+vnoremap <Leader>ctc     :'<,'>w !xclip -selection clipboard -i<Cr><Cr>
+nnoremap <Leader>ftc     :w !xclip -selection clipboard -i<Cr><Cr>
+"nnoremap <Leader>ytc     :"w !xclip -selection clipboard -i<Cr><Cr>
+nnoremap <Leader>pfc     :r !xclip -selection clipboard -o<Cr><Cr>
+
+" Vim tabs
+nnoremap <Leader>tbe     :tabedit<cr>
+nnoremap <Leader>tbf     :tabfind<cr>
+nnoremap <Leader>tbc     :tabclose<cr>
+nnoremap <Leader>tbci    :tabclose <cr>
+nnoremap <Leader>tbco    :tabonly<cr>
+nnoremap <Leader>tbba    :tab ball<cr>
+nnoremap <Leader>tbbd    :tab drop <cr>
+nnoremap <Leader>tbsp    :tab split<cr>
+nnoremap <Leader>tbs     :tabs<cr>
+nnoremap <Leader>tbm     :tabm<cr>
+nnoremap <Leader>tbm0    :tabm 0<cr>
+nnoremap <Leader>tbmi    :tabm <cr>
+nnoremap <Leader>tbn     :tabn<cr>
+nnoremap <Leader>tbp     :tabp<cr>
+nnoremap <Leader>tbgf    :tabfirst<cr>
+nnoremap <Leader>tbgl    :tablast<cr>
 
 " Vim windows
 " TBD: vim window - resize, split, cycle, change split orientation, rotate
+
+" Vim sessions
+let g:sessions_dir = '~/.vim/sessions'
+exec 'nnoremap <Leader>ss :Obsession ' . g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>sr :so ' . g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
+nnoremap <Leader>sp :Obsession<CR>
 
 " Vim macros
 " TBD
@@ -227,7 +257,7 @@ if has("cscope") && filereadable("/usr/bin/cscope")
   endif
   set csverb
   " show cscope results in quickfix & location list windows
-  if has("cscopequickfix")
+  if has("quickfix")
     set cscopequickfix=a-,c-,d-,e-,f-,g-,i-,s-,t-
   endif
   " keymaps
