@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# Generate source files list for use with gtags/cscope/geany/u-ctags
+
+PROJ_SRC_DIR=$gpjd
+PROJ_BUILD_IDE_DIR=$PWD
+PROJ_SRC_FILE_LIST=$PROJ_BUILD_IDE_DIR/cscope.files
+
+gen_proj_src_files_list() {
+    # find all source files ignore everything else
+    find $PROJ_SRC_DIR \( \
+        -iname '*.[ch]' \
+        -o -iname '*.pyx' \
+        -o -iname '*.py' \
+        -o -iname '*.[ch]pp' \) \
+        -a -type f -print >$PROJ_SRC_FILE_LIST
+
+    if [ -r $PROJ_SRC_FILE_LIST ]; then
+        echo "Success in creating project source files list"
+        echo "Path: $PROJ_SRC_FILE_LIST"
+    else
+        echo "Error in creating $PROJ_SRC_FILE_LIST"
+    fi
+}
+
+gen_proj_ctags_db() {
+    ctags --totals --fields=fKsSt --extras=-fq --kinds-c=+px --excmd=number \
+        -L $PROJ_SRC_FILE_LIST
+}
+
+gen_proj_cscope_db() {
+    cscope -bqv \
+      -i $PROJ_SRC_FILE_LIST \
+      -f $PROJ_BUILD_IDE_DIR/cscope.out
+}
+
+set_cscope_env() {
+    export CSCOPE_DB="$PROJ_BUILD_IDE_DIR/cscope.out"
+}
+
+gen_proj_src_files_list
+gen_proj_ctags_db
+gen_proj_cscope_db
+set_cscope_env
