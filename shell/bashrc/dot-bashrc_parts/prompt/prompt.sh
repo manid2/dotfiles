@@ -1,20 +1,9 @@
 # Prompt customization wrapper
 
 # Bash colors
-if [ -f ~/.bashrc_parts/common/bash_colors.sh ]; then
-    source ~/.bashrc_parts/common/bash_colors.sh
+if [ -f ~/.bashrc_parts/common/colors.sh ]; then
+    source ~/.bashrc_parts/common/colors.sh
 fi
-
-# Control git prompt via sym link instead of global variable for flexibilty.
-# TIPS: As we can't remember or see the variable names, it is better to control
-# some functions via sym links.
-function is_git_prompt_sym_link_exists() {
-    local enable_git_ps1=''
-    if [ -f ~/.bashrc_part_git_prompt_sym_link.sh ]; then
-        enable_git_ps1='yes'
-    fi
-    echo "$enable_git_ps1"
-}
 
 # __head_ps1 = debian_chroot + user + host + cwd
 function make_color_head_ps1() {
@@ -26,38 +15,13 @@ function make_color_head_ps1() {
     echo "$__head_ps1"
 }
 
-# __body_ps1_git = __git_branch
-function make_color_body_ps1_git() {
-    # Git prompt code is borrowed from blog on Digital Fortress
-    # https://digitalfortress.tech/tutorial/setting-up-git-prompt-step-by-step/
-    # Parts of code is modified
-    local __git_branch_color="$GREEN"
-    local __git_branch=$(__git_ps1)
-
-    # colour branch name depending on state
-    if [[ "${__git_branch}" =~ "*" ]]; then # if repository is dirty
-        __git_branch_color="$RED"
-    elif [[ "${__git_branch}" =~ "%" ]]; then # if there are only untracked files
-        __git_branch_color="$LIGHT_RED"       #"$LIGHT_GRAY"
-    elif [[ "${__git_branch}" =~ "$" ]]; then # if there is something stashed
-        __git_branch_color="$YELLOW"
-    elif [[ "${__git_branch}" =~ "+" ]]; then # if there are staged files
-        __git_branch_color="$CYAN"
-    fi
-
-    local __body_ps1_git="$__git_branch_color$__git_branch"
-    echo "$__body_ps1_git"
-}
-
 # __tail_ps1 = __prompt_tail
 function make_color_tail_ps1() {
     local __prompt_tail="$VIOLET$"
-    local __user_input_color="$LIGHT_MAGENTA"
     local __ps1_color_reset="$RESET"
 
     local __tail_ps1="$__prompt_tail"
     __tail_ps1+="$__ps1_color_reset"
-    __tail_ps1+="$__user_input_color"
     __tail_ps1+=" "
     echo "$__tail_ps1"
 }
@@ -66,10 +30,7 @@ function make_color_tail_ps1() {
 function make_color_prompt_line() {
     local __ps1_line="$(make_color_head_ps1)"
 
-    local __is_git_ps1="$(is_git_prompt_sym_link_exists)"
-    if [ "$__is_git_ps1" = 'yes' ]; then
-        __ps1_line+="$(make_color_body_ps1_git)"
-    fi
+    __ps1_line+="$RESET$(__git_ps1 ' (%s)')"
 
     __ps1_line+="$(make_color_tail_ps1)"
     PS1="$__ps1_line"
@@ -82,10 +43,7 @@ function make_colorless_prompt_line() {
     local __tail_ps1='$ '
     local __ps1_line="$__head_ps1$__body_ps1"
 
-    local __is_git_ps1="$(is_git_prompt_sym_link_exists)"
-    if [ "$__is_git_ps1" = 'yes' ]; then
-        __ps1_line+="$(__git_ps1 " (%s)")"
-    fi
+    __ps1_line+="$(__git_ps1 ' (%s)')"
 
     __ps1_line+="$__tail_ps1"
     PS1=$__ps1_line
@@ -134,7 +92,7 @@ function prompt_command() {
 }
 
 # `trap` with DEBUG manipulates prompt attributes on output from bash commands
-trap 'tput sgr0' DEBUG
+#trap 'tput sgr0' DEBUG
 
 # PROMPT_COMMAND colors the prompt text and bash commands
 export PROMPT_COMMAND=prompt_command
