@@ -31,14 +31,29 @@ if ! shopt -oq posix; then
 fi
 
 #-- begin logical grouping
-# Bash aliases wrapper
-if [ -f ~/.bashrc_parts/bash_aliases_wrapper.sh ]; then
-    source ~/.bashrc_parts/bash_aliases_wrapper.sh
+# source bash options files
+if [ -f ~/.bashrc_parts/options/options.sh ]; then
+    . ~/.bashrc_parts/options/options.sh
 fi
 
-# Bash prompt customization wrapper
-if [ -f ~/.bashrc_parts/bash_prompt_wrapper.sh ]; then
-    source ~/.bashrc_parts/bash_prompt_wrapper.sh
+# source bash keymaps files
+if [ -f ~/.bashrc_parts/keymaps/keymaps.sh ]; then
+    . ~/.bashrc_parts/keymaps/keymaps.sh
+fi
+
+# source bash configs files
+if [ -f ~/.bashrc_parts/configs/configs.sh ]; then
+    . ~/.bashrc_parts/configs/configs.sh
+fi
+
+# source bash completions files
+if [ -f ~/.bashrc_parts/completions/completions.sh ]; then
+    . ~/.bashrc_parts/completions/completions.sh
+fi
+
+# source bash aliases files
+if [ -f ~/.bashrc_parts/aliases/aliases.sh ]; then
+    . ~/.bashrc_parts/aliases/aliases.sh
 fi
 
 # source plugins files
