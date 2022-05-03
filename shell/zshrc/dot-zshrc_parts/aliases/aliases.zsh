@@ -81,7 +81,14 @@ alias dtr='date -R'
 alias dtu='date -u'
 alias dtdnw='date -d "now"'
 
+# tmux aliases
+alias tmux='tmux -u'
+alias tml='tmux ls'
+alias tma='tmux a'
+alias tmns='tmux new -s'
+alias tmks='tmux kill-session -t'
+alias tmat='tmux a -t'
+
 # TODO: add hexdump aliases
 # TODO: add tar aliases
 # TODO: add find aliases
-# TODO: add tmux aliases
