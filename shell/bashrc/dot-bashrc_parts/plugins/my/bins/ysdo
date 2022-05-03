@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+# ---
+# use sudo without password and without modifying sudoers
+# ---
+
+argv=$@
+user="$USER"
+user_pw="$(secret-tool lookup vpnuser mani)"
+
+expect -c "
+set timeout 20
+spawn sudo $argv
+expect -ex {[sudo] password for $user:}
+send \"$user_pw\r\"
+interact
+"
