@@ -129,7 +129,7 @@ precmd() {
 }
 
 # Set git ps1 options and source git-sh-prompt script if available
-if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+if [ -f ~/.local/bin/git-sh-prompt ]; then
     # git ps1 options
     GIT_PS1_SHOWDIRTYSTATE='y'
     GIT_PS1_SHOWCOLORHINTS='y'
@@ -139,5 +139,5 @@ if [ -f /usr/lib/git-core/git-sh-prompt ]; then
     GIT_PS1_SHOWUPSTREAM='verbose'
 
     # source sym link to git prompt script
-    . /usr/lib/git-core/git-sh-prompt
+    source ~/.local/bin/git-sh-prompt
 fi

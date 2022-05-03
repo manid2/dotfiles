@@ -143,7 +143,7 @@ export PROMPT_COMMAND=prompt_command
 # NOTE: source the git prompt script only once to optimize prompt command
 # performance. But it forces the user to re-login or re-source ~/.bashrc
 # for the new changes to take effect.
-if [ -f ~/.bashrc_part_git_prompt_sym_link.sh ]; then
+if [ -f ~/.local/bin/git-sh-prompt ]; then
     # git ps1 options
     GIT_PS1_SHOWDIRTYSTATE='y'
     GIT_PS1_SHOWCOLORHINTS='y'
@@ -153,5 +153,5 @@ if [ -f ~/.bashrc_part_git_prompt_sym_link.sh ]; then
     GIT_PS1_SHOWUPSTREAM='auto'
 
     # source sym link to git prompt script
-    source ~/.bashrc_part_git_prompt_sym_link.sh
+    source ~/.local/bin/git-sh-prompt
 fi
