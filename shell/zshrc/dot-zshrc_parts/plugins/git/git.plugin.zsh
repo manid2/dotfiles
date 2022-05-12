@@ -147,11 +147,18 @@ function gbrn() {
   git branch -m "$1" "$2"
 }
 
+# compatible with gitlab merge requests
+function git_mr() {
+  git fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
+}
+
 # --- aliases ---
 # aliases for above functions
 alias grpp='git_repo_path'
 alias grpn='git_repo_name'
 alias gpsu='git push -u origin $(git_current_branch)'
+alias gmr='git_mr origin'
+alias gmrr='git_mr'
 
 # aliases to git contrib modules
 alias gjd='git jump diff'
