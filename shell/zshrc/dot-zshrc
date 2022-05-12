@@ -25,6 +25,11 @@ if [ -f ~/.zshrc_parts/completions/completions.zsh ]; then
     . ~/.zshrc_parts/completions/completions.zsh
 fi
 
+# source zsh user local files
+if [ -f ~/.zshrc_parts/local/local.zsh ]; then
+    . ~/.zshrc_parts/local/local.zsh
+fi
+
 # source zsh aliases files
 if [ -f ~/.zshrc_parts/aliases/aliases.zsh ]; then
     . ~/.zshrc_parts/aliases/aliases.zsh
