@@ -80,7 +80,7 @@ endif
 set laststatus=2     " Always show statusline
 function! s:statusline_expr()
     " Show vim-obsession status if available
-    let session = "%{ObsessionStatus()}"
+    let session = "%{exists(':Obsession') ? ObsessionStatus() : ''}"
     let cmode=" [%{mode('0')}] "
     let bfno="[%n] "
     let relflnm="[%f] "
