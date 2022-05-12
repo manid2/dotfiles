@@ -258,7 +258,8 @@ if has("cscope") && filereadable("/usr/bin/cscope")
   set csverb
   " show cscope results in quickfix & location list windows
   if has("quickfix")
-    set cscopequickfix=a-,c-,d-,e-,f-,g-,i-,s-,t-
+    "set cscopequickfix=a-,c-,d-,e-,f-,g-,i-,s-,t-
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
   endif
   " keymaps
   " cs find commands
