@@ -28,6 +28,3 @@ TIMEFMT=$'real\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
 
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# add user local bin path
-path=($HOME/.local/bin $path)
