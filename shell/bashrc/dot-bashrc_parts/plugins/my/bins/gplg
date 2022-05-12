@@ -24,7 +24,8 @@ gen_proj_src_files_list() {
 }
 
 gen_proj_ctags_db() {
-    ctags --totals --fields=fKsSt --extras=-fq --kinds-c=+px --excmd=number \
+    #ctags --totals --fields=fKsSt --extras=-fq --kinds-c=+px --excmd=number \
+    ctags --totals --fields=fKsSt --excmd=number \
         -L $PROJ_SRC_FILE_LIST
 }
 
