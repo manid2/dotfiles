@@ -153,10 +153,6 @@ alias grpp='git_repo_path'
 alias grpn='git_repo_name'
 alias gpsu='git push -u origin $(git_current_branch)'
 
-# --- git contrib modules ---
-path+=('/usr/share/doc/git/contrib/diff-highlight')
-path+=('/usr/share/doc/git/contrib/git-jump')
-
 # aliases to git contrib modules
 alias gjd='git jump diff'
 alias gjm='git jump merge'
@@ -168,9 +164,6 @@ alias ggrp='git grep -n'
 
 # git diff-highlight aliases
 alias gdh='git diff --color | diff-highlight | less -r'
-
-# git paste aliases
-alias gpst='git paste2'
 
 # TODO
 #

@@ -29,9 +29,5 @@ TIMEFMT=$'real\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Install Ruby Gems to $HOME/gems
-export GEM_HOME=$HOME/gems
-path=($GEM_HOME $GEM_HOME/bin $path)
-
 # add user local bin path
 path=($HOME/.local/bin $path)

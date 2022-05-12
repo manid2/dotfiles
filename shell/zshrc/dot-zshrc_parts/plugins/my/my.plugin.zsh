@@ -6,7 +6,6 @@ if [ -f ~/.zshrc_parts/common/common.zsh ]; then
 fi
 
 # --- paths ---
-path+=("$HOME/apps/eclipse/latest")
 
 # --- aliases ---
 # workspace aliases
