@@ -179,6 +179,7 @@ nnoremap <Leader>dfp    [c<cr>
 
 " Vim registers to system clipboard
 vnoremap <Leader>ctc     :'<,'>w !xclip -selection clipboard -i<Cr><Cr>
+vnoremap <Leader>y       "yy <Bar> :call system('xclip -selection clipboard -i', @y)<CR>
 nnoremap <Leader>ftc     :w !xclip -selection clipboard -i<Cr><Cr>
 "nnoremap <Leader>ytc     :"w !xclip -selection clipboard -i<Cr><Cr>
 nnoremap <Leader>pfc     :r !xclip -selection clipboard -o<Cr><Cr>
