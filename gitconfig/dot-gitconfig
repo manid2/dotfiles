@@ -31,6 +31,7 @@
 [delta]
 	navigate = true  # use n and N to move between diff sections
 	line-numbers = true
+	keep-plus-minus-markers = true
 [diff]
 	tool = vimdiff
 	colorMoved = default
@@ -44,3 +45,6 @@
 	defaultBranch = main
 [user]
 	useConfigOnly = true
+[log]
+	abbrevCommit = true
+	decorate = false
