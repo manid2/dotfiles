@@ -12,3 +12,10 @@ if [ -x /usr/bin/dircolors ]; then
     # Take advantage of $LS_COLORS for completion as well
     zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 fi
+
+# source user created completion scripts
+for comp_file in ~/.local/share/zsh/user-completions/_*; do
+    if [ -f $comp_file ]; then
+        source $comp_file
+    fi
+done

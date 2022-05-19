@@ -50,8 +50,8 @@ alias gama='git am --abort'
 alias gl='git log'
 alias gl1='git log -1'
 alias glo='git log --oneline'
-alias gg='git gui'
-alias gk='gitk'
+alias ggi='git gui'
+alias ggk='gitk'
 
 # --- functions ---
 # Theese functions should be read-only and should not interfere with other
@@ -167,7 +167,7 @@ alias gjg='git jump grep'
 alias gjw='git jump ws'
 
 # git grep aliases
-alias ggrp='git grep -n'
+alias gg='git grep -n'
 
 # git diff-highlight aliases
 alias gdh='git diff --color | diff-highlight | less -r'
