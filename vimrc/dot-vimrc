@@ -63,6 +63,17 @@ Plug 'easymotion/vim-easymotion'
 Plug 'simeji/winresizer'
 Plug 'nathanalderson/yang.vim'
 
+"Use vim-scripts as plugins
+Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/OmniCppComplete'
+Plug 'vim-scripts/vimplate'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/deb.vim'
+Plug 'vim-scripts/gnupg'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'preservim/nerdcommenter'
+Plug 'sukima/xmledit'
+
 " Uncomment when needed
 "Plug 'dhruvasagar/vim-table-mode'
 "Plug 'google/vim-searchindex'
