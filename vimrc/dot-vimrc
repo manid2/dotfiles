@@ -137,20 +137,12 @@ nnoremap <Leader>bd     :bdelete<cr>
 nnoremap <Leader>bh     :b#<cr>
 
 " Vim quickfix
-nnoremap <Leader>co     :copen<cr>
-nnoremap <Leader>cc     :cclose<cr>
-nnoremap <Leader>cw     :cwindow<cr>
-nnoremap <Leader>cf     :cfile<cr>
-nnoremap <Leader>cg     :cgetfile<cr>
-nnoremap <Leader>cb     :cbuffer<cr>
-nnoremap <Leader>cn     :cnext<cr>
-nnoremap <Leader>cp     :cprevious<cr>
-nnoremap <Leader>cad    :caddbuffer<cr>
-nnoremap <Leader>caf    :cafter<cr>
-nnoremap <Leader>cbe    :cbefore<cr>
-nnoremap <Leader>cbo    :cbottom<cr>
-nnoremap <Leader>cff    :cfirst<cr>
-nnoremap <Leader>cfl    :clast<cr>
+nnoremap <Leader>xo     :copen<cr>
+nnoremap <Leader>xc     :cclose<cr>
+nnoremap <Leader>xn     :cnext<cr>
+nnoremap <Leader>xp     :cprevious<cr>
+nnoremap <Leader>xf     :cfirst<cr>
+nnoremap <Leader>xl     :clast<cr>
 
 " Vim location list
 nnoremap <Leader>lo     :lopen<cr>
