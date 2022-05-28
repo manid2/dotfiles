@@ -155,57 +155,16 @@ nnoremap <Leader>cfl    :clast<cr>
 " Vim location list
 nnoremap <Leader>lo     :lopen<cr>
 nnoremap <Leader>lc     :lclose<cr>
-nnoremap <Leader>lw     :lwindow<cr>
-nnoremap <Leader>lf     :lfile<cr>
-nnoremap <Leader>lg     :lgetfile<cr>
-nnoremap <Leader>lb     :lbuffer<cr>
 nnoremap <Leader>ln     :lnext<cr>
 nnoremap <Leader>lp     :lprevious<cr>
-nnoremap <Leader>lad    :laddbuffer<cr>
-nnoremap <Leader>laf    :lafter<cr>
-nnoremap <Leader>lbe    :lbefore<cr>
-nnoremap <Leader>lbo    :lbottom<cr>
-nnoremap <Leader>lff    :lfirst<cr>
-nnoremap <Leader>lfl    :llast<cr>
+nnoremap <Leader>lf     :lfirst<cr>
+nnoremap <Leader>ll     :llast<cr>
 
 " Vim grep ':vimgrep'
+" TODO: Add grep within current files, buffers, current directory, recursive
 nnoremap <Leader>vg     :vimgrep<space>
 
-" Vim diff 'vimdiff'
-nnoremap <Leader>dfu    :diffupdate<cr>
-nnoremap <Leader>dfg    :diffget<cr>
-nnoremap <Leader>dfp    :diffput<cr>
-nnoremap <Leader>dfo    :diffoff<cr>
-nnoremap <Leader>dfn    ]c<cr>
-nnoremap <Leader>dfp    [c<cr>
-
 " Vim registers to system clipboard
-vnoremap <Leader>ctc     :'<,'>w !xclip -selection clipboard -i<Cr><Cr>
-vnoremap <Leader>y       "yy <Bar> :call system('xclip -selection clipboard -i', @y)<CR>
-nnoremap <Leader>ftc     :w !xclip -selection clipboard -i<Cr><Cr>
-"nnoremap <Leader>ytc     :"w !xclip -selection clipboard -i<Cr><Cr>
-nnoremap <Leader>pfc     :r !xclip -selection clipboard -o<Cr><Cr>
-
-" Vim tabs
-nnoremap <Leader>tbe     :tabedit<cr>
-nnoremap <Leader>tbf     :tabfind<cr>
-nnoremap <Leader>tbc     :tabclose<cr>
-nnoremap <Leader>tbci    :tabclose <cr>
-nnoremap <Leader>tbco    :tabonly<cr>
-nnoremap <Leader>tbba    :tab ball<cr>
-nnoremap <Leader>tbbd    :tab drop <cr>
-nnoremap <Leader>tbsp    :tab split<cr>
-nnoremap <Leader>tbs     :tabs<cr>
-nnoremap <Leader>tbm     :tabm<cr>
-nnoremap <Leader>tbm0    :tabm 0<cr>
-nnoremap <Leader>tbmi    :tabm <cr>
-nnoremap <Leader>tbn     :tabn<cr>
-nnoremap <Leader>tbp     :tabp<cr>
-nnoremap <Leader>tbgf    :tabfirst<cr>
-nnoremap <Leader>tbgl    :tablast<cr>
-
-" Vim windows
-" TBD: vim window - resize, split, cycle, change split orientation, rotate
 
 " Vim sessions
 let g:sessions_dir = '~/.vim/sessions'
@@ -213,39 +172,12 @@ exec 'nnoremap <Leader>ss :Obsession ' . g:sessions_dir . '/*.vim<C-D><BS><BS><B
 exec 'nnoremap <Leader>sr :so ' . g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 nnoremap <Leader>sp :Obsession<CR>
 
-" Vim macros
-" TBD
+" TODO: add vim macros & their keymaps
 
-" Vim functions
-" TBD
-
-" Toggle file/project browser
 nnoremap <Leader>ntt    :NERDTreeToggle<cr>
-
-" Toggle tags view
 nnoremap <Leader>tbt    :TagbarToggle<cr>
 
-" Gnu global gtags
-nnoremap <Leader>gt      :Gtags<space>
-nnoremap <Leader>gtr     :Gtags -r<space>
-nnoremap <Leader>gts     :Gtags -s<space>
-nnoremap <Leader>gtg     :Gtags -g<space>
-nnoremap <Leader>gtf     :Gtags -f<space>
-nnoremap <Leader>gtd     :Gtags -d<space>
-nnoremap <Leader>gtp     :Gtags -P<space>
-nnoremap <Leader>gtc     :GtagsCursor<cr>
-" TBD: gtags input completion is not useful, use alternative vim's <C-N>
-" NOTE: use all options of global(1)
-" except for -c -n -p -q -u -v and all long name options.
-" They are sent to global(1) as is. E.g.,
-":Gtags -gi paTtern # matches both ’PATTERN’ and ’pattern’
-":Gtags -POi make   # matches Makefile but not makeit.c
-"
-" For more options please see global
-" https://www.gnu.org/software/global/globaldoc_toc.html#global
-
-" note: Don't use 'gtags-cscope.vim' as we want to use gtags only.
-" Uncomment if gtags is not available but cscope is, e.g. remote servers
+" If cscope available
 if has("cscope") && filereadable("/usr/bin/cscope")
 	set csprg=/usr/bin/cscope
 	set csto=0
