@@ -48,6 +48,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-obsession'
+"Plug 'tpope/vim-repeat' " NOTE: enable for most frequently used plugins/cmds
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/nerdtree'
@@ -55,9 +56,9 @@ Plug 'preservim/nerdtree'
 " * Code editing plugins generic
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-fugitive'
-Plug 'aperezdc/vim-template'
+"Plug 'aperezdc/vim-template' " NOTE: enable when custom templates are created
 Plug 'vim-scripts/a.vim'
-Plug 'vim-scripts/OmniCppComplete'
+"Plug 'vim-scripts/OmniCppComplete' " NOTE: hard to use
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/deb.vim'
 Plug 'vim-scripts/gnupg'
