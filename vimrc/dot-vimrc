@@ -35,6 +35,7 @@ set hlsearch         " Highlight searches
 " https://github.com/junegunn/vim-plug
 
 " -- vim plugin options before loading -----------
+let g:snipMate = { 'snippet_version' : 1 }
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
@@ -57,6 +58,12 @@ Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-fugitive'
 "Plug 'aperezdc/vim-template' " NOTE: enable when custom templates are created
+" -- garbas/vim-snipmate dependencies begin ------
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'honza/vim-snippets'
+" -- garbas/vim-snipmate dependencies end --------
+Plug 'garbas/vim-snipmate'
 Plug 'vim-scripts/a.vim'
 "Plug 'vim-scripts/OmniCppComplete' " NOTE: hard to use
 Plug 'vim-scripts/DoxygenToolkit.vim'
