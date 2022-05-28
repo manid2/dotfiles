@@ -113,48 +113,45 @@ let &statusline = s:statusline_expr()
 "let mapleader="\<space>" " default '\'
 
 " Save file in normal and also in insert mode
-inoremap <C-S>         <C-O>:update<cr>
-nnoremap <C-S>         :update<cr>
+inoremap <C-S>               <C-O>:update<cr>
+nnoremap <C-S>               :update<cr>
 
 " Quit
-inoremap <C-Q>          <esc>:q<cr>
-nnoremap <C-Q>          :q<cr>
-nnoremap <Leader>q      :q<cr>
-nnoremap <Leader>qa     :qa<cr>
-nnoremap <Leader>fq     :q!<cr>
-nnoremap <Leader>fqa    :qa!<cr>
+inoremap <C-Q>               <esc>:q<cr>
+nnoremap <C-Q>               :q<cr>
+nnoremap <Leader>q           :q<cr>
+nnoremap <Leader>qa          :qa<cr>
+nnoremap <Leader>fq          :q!<cr>
+nnoremap <Leader>fqa         :qa!<cr>
 
 " Vim buffers
-nnoremap <Leader>bfr    :buffer<space>
-nnoremap <Leader>bls    :ls<cr>
-nnoremap <Leader>bf     :bfirst<cr>
-nnoremap <Leader>bl     :blast<cr>
-nnoremap <Leader>bn     :bnext<cr>
-nnoremap <Leader>bp     :bprev<cr>
-nnoremap <Leader>ba     :ball<cr>
-nnoremap <Leader>bad    :badd<cr>
-nnoremap <Leader>bd     :bdelete<cr>
-nnoremap <Leader>bh     :b#<cr>
+nnoremap <Leader>ls          :ls<cr>
+nnoremap <Leader>bf          :bfirst<cr>
+nnoremap <Leader>bl          :blast<cr>
+nnoremap <Leader>bn          :bnext<cr>
+nnoremap <Leader>bp          :bprev<cr>
+nnoremap <Leader>bd          :bdelete<cr>
+nnoremap <Leader>bh          :b#<cr>
 
 " Vim quickfix
-nnoremap <Leader>xo     :copen<cr>
-nnoremap <Leader>xc     :cclose<cr>
-nnoremap <Leader>xn     :cnext<cr>
-nnoremap <Leader>xp     :cprevious<cr>
-nnoremap <Leader>xf     :cfirst<cr>
-nnoremap <Leader>xl     :clast<cr>
+nnoremap <Leader>xo          :copen<cr>
+nnoremap <Leader>xc          :cclose<cr>
+nnoremap <Leader>xn          :cnext<cr>
+nnoremap <Leader>xp          :cprevious<cr>
+nnoremap <Leader>xf          :cfirst<cr>
+nnoremap <Leader>xl          :clast<cr>
 
 " Vim location list
-nnoremap <Leader>lo     :lopen<cr>
-nnoremap <Leader>lc     :lclose<cr>
-nnoremap <Leader>ln     :lnext<cr>
-nnoremap <Leader>lp     :lprevious<cr>
-nnoremap <Leader>lf     :lfirst<cr>
-nnoremap <Leader>ll     :llast<cr>
+nnoremap <Leader>lo          :lopen<cr>
+nnoremap <Leader>lc          :lclose<cr>
+nnoremap <Leader>ln          :lnext<cr>
+nnoremap <Leader>lp          :lprevious<cr>
+nnoremap <Leader>lf          :lfirst<cr>
+nnoremap <Leader>ll          :llast<cr>
 
 " Vim grep ':vimgrep'
 " TODO: Add grep within current files, buffers, current directory, recursive
-nnoremap <Leader>vg     :vimgrep<space>
+nnoremap <Leader>vg          :vimgrep<space>
 
 " Vim registers to system clipboard
 function! WClipboard(clip_cmd, text)
@@ -193,19 +190,19 @@ function! YPClipboard(rw)
 	endif
 endfunction
 
-nnoremap <Leader>y       :call YPClipboard('w')<cr>
-nnoremap <Leader>p       :call YPClipboard('r')<cr>
+nnoremap <Leader>y           :call YPClipboard('w')<cr>
+nnoremap <Leader>p           :call YPClipboard('r')<cr>
 
 " Vim sessions
 let g:sessions_dir = '~/.vim/sessions'
 exec 'nnoremap <Leader>ss :Obsession ' . g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
 exec 'nnoremap <Leader>sr :so ' . g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
-nnoremap <Leader>sp :Obsession<CR>
+nnoremap <Leader>sp          :Obsession<CR>
 
 " TODO: add vim macros & their keymaps
 
-nnoremap <Leader>ntt    :NERDTreeToggle<cr>
-nnoremap <Leader>tbt    :TagbarToggle<cr>
+nnoremap <Leader>ntt         :NERDTreeToggle<cr>
+nnoremap <Leader>tbt         :TagbarToggle<cr>
 
 " If cscope available
 if has("cscope") && filereadable("/usr/bin/cscope")
@@ -231,46 +228,46 @@ if has("cscope") && filereadable("/usr/bin/cscope")
 	endif
 	" keymaps
 	" cs find commands
-	nnoremap <Leader>css       :cs find s <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>csg       :cs find g <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>csc       :cs find c <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>cst       :cs find t <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>cse       :cs find e <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>csf       :cs find f <C-R>=expand("<cfile>")<CR><CR>
-	nnoremap <Leader>csi       :cs find i <C-R>=expand("<cfile>")<CR>$<CR>
-	nnoremap <Leader>csd       :cs find d <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>css         :cs find s <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>csg         :cs find g <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>csc         :cs find c <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>cst         :cs find t <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>cse         :cs find e <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>csf         :cs find f <C-R>=expand("<cfile>")<CR><CR>
+	nnoremap <Leader>csi         :cs find i <C-R>=expand("<cfile>")<CR>$<CR>
+	nnoremap <Leader>csd         :cs find d <C-R>=expand("<cword>")<CR><CR>
 	" scs find commands
-	nnoremap <Leader>scss      :scs find s <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>scsg      :scs find g <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>scsc      :scs find c <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>scst      :scs find t <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>scse      :scs find e <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>scsf      :scs find f <C-R>=expand("<cfile>")<CR><CR>
-	nnoremap <Leader>scsi      :scs find i <C-R>=expand("<cfile>")<CR>$<CR>
-	nnoremap <Leader>scsd      :scs find d <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>scss        :scs find s <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>scsg        :scs find g <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>scsc        :scs find c <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>scst        :scs find t <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>scse        :scs find e <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>scsf        :scs find f <C-R>=expand("<cfile>")<CR><CR>
+	nnoremap <Leader>scsi        :scs find i <C-R>=expand("<cfile>")<CR>$<CR>
+	nnoremap <Leader>scsd        :scs find d <C-R>=expand("<cword>")<CR><CR>
 	" vertical scs find commands
-	nnoremap <Leader>vcss      :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>vcsg      :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>vcsc      :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>vcst      :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>vcse      :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>vcsf      :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-	nnoremap <Leader>vcsi      :vert scs find i <C-R>=expand("<cfile>")<CR>$<CR>
-	nnoremap <Leader>vcsd      :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>vcss        :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>vcsg        :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>vcsc        :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>vcst        :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>vcse        :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>vcsf        :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+	nnoremap <Leader>vcsi        :vert scs find i <C-R>=expand("<cfile>")<CR>$<CR>
+	nnoremap <Leader>vcsd        :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 	" lcs find commands
-	nnoremap <Leader>lcss      :lcs find s <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>lcsg      :lcs find g <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>lcsc      :lcs find c <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>lcst      :lcs find t <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>lcse      :lcs find e <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <Leader>lcsf      :lcs find f <C-R>=expand("<cfile>")<CR><CR>
-	nnoremap <Leader>lcsi      :lcs find i <C-R>=expand("<cfile>")<CR>$<CR>
-	nnoremap <Leader>lcsd      :lcs find d <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>lcss        :lcs find s <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>lcsg        :lcs find g <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>lcsc        :lcs find c <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>lcst        :lcs find t <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>lcse        :lcs find e <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <Leader>lcsf        :lcs find f <C-R>=expand("<cfile>")<CR><CR>
+	nnoremap <Leader>lcsi        :lcs find i <C-R>=expand("<cfile>")<CR>$<CR>
+	nnoremap <Leader>lcsd        :lcs find d <C-R>=expand("<cword>")<CR><CR>
 endif
 
 " Text editing
 "   Line editing
-nnoremap <Leader>mld    :m .+1<CR>==
-nnoremap <Leader>mlu    :m .-2<CR>==
-vnoremap <Leader>mld    :m '>+1<CR>gv=gv
-vnoremap <Leader>mlu    :m '<-2<CR>gv=gv
+nnoremap <Leader>mld         :m .+1<CR>==
+nnoremap <Leader>mlu         :m .-2<CR>==
+vnoremap <Leader>mld         :m '>+1<CR>gv=gv
+vnoremap <Leader>mlu         :m '<-2<CR>gv=gv
