@@ -25,71 +25,64 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
-" --- Basic vim settings
+" --- Basic vim settings -----------------------------------------------
 set showcmd          " Show (partial) command in status line.
 set showmatch        " Show matching brackets.
 set autoindent smartindent  " Smart autoindent on new lines.
 set hlsearch         " Highlight searches
-"set number " Useful but too distracting, enable as needed.
-"set textwidth=80 formatoptions=tcq    " Automatic word wrapping
-"set tabstop=8 shiftwidth=8 softtabstop=8 expandtab " handle tabs
-" TBD: spellchecking options & settings
-"colorscheme darkblue set background=dark " Handle dark backgrounds
-" TBD: Toggle whitespaces highlight
 
-" --- vim-plug section, vim plugin manager ---
+" --- vim-plug section vim plugin manager ------------------------------
 " https://github.com/junegunn/vim-plug
+
+" -- vim plugin options before loading -----------
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
 silent! if plug#begin('~/.vim/plugged')
-"call plug#begin('~/.vim/plugged')
 " List all plugins here
 " Shorthand notation, fetches https://github.com/{user}/{repo}
-Plug 'preservim/nerdtree'
-Plug 'preservim/tagbar'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-surround'
+
+" * UI/UX plugins
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'ekalinin/Dockerfile.vim'
-"Plug 'vim-syntastic/syntastic'
-Plug 'honza/vim-snippets'
-"Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/vim-peekaboo'
-Plug 'easymotion/vim-easymotion'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'simeji/winresizer'
-Plug 'nathanalderson/yang.vim'
+Plug 'tpope/vim-obsession'
+Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/vim-peekaboo'
+Plug 'preservim/nerdtree'
 
-"Use vim-scripts as plugins
+" * Code editing plugins generic
+Plug 'preservim/tagbar'
+Plug 'tpope/vim-fugitive'
+Plug 'aperezdc/vim-template'
 Plug 'vim-scripts/a.vim'
 Plug 'vim-scripts/OmniCppComplete'
-Plug 'vim-scripts/vimplate'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/deb.vim'
 Plug 'vim-scripts/gnupg'
-Plug 'jlanzarotta/bufexplorer'
 Plug 'preservim/nerdcommenter'
 Plug 'sukima/xmledit'
-
-" Uncomment when needed
-"Plug 'dhruvasagar/vim-table-mode'
-"Plug 'google/vim-searchindex'
-"Plug 'jlanzarotta/bufexplorer'
-"Plug 'mbbill/undotree'
-"Plug 'preservim/vim-pencil'
-"Plug 'inkarkat/vim-SpellCheck'
+" TODO: modify tagsdb generation plugin to use custom command along with
+" automatic tags updation
 "Plug 'jsfaint/gen_tags.vim'
-"Plug 'bling/vim-bufferline'
+
+" * Text editing plugins
+Plug 'tpope/vim-surround'
+Plug 'junegunn/vim-easy-align'
+Plug 'google/vim-searchindex'
+"Plug 'inkarkat/vim-SpellCheck'
+"Plug 'dhruvasagar/vim-table-mode'
+
+" * Syntax highlighters
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'nathanalderson/yang.vim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 endif
-" --- vim-plug section, end ---
 
-" note: Don't use vim-airline or dynamic statuslines to make vim fast for
-" very large files ~=50MB
+" --- statusline section -----------------------------------------------
 set laststatus=2     " Always show statusline
 function! s:statusline_expr()
     " Show vim-obsession status if available
@@ -115,19 +108,15 @@ function! s:statusline_expr()
 endfunction
 let &statusline = s:statusline_expr()
 
-" --- keymaps ---
-" keymaps
-let mapleader="\<space>"
-" Common
-"   Save file in normal and also in insert mode
-"   note: `inoremap <C-S>     <C-O>:update<cr>` has issue in qterminal
-"   (0.16.1) it needs <C-s> + <C-O> to be pressed to trigger update command
-"   instead of just <C-s> as documented & expected.
-"   Can't figure out this a.t.m. but we need it so added.
+" --- keymaps section --------------------------------------------------
+" map leader key
+"let mapleader="\<space>" " default '\'
+
+" Save file in normal and also in insert mode
 inoremap <C-S>         <C-O>:update<cr>
 nnoremap <C-S>         :update<cr>
 
-"   Quit
+" Quit
 inoremap <C-Q>          <esc>:q<cr>
 nnoremap <C-Q>          :q<cr>
 nnoremap <Leader>q      :q<cr>
@@ -323,10 +312,3 @@ nnoremap <Leader>mld    :m .+1<CR>==
 nnoremap <Leader>mlu    :m .-2<CR>==
 vnoremap <Leader>mld    :m '>+1<CR>gv=gv
 vnoremap <Leader>mlu    :m '<-2<CR>gv=gv
-"   Word editing
-" TBD: e, E, b, B, viw, vaw -> word navigation & slection
-" TBD: transformation, tolower/toupper case, sorting
-" TBD: Search and replace
-
-" Custom commands & functions
-" TBD
