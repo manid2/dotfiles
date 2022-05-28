@@ -98,7 +98,7 @@ function! s:statusline_expr()
 	let ften = "[%{&fileencoding ? &fileencoding : &encoding}] "
 	let gitst = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
 	let sep = ' %= '
-	let pos = ' %-16(%l:%c%V%) '
+	let pos = ' %-16(%l:%c%V [%L]%) '
 	let higrp='%*'
 	let pct = ' %P'
 	hi StatusLine ctermbg=Green ctermfg=Black
