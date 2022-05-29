@@ -67,7 +67,7 @@ Plug 'garbas/vim-snipmate'
 Plug 'vim-scripts/a.vim'
 "Plug 'vim-scripts/OmniCppComplete' " NOTE: hard to use
 Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'vim-scripts/deb.vim'
+Plug 'bergercookie/vim-deb-preview'
 Plug 'vim-scripts/gnupg'
 Plug 'preservim/nerdcommenter'
 Plug 'sukima/xmledit'
