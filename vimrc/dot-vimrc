@@ -49,6 +49,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-unimpaired'
 "Plug 'tpope/vim-repeat' " NOTE: enable for most frequently used plugins/cmds
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-peekaboo'
@@ -131,31 +132,6 @@ nnoremap <Leader>q           :q<cr>
 nnoremap <Leader>qa          :qa<cr>
 nnoremap <Leader>fq          :q!<cr>
 nnoremap <Leader>fqa         :qa!<cr>
-
-" Vim buffers
-nnoremap <Leader>ls          :ls<cr>
-nnoremap <Leader>bf          :bfirst<cr>
-nnoremap <Leader>bl          :blast<cr>
-nnoremap <Leader>bn          :bnext<cr>
-nnoremap <Leader>bp          :bprev<cr>
-nnoremap <Leader>bd          :bdelete<cr>
-nnoremap <Leader>bh          :b#<cr>
-
-" Vim quickfix
-nnoremap <Leader>xo          :copen<cr>
-nnoremap <Leader>xc          :cclose<cr>
-nnoremap <Leader>xn          :cnext<cr>
-nnoremap <Leader>xp          :cprevious<cr>
-nnoremap <Leader>xf          :cfirst<cr>
-nnoremap <Leader>xl          :clast<cr>
-
-" Vim location list
-nnoremap <Leader>lo          :lopen<cr>
-nnoremap <Leader>lc          :lclose<cr>
-nnoremap <Leader>ln          :lnext<cr>
-nnoremap <Leader>lp          :lprevious<cr>
-nnoremap <Leader>lf          :lfirst<cr>
-nnoremap <Leader>ll          :llast<cr>
 
 " Vim grep ':vimgrep'
 " TODO: Add grep within current files, buffers, current directory, recursive
@@ -272,10 +248,3 @@ if has("cscope") && filereadable("/usr/bin/cscope")
 	nnoremap <Leader>lcsi        :lcs find i <C-R>=expand("<cfile>")<CR>$<CR>
 	nnoremap <Leader>lcsd        :lcs find d <C-R>=expand("<cword>")<CR><CR>
 endif
-
-" Text editing
-"   Line editing
-nnoremap <Leader>mld         :m .+1<CR>==
-nnoremap <Leader>mlu         :m .-2<CR>==
-vnoremap <Leader>mld         :m '>+1<CR>gv=gv
-vnoremap <Leader>mlu         :m '<-2<CR>gv=gv
