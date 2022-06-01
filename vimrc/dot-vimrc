@@ -121,7 +121,7 @@ let &statusline = s:statusline_expr()
 "let mapleader="\<space>" " default '\'
 
 " Save file in normal and also in insert mode
-inoremap <C-S>               <C-O>:update<cr>
+inoremap <C-S>               <C-O>:update<cr><esc>
 nnoremap <C-S>               :update<cr>
 
 " Quit
