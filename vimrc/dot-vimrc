@@ -30,12 +30,15 @@ set showcmd          " Show (partial) command in status line.
 set showmatch        " Show matching brackets.
 set autoindent smartindent  " Smart autoindent on new lines.
 set hlsearch         " Highlight searches
+set nospell          " Disable built-in spell check use plugin
 
 " --- vim-plug section vim plugin manager ------------------------------
 " https://github.com/junegunn/vim-plug
 
 " -- vim plugin options before loading -----------
 let g:snipMate = { 'snippet_version' : 1 }
+" Disable spell check toggle enable/disable with 'ZT' in normal mode
+let g:enable_spelunker_vim = 0
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
@@ -80,7 +83,7 @@ Plug 'sukima/xmledit'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'google/vim-searchindex'
-"Plug 'inkarkat/vim-SpellCheck'
+Plug 'kamykn/spelunker.vim'
 "Plug 'dhruvasagar/vim-table-mode'
 
 " * Syntax highlighters
