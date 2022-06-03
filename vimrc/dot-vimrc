@@ -57,6 +57,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/nerdtree'
+Plug 'milkypostman/vim-togglelist'
+Plug 'pseewald/vim-anyfold'
 
 " * Code editing plugins generic
 Plug 'preservim/tagbar'
@@ -78,6 +80,7 @@ Plug 'sukima/xmledit'
 " TODO: modify tagsdb generation plugin to use custom command along with
 " automatic tags updation
 "Plug 'jsfaint/gen_tags.vim'
+Plug 'preservim/vim-markdown'
 
 " * Text editing plugins
 Plug 'tpope/vim-surround'
