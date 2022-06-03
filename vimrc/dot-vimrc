@@ -139,11 +139,16 @@ nnoremap <Leader>qa          :qa<cr>
 nnoremap <Leader>fq          :q!<cr>
 nnoremap <Leader>fqa         :qa!<cr>
 
+" vim plugins keymaps
+nnoremap <Leader>ntt         :NERDTreeToggle<cr>
+nnoremap <Leader>tbt         :TagbarToggle<cr>
+
 " Vim grep ':vimgrep'
 " TODO: Add grep within current files, buffers, current directory, recursive
 nnoremap <Leader>vg          :vimgrep<space>
 
-" Vim registers to system clipboard
+" --- vim custom functions & keymaps -----------------------------------
+" -- vim registers to system clipboard
 function! WClipboard(clip_cmd, text)
 	:call system(a:clip_cmd, a:text)
 endfunction
@@ -183,16 +188,11 @@ endfunction
 nnoremap <Leader>y           :call YPClipboard('w')<cr>
 nnoremap <Leader>p           :call YPClipboard('r')<cr>
 
-" Vim sessions
-let g:sessions_dir = '~/.vim/sessions'
-exec 'nnoremap <Leader>ss :Obsession ' . g:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>sr :so ' . g:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
+" -- vim sessions
+let s:sessions_dir = '~/.vim/sessions'
+exe 'nnoremap <Leader>ss :Obsession ' . s:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exe 'nnoremap <Leader>sr :so ' . s:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 nnoremap <Leader>sp          :Obsession<CR>
-
-" TODO: add vim macros & their keymaps
-
-nnoremap <Leader>ntt         :NERDTreeToggle<cr>
-nnoremap <Leader>tbt         :TagbarToggle<cr>
 
 " If cscope available
 if has("cscope") && filereadable("/usr/bin/cscope")
