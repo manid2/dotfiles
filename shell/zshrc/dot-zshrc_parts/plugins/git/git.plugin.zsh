@@ -157,6 +157,22 @@ function gbrn() {
 	__git_cmd branch -m "$1" "$2"
 }
 
+# prune local branches 'gone' in remotes
+function git_prune_local_branches() {
+	local _fmt="%(refname:short) %(upstream:track) refs/heads/**"
+	local _pat='/\[gone\]/'
+	local _awk="awk '$_pat {print \$1}'"
+	local _lbes=$(__git_cmd for-each-ref --format="$_fmt" | eval "$_awk" )
+	local _lbes_arr=($(echo $_lbes | tr '\n' ' '))
+	for _lb in "${_lbes_arr[@]}"
+	do
+		if [[ ! -z "$_lb" ]]; then
+			echo "Pruning: $_lb"
+			__git_cmd branch -D $_lb
+		fi
+	done
+}
+
 # compatible with gitlab merge requests
 function git_mr() {
 	__git_cmd fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
@@ -169,6 +185,7 @@ alias grpn='git_repo_name'
 alias gpsu='git push -u origin $(git_current_branch)'
 alias gmr='git_mr origin'
 alias gmrr='git_mr'
+alias gbpr='git_prune_local_branches'
 alias gcsun='git_set_user_name'
 alias gcsue='git_set_user_email'
 alias gcsui='git_set_user_info'
