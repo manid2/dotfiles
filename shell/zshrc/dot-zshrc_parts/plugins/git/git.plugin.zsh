@@ -63,57 +63,57 @@ alias ggk='gitk'
 # directly in order to avoid interfering with git commands run by the user.
 
 function __git_cmd() {
-  GIT_OPTIONAL_LOCKS=0 command git "$@"
+	GIT_OPTIONAL_LOCKS=0 command git "$@"
 }
 
 # NOTE: using '--quiet' with 'symbolic-ref' will not cause a fatal error (128)
 # if it's not a symbolic ref, but in a Git repo.
 function git_current_branch() {
-  local ref
-  ref=$(__git_cmd symbolic-ref --quiet HEAD 2> /dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return  # no git repo.
-    ref=$(__git_cmd rev-parse --short HEAD 2> /dev/null) || return
-  fi
-  echo ${ref#refs/heads/}
+	local ref
+	ref=$(__git_cmd symbolic-ref --quiet HEAD 2> /dev/null)
+	local ret=$?
+	if [[ $ret != 0 ]]; then
+		[[ $ret == 128 ]] && return  # no git repo.
+		ref=$(__git_cmd rev-parse --short HEAD 2> /dev/null) || return
+	fi
+	echo ${ref#refs/heads/}
 }
 
 function git_short_sha() {
-  __git_cmd rev-parse --short HEAD 2> /dev/null
+	__git_cmd rev-parse --short HEAD 2> /dev/null
 }
 
 function git_long_sha() {
-  __git_cmd rev-parse HEAD 2> /dev/null
+	__git_cmd rev-parse HEAD 2> /dev/null
 }
 
 function git_get_user_name() {
-  __git_cmd config user.name 2>/dev/null
+	__git_cmd config user.name 2>/dev/null
 }
 
 function git_get_user_email() {
-  __git_cmd config user.email 2>/dev/null
+	__git_cmd config user.email 2>/dev/null
 }
 
 # get user name and email info in "name <email>" format
 function git_get_user_info() {
-  local git_user_info
-  local gcue
-  local gcun
-  gcun=$(git_get_user_name)
-  gcue=$(git_get_user_email)
-  if [[ -n "$gcun" && -n "$gcue" ]]; then
-    git_user_info="$gcun <$gcue>"
-    echo $git_user_info
-  fi
+	local git_user_info
+	local gcue
+	local gcun
+	gcun=$(git_get_user_name)
+	gcue=$(git_get_user_email)
+	if [[ -n "$gcun" && -n "$gcue" ]]; then
+		git_user_info="$gcun <$gcue>"
+		echo $git_user_info
+	fi
 }
 
 function git_set_user_name() {
-  __git_cmd config user.name $1 2>/dev/null
+	__git_cmd config user.name $1 2>/dev/null
 }
 
 function git_set_user_email() {
-  __git_cmd config user.email $1 2>/dev/null
+	__git_cmd config user.email $1 2>/dev/null
 }
 
 # TODO: set user name and email info in "name <email>" format
@@ -123,33 +123,33 @@ function git_set_user_email() {
 #}
 
 function git_repo_path() {
-  local repo_path=$(__git_cmd rev-parse --show-toplevel 2>/dev/null)
-  if [[ -n "$repo_path" ]]; then
-    echo $repo_path
-  fi
+	local repo_path=$(__git_cmd rev-parse --show-toplevel 2>/dev/null)
+	if [[ -n "$repo_path" ]]; then
+		echo $repo_path
+	fi
 }
 
 function git_repo_name() {
-  local repo_name
-  if repo_name=$(git_repo_path) && [[ -n "$repo_name" ]]; then
-    echo ${repo_name:t}
-  fi
+	local repo_name
+	if repo_name=$(git_repo_path) && [[ -n "$repo_name" ]]; then
+		echo ${repo_name:t}
+	fi
 }
 
 # git branch rename
 function gbrn() {
-  if [[ -z "$1" || -z "$2" ]]; then
-    echo "Usage: $0 old_branch new_branch"
-    return 1
-  fi
+	if [[ -z "$1" || -z "$2" ]]; then
+		echo "Usage: $0 old_branch new_branch"
+		return 1
+	fi
 
-  # Rename branch locally
-  git branch -m "$1" "$2"
+	# Rename branch locally
+	__git_cmd branch -m "$1" "$2"
 }
 
 # compatible with gitlab merge requests
 function git_mr() {
-  git fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
+	__git_cmd fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
 }
 
 # --- aliases ---
