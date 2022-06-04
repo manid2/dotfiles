@@ -1,4 +1,4 @@
-# zsh aliases file, to be sourced into ~/.zshrc
+# Shell common aliases
 
 # enable color support of ls, less and man, and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -19,36 +19,6 @@ alias lla='ls -alF'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
-# TODO: add more ls aliases to ls only dirs, sym links, etc.
-
-# Rsync aliases
-export RSYNC_HOME=$HOME/.rsync_data
-
-alias rsync-m="rsync -zamvh --no-l \
---include-from=$RSYNC_HOME/rsync_include_patterns.txt \
---exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
-
-alias rsync-n="rsync -n -zamvh --no-l \
---include-from=$RSYNC_HOME/rsync_include_patterns.txt \
---exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
-
-alias rsync-lm="rsync -zamvh --no-l -L \
---include-from=$RSYNC_HOME/rsync_include_patterns.txt \
---exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
-
-alias rsync-ln="rsync -n -zamvh --no-l -L \
---include-from=$RSYNC_HOME/rsync_include_patterns.txt \
---exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
-
-alias rsync-lmw="rsync -zamvh --no-l -L \
---exclude=$EXCLUDE_PATTERN \
---include-from=$RSYNC_HOME/rsync_include_patterns.txt \
---exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
-
-alias rsync-lnw="rsync -n -zamvh --no-l -L \
---exclude=$EXCLUDE_PATTERN \
---include-from=$RSYNC_HOME/rsync_include_patterns.txt \
---exclude-from=$RSYNC_HOME/rsync_exclude_patterns.txt"
 
 # Diff aliases
 alias diff-u3='diff -u3' # unified format with 3 context lines
@@ -61,13 +31,6 @@ alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
 
 # add alias/func to `cp --no-preserve=mode/owner/links/time'
 alias cp-nm='cp --no-preserve=mode' # cp no mode
-
-# short alias to history
-alias hst='history'
-# detailed history using zsh built-in fc
-alias hstd="fc -lt '%d-%m-%Y %H:%M:%S %s'"
-# Alias to print history without cmd num
-alias hstnn="history | sed 's/^[[:space:]]*[[:digit:]]*[[:space:]]*//g'"
 
 # date aliases
 alias dt='date'
