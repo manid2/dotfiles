@@ -104,7 +104,7 @@ function! s:statusline_expr()
 	let session = "%{exists(':Obsession') ? ObsessionStatus() : ''}"
 	let cmode=" [%{mode('0')}] "
 	let bfno="[%n] "
-	let relflnm="[%f] "
+	let relflnm="[%-0.32f] "
 	let trunc="%<"
 	let modflg = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
 	let ro  = "%{&readonly ? '[RO] ' : ''}"
