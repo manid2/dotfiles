@@ -116,11 +116,21 @@ function git_set_user_email() {
 	__git_cmd config user.email $1 2>/dev/null
 }
 
-# TODO: set user name and email info in "name <email>" format
-#function git_set_user_info() {
-#  local git_user_info=$1
-#  # parse and set user name & email.
-#}
+# set user name and email using "name <email>" format
+function git_set_user_info() {
+	local _git_user_info=$1
+	if [[ -z "$_git_user_info" ]]; then
+		return
+	fi
+	local _split_n='echo $_git_user_info | cut -d "<" -f1'
+	local _split_e='echo $_git_user_info | cut -d "<" -f2'
+	local _trim="awk '{\$1=\$1};1'"
+
+	local _git_user_name=$(eval "$_split_n" | eval "$_trim" )
+	local _git_user_email=$(eval "$_split_e" | tr '>' ' ' | eval "$_trim")
+	git_set_user_name "$_git_user_name"
+	git_set_user_email "$_git_user_email"
+}
 
 function git_repo_path() {
 	local repo_path=$(__git_cmd rev-parse --show-toplevel 2>/dev/null)
@@ -159,6 +169,9 @@ alias grpn='git_repo_name'
 alias gpsu='git push -u origin $(git_current_branch)'
 alias gmr='git_mr origin'
 alias gmrr='git_mr'
+alias gcsun='git_set_user_name'
+alias gcsue='git_set_user_email'
+alias gcsui='git_set_user_info'
 
 # aliases to git contrib modules
 alias gjd='git jump diff'
