@@ -1,0 +1,61 @@
+# ~/.zshrc file for zsh interactive shells.
+# see /usr/share/doc/zsh/examples/zshrc for examples
+
+# NOTE: the order of sourcing is important as some commands/plugins will have
+# pre-requisites/dependencies to work correctly.
+# WARN: Hence don't change the order of scripts sourced.
+
+# source shell common settings
+if [ -f ~/.config/shellcommon/common/common.sh ]; then
+	source ~/.config/shellcommon/common/common.sh
+fi
+
+# source shell common aliases
+if [ -f ~/.config/shellcommon/aliases/aliases.sh ]; then
+	source ~/.config/shellcommon/aliases/aliases.sh
+fi
+
+# source zsh options files
+if [ -f ~/.config/zshrcparts/options/options.zsh ]; then
+	source ~/.config/zshrcparts/options/options.zsh
+fi
+
+# source zsh keymaps files
+if [ -f ~/.config/zshrcparts/keymaps/keymaps.zsh ]; then
+	source ~/.config/zshrcparts/keymaps/keymaps.zsh
+fi
+
+# source zsh configs files
+if [ -f ~/.config/zshrcparts/configs/configs.zsh ]; then
+	source ~/.config/zshrcparts/configs/configs.zsh
+fi
+
+# source zsh completions files
+if [ -f ~/.config/zshrcparts/completions/completions.zsh ]; then
+	source ~/.config/zshrcparts/completions/completions.zsh
+fi
+
+# source zsh user local files
+if [ -f ~/.config/zshrcparts/local/local.zsh ]; then
+	source ~/.config/zshrcparts/local/local.zsh
+fi
+
+# source zsh aliases files
+if [ -f ~/.config/zshrcparts/aliases/aliases.zsh ]; then
+	source ~/.config/zshrcparts/aliases/aliases.zsh
+fi
+
+# source prompt files, prompt files are not ready
+if [ -f ~/.config/zshrcparts/prompt/prompt.zsh ]; then
+	source ~/.config/zshrcparts/prompt/prompt.zsh
+fi
+
+# source plugins files
+if [ -f ~/.config/zshrcparts/plugins/plugins.zsh ]; then
+	source ~/.config/zshrcparts/plugins/plugins.zsh
+fi
+
+# source shell common plugins
+if [ -f ~/.config/shellcommon/plugins/plugins.sh ]; then
+	source ~/.config/shellcommon/plugins/plugins.sh
+fi

@@ -1,0 +1,89 @@
+#!/bin/bash
+#
+# Root bashrc, contains sym links to logically grouped settings
+# NOTE: use docker image to test the scripts
+
+# Do nothing in non-interactive session as invoked by scp using sshd
+case $- in
+	*i*) ;;
+	*) return ;;
+esac
+
+# Control bash history
+HISTCONTROL=ignoreboth # ignore duplicatess and commands with lead space
+HISTSIZE=1000          # no. of cmds stored in memory in present bash session
+HISTFILESIZE=2000      # no. of cmds at startup + no. of cmds at session end
+shopt -s histappend    # append to previous history
+
+# Check window size after each command, if necessary, updates LINES & COLUMNS
+shopt -s checkwinsize
+
+# Make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Enable programmable completion features
+if ! shopt -oq posix; then
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		source /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		source /etc/bash_completion
+	fi
+fi
+
+# Below line added by Sandvine logon script
+if [ -f /etc/profile.d/sandvine.rc ]; then . /etc/profile.d/sandvine.rc; fi
+
+# source shell common settings
+if [ -f ~/.config/shellcommon/common/common.sh ]; then
+	source ~/.config/shellcommon/common/common.sh
+fi
+
+# source shell common aliases
+if [ -f ~/.config/shellcommon/aliases/aliases.sh ]; then
+	source ~/.config/shellcommon/aliases/aliases.sh
+fi
+
+# source bash options files
+if [ -f ~/.config/bashrcparts/options/options.bash ]; then
+	source ~/.config/bashrcparts/options/options.bash
+fi
+
+# source bash keymaps files
+if [ -f ~/.config/bashrcparts/keymaps/keymaps.bash ]; then
+	source ~/.config/bashrcparts/keymaps/keymaps.bash
+fi
+
+# source bash configs files
+if [ -f ~/.config/bashrcparts/configs/configs.bash ]; then
+	source ~/.config/bashrcparts/configs/configs.bash
+fi
+
+# source bash completions files
+if [ -f ~/.config/bashrcparts/completions/completions.bash ]; then
+	source ~/.config/bashrcparts/completions/completions.bash
+fi
+
+# source bash user local files
+if [ -f ~/.config/bashrcparts/local/local.bash ]; then
+	source ~/.config/bashrcparts/local/local.bash
+fi
+
+# source bash aliases files
+if [ -f ~/.config/bashrcparts/aliases/aliases.bash ]; then
+	source ~/.config/bashrcparts/aliases/aliases.bash
+fi
+
+# source plugins files
+if [ -f ~/.config/bashrcparts/plugins/plugins.bash ]; then
+	source ~/.config/bashrcparts/plugins/plugins.bash
+fi
+
+# source prompt files, prompt files are not ready
+if [ -f ~/.config/bashrcparts/prompt/prompt.bash ]; then
+	source ~/.config/bashrcparts/prompt/prompt.bash
+fi
+
+# source shell common plugins
+if [ -f ~/.config/shellcommon/plugins/plugins.sh ]; then
+	source ~/.config/shellcommon/plugins/plugins.sh
+fi
