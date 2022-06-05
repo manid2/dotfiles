@@ -1,5 +1,4 @@
-#!/usr/bin/env sh
-
+# shell common plugins
 plugins=(
 git
 my

@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 # Workspace aliases for faster navigation
 mwp="$HOME/Documents/myworkspace"
 
