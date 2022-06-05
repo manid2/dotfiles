@@ -1,56 +1,62 @@
-# dotfiles
+dotfiles
+========
 
 <img src="dotfiles_logo_edited.png"
-    alt="dotfiles logo"
-    title="dotfiles logo"
-    width="320">
+     alt="dotfiles logo"
+     title="dotfiles logo"
+     width="320">
 
 Logo based on [jglovier/dotfiles-logo][dotfiles_logo_repo]
 
 `dotfiles` repo to save and share system settings and configs.
 
-## Installation
+Installation
+------------
 
-Use `stow` to install/uninstall dotfiles.
+It is easy to install the configuration files using GNU Stow.
 
-### Install
+Hence the directories are structured so that they are compatible with the
+`stow <pkg-name>` installation.
 
-```bash
-stow --dotfiles bashrc -t ~/
-stow --dotfiles vimrc -t ~/
+Issues with gnu stow:
 
-# result
-# ls -la ~/
-# .bashrc_parts -> ../../home/.../dotfiles/bashrc/dot-bashrc_parts/
-# .bashrc -> ../../home/.../dotfiles/bashrc/dot-bashrc
-# .vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
+* stow does not process directories with 'dot-' prefix. This has been reported
+  as a bug on github issues.
+* stow is not available with most distros and also can't install on remote
+  systems where there is no root permissions.
+
+Due to these issues theres is a need to write make files to automate and mange
+installations.
+
+How to install:
+
+Using gnu stow
+
+```sh
+$ stow --dotfiles bashrc -t ~/
+$ stow --dotfiles vimrc -t ~/
+$ ls -la ~/
+.bashrc -> ../../home/.../dotfiles/bashrc/dot-bashrc
+.vimrc  -> ../../home/.../dotfiles/vimrc/dot-vimrc
 ```
 
-When gnu stow is not available use `ln` command
+Use `ln` command
 
 ```bash
-ln -s `realpath --relative-to=$HOME ~/scripts/git-prompt` ~/.bashrc_part_git_prompt_sym_link.sh
-ln -s `realpath --relative-to=$HOME ~/scripts/system_specific_settings.sh` ~/.bashrc_part_system_specific_config_sym_link.sh
+$ ln -s `realpath --relative-to=$HOME bashrc/dot-bashrc`  ~/.bashrc
+$ ln -s `realpath --relative-to=$HOME bashrc/dot-bashrc`  ~/.bashrc
 ```
 
-### Uninstall
+How to uninstall:
+
+Using gnu stow
 
 ```bash
 stow -D --dotfiles bashrc -t ~/
 stow -D --dotfiles vimrc -t ~/
-
-# result
-# ls -la ~/
-# .
-# ..
 ```
 
-### Tips
-
-Structure the project folder so it is easy to install with gnu stow.
-Don't stow directories starting with `_`, use `cp` to overwrite the
-corresponding directory. Useful for storing data that requires actual files,
-instead of sym links, e.g. `.config/` for apps.
+Or we can just delete the installed soft links.
 
 <!-- Links -->
 [dotfiles_logo_repo]: https://github.com/jglovier/dotfiles-logo "go to jglovier/dotfiles-logo"
