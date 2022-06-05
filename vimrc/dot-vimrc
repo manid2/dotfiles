@@ -155,10 +155,6 @@ nnoremap <Leader>fqa         :qa!<cr>
 nnoremap <Leader>ntt         :NERDTreeToggle<cr>
 nnoremap <Leader>tbt         :TagbarToggle<cr>
 
-" Vim grep ':vimgrep'
-" TODO: Add grep within current files, buffers, current directory, recursive
-nnoremap <Leader>vg          :vimgrep<space>
-
 " --- vim custom functions & keymaps -----------------------------------
 " -- Toggle syntax highilight
 function ToggleSyntax()
@@ -171,8 +167,11 @@ endfunction
 
 command! -nargs=0 ToggleSyntax :call ToggleSyntax()
 
-nnoremap <Leader>syn  :ToggleSyntax<cr>
+nnoremap <Leader>syn         :ToggleSyntax<cr>
 
+" Vim grep ':vimgrep'
+" TODO: Add grep within current files, buffers, current directory, recursive
+nnoremap <Leader>vg          :vimgrep<space>
 
 " -- vim sessions
 let s:sessions_dir = '~/.vim/sessions'
