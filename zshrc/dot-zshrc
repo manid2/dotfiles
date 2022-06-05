@@ -1,5 +1,6 @@
-# ~/.zshrc file for zsh interactive shells.
-# see /usr/share/doc/zsh/examples/zshrc for examples
+#!/bin/zsh
+#
+# Root zshrc, contains sym links to logically grouped settings
 
 # NOTE: the order of sourcing is important as some commands/plugins will have
 # pre-requisites/dependencies to work correctly.
