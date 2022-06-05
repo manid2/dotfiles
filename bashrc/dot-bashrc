@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 # Root bashrc, contains sym links to logically grouped settings
-# NOTE: use docker image to test the scripts
 
 # Do nothing in non-interactive session as invoked by scp using sshd
 case $- in
