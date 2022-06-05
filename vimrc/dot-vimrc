@@ -178,5 +178,3 @@ let s:sessions_dir = '~/.vim/sessions'
 exe 'nnoremap <Leader>ss :Obsession ' . s:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
 exe 'nnoremap <Leader>sr :so ' . s:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 nnoremap <Leader>sp          :Obsession<CR>
-
-" vim:tw=78:ts=8:noet:ft=vim:norl:
