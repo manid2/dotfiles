@@ -158,6 +158,19 @@ nnoremap <Leader>tbt         :TagbarToggle<cr>
 nnoremap <Leader>vg          :vimgrep<space>
 
 " --- vim custom functions & keymaps -----------------------------------
+" -- Toggle syntax highilight
+function ToggleSyntax()
+	if exists("g:syntax_on")
+		syntax off
+	else
+		syntax enable
+	endif
+endfunction
+
+command! -nargs=0 ToggleSyntax :call ToggleSyntax()
+
+nnoremap <Leader>syn  :ToggleSyntax<cr>
+
 " -- vim registers to system clipboard
 function! WClipboard(clip_cmd, text)
 	:call system(a:clip_cmd, a:text)
