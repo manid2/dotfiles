@@ -194,6 +194,41 @@ nnoremap f;g                 :GGrep<space>
 nnoremap f'g                 :GGrep<cr>
 
 " --- vim custom functions & keymaps -----------------------------------
+" -- trim trailing whitespaces
+function TrimTrailingWhitespace() range
+	let l:cmd = "keepjumps keeppatterns "
+	let l:pat = "s/\\s\\+$//e"
+	if exists('a:firstline')
+		exe l:cmd.a:firstline.",".a:lastline.l:pat
+	else
+		exe l:cmd.l:pat
+	endif
+	call winrestview(b:winview)
+endfunction
+
+command! -range=% TrimTrailingWhitespace
+			\ let b:winview = winsaveview() |
+			\ <line1>,<line2>call TrimTrailingWhitespace()
+
+" -- trim leading whitespaces
+function TrimLeadingWhitespace() range
+	let l:cmd = "keepjumps keeppatterns "
+	let l:pat = "s/^\\s\\+//e"
+	if exists('a:firstline')
+		exe l:cmd.a:firstline.",".a:lastline.l:pat
+	else
+		exe l:cmd.l:pat
+	endif
+	call winrestview(b:winview)
+endfunction
+
+command! -range=% TrimLeadingWhitespace
+			\ let b:winview = winsaveview() |
+			\ <line1>,<line2>call TrimLeadingWhitespace()
+
+nnoremap <C-A>trt            :TrimTrailingWhitespace<cr>
+nnoremap <C-A>trl            :TrimLeadingWhitespace<cr>
+
 " -- vim indent and format file
 nnoremap <C-A>ff         gg=G``
 
