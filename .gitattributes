@@ -1,6 +1,6 @@
 # help github linguist to detect language and highlight syntax
-dot-ssh/config linguist-language=sshconfig
+ssh/dot-ssh/config linguist-language=sshconfig
 gitconfig/dot-gitconfig linguist-language=gitconfig
-shell/bashrc/**/dot-bashrc linguist-language=bash
-shell/zshrc/**/dot-zshrc linguist-language=zsh
+bashrc/dot-bashrc linguist-language=bash
+zshrc/dot-zshrc linguist-language=zsh
 vimrc/dot-vimrc linguist-language=vim
