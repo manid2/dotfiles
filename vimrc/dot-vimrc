@@ -194,6 +194,9 @@ nnoremap f;g                 :GGrep<space>
 nnoremap f'g                 :GGrep<cr>
 
 " --- vim custom functions & keymaps -----------------------------------
+" -- vim indent and format file
+nnoremap <C-A>ff         gg=G``
+
 " -- Toggle syntax highilight
 function ToggleSyntax()
 	if exists("g:syntax_on")
