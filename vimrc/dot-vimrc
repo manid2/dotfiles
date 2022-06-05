@@ -159,6 +159,40 @@ nnoremap <Leader>,sh         <C-Z>
 nnoremap <Leader>ntt         :NERDTreeToggle<cr>
 nnoremap <Leader>tbt         :TagbarToggle<cr>
 
+" fzf.vim keymaos
+" refer: https://github.com/junegunn/fzf.vim#readme
+nnoremap fff                 :Files<cr>
+nnoremap fgf                 :GFiles<cr>
+nnoremap ff'                 :Buffers<cr>
+nnoremap ff,                 :Colors<cr>
+nnoremap frg                 :Rg<cr>
+nnoremap f,l                 :Lines<cr>
+nnoremap ffl                 :BLines<cr>
+nnoremap fft                 :Tags<cr>
+nnoremap ffb                 :BTags<cr>
+nnoremap ffm                 :Marks<cr>
+nnoremap ffw                 :Windows<cr>
+nnoremap ffvh                :History<cr>
+nnoremap f;h                 :History:<cr>
+nnoremap f's                 :History/<cr>
+nnoremap fgc                 :Commits<cr>
+nnoremap fbc                 :BCommits<cr>
+nnoremap f,c                 :Commands<cr>
+nnoremap f,m                 :Maps<cr>
+nnoremap f't                 :Helptags<cr>
+nnoremap f,f                 :Filetypes<cr>
+
+command! -bang -nargs=* GGrep
+			\ call fzf#vim#grep(
+			\ 'git grep --line-number -- '.shellescape(<q-args>),
+			\ 0,
+			\ fzf#vim#with_preview({
+			\   'dir': systemlist(
+			\     'git rev-parse --show-toplevel')[0]}), <bang>0)
+
+nnoremap f;g                 :GGrep<space>
+nnoremap f'g                 :GGrep<cr>
+
 " --- vim custom functions & keymaps -----------------------------------
 " -- Toggle syntax highilight
 function ToggleSyntax()
