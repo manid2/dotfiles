@@ -151,6 +151,10 @@ nnoremap <Leader>qa          :qa<cr>
 nnoremap <Leader>fq          :q!<cr>
 nnoremap <Leader>fqa         :qa!<cr>
 
+" vim to shell, execute 'fg' command to bring vim back
+nnoremap <Leader>sh          :shell<cr>
+nnoremap <Leader>,sh         <C-Z>
+
 " vim plugins keymaps
 nnoremap <Leader>ntt         :NERDTreeToggle<cr>
 nnoremap <Leader>tbt         :TagbarToggle<cr>
