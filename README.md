@@ -47,6 +47,17 @@ $ ln -s `realpath --relative-to=$HOME bashrc/dot-bashrc`  ~/.bashrc
 $ ln -s `realpath --relative-to=$HOME bashrc/dot-bashrc`  ~/.bashrc
 ```
 
+Use `install.sh` script
+
+```sh
+$ source ./install.sh
+$ install_pkgs_to_home
+$ install_pkgs_to_config
+$ install_ssh
+```
+
+TODO: Add 'uninstall' option for each package.
+
 How to uninstall:
 
 Using gnu stow
