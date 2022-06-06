@@ -42,7 +42,7 @@ $ ls -la ~/
 
 Use `ln` command
 
-```bash
+```sh
 $ ln -s `realpath --relative-to=$HOME bashrc/dot-bashrc`  ~/.bashrc
 $ ln -s `realpath --relative-to=$HOME bashrc/dot-bashrc`  ~/.bashrc
 ```
@@ -50,24 +50,24 @@ $ ln -s `realpath --relative-to=$HOME bashrc/dot-bashrc`  ~/.bashrc
 Use `install.sh` script
 
 ```sh
-$ source ./install.sh
-$ install_pkgs_to_home
-$ install_pkgs_to_config
-$ install_ssh
+$ ./install.sh
 ```
-
-TODO: Add 'uninstall' option for each package.
 
 How to uninstall:
 
 Using gnu stow
 
-```bash
+```sh
 stow -D --dotfiles bashrc -t ~/
 stow -D --dotfiles vimrc -t ~/
 ```
 
-Or we can just delete the installed soft links.
+Using `find` command
+
+```sh
+$ install_dirs=($HOME $HOME/.config $HOME/.ssh)
+$ find $install_dirs -maxdepth 1  -type l -exec rm {} +
+```
 
 <!-- Links -->
 [dotfiles_logo_repo]: https://github.com/jglovier/dotfiles-logo "go to jglovier/dotfiles-logo"

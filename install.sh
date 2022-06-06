@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 #
 # Installs dotfiles if not already installed.
 
@@ -7,43 +7,66 @@
 # sort | xclip -sel clip
 
 install_pkgs_to_home () {
-	pkgs_to_home=(\
-		bashrc \
+	local pkgs_to_home=( \
 		gitconfig \
 		lynxrc \
 		tmux.conf \
 		vimrc \
-		zshrc \
 	)
+
+	if [[ $SHELL == "/usr/bin/zsh" ]]; then
+		pkgs_to_home+=(zshrc)
+	else
+		pkgs_to_home+=(bashrc)
+	fi
 
 	for pkg in "${pkgs_to_home[@]}"
 	do
-		if [[ ! -f ~/.$pkg ]]; then
-			ln -s `realpath --relative-to=$HOME $pkg/dot-$pkg` \
-				~/.$pkg
+		if [ ! -f ~/.$pkg ]; then
+			rel_path=$(realpath --relative-to=$HOME $pkg/dot-$pkg)
+			ln -s $rel_path ~/.$pkg
+		else
+			echo "'$pkg' already installed."
 		fi
 	done
 }
 
 install_pkgs_to_config () {
-	pkgs_to_config=(\
-		bashrc/dot-config/bashrcparts \
-		zshrc/dot-config/zashrcparts \
-		shellcommon/dot-config/shellcommon
+	local pkgs_to_config=( \
+		shellcommon/dot-config/shellcommon \
 	)
 
-	for pkg in "${pkgs_to_home[@]}"
+	if [[ $SHELL == "/usr/bin/zsh" ]]; then
+		pkgs_to_config+=(zshrc/dot-config/zshrcparts)
+	else
+		pkgs_to_config+=(bashrc/dot-config/bashrcparts)
+	fi
+
+	CONFIG_HOME="$HOME/.config"
+	for pkg in "${pkgs_to_config[@]}"
 	do
-		if [[ ! -f ~/.$pkg ]]; then
-			ln -s `realpath --relative-to=$HOME/.config $pkg` \
-				~/.config/`basename $pkg`
+		pkg_base=$(basename $pkg)
+		pkg_dest="$CONFIG_HOME/$pkg_base"
+		if [ ! -d $pkg_dest ]; then
+			rel_path=$(realpath --relative-to=$CONFIG_HOME $pkg)
+			ln -s $rel_path $pkg_dest
+		else
+			echo "'$pkg' already installed."
 		fi
 	done
 }
 
-install_ssh () {
-	if [[ ! -f ~/.ssh/config ]]; then
-		ln -s `realpath --relative-to=$HOME/.ssh ssh/dot-ssh/config` \
-			~/.ssh/config
+install_sshconfig () {
+	pkg_ssh_config='ssh/dot-ssh/config'
+	home_ssh_config="$HOME/.ssh/config"
+	if [ ! -f $home_ssh_config ]; then
+		rel_path=$(realpath --relative-to=$HOME/.ssh $pkg_ssh_config)
+		ln -s $rel_path $home_ssh_config
+	else
+		echo "'$pkg_ssh_config' already installed."
 	fi
 }
+
+install_pkgs_to_home
+install_pkgs_to_config
+install_sshconfig
