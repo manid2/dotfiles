@@ -226,8 +226,8 @@ command! -range=% TrimLeadingWhitespace
 			\ let b:winview = winsaveview() |
 			\ <line1>,<line2>call TrimLeadingWhitespace()
 
-nnoremap <C-A>trt            :TrimTrailingWhitespace<cr>
-nnoremap <C-A>trl            :TrimLeadingWhitespace<cr>
+nnoremap <C-A>tt             :TrimTrailingWhitespace<cr>
+nnoremap <C-A>tl             :TrimLeadingWhitespace<cr>
 
 " -- vim indent and format file
 nnoremap <C-A>ff         gg=G``
