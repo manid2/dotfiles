@@ -146,18 +146,34 @@ nnoremap <C-S>               :update<cr>
 " Quit
 inoremap <C-Q>               <esc>:q<cr>
 nnoremap <C-Q>               :q<cr>
-nnoremap <Leader>q           :q<cr>
-nnoremap <Leader>qa          :qa<cr>
-nnoremap <Leader>fq          :q!<cr>
-nnoremap <Leader>fqa         :qa!<cr>
+nnoremap <C-Q>f              :q!<cr>
+nnoremap <C-Q>fa             :qall!<cr>
+nnoremap <C-Q>o              :only<cr>
 
-" vim to shell, execute 'fg' command to bring vim back
+" Movement
+" window movements
+nnoremap <C-J>               <C-w>w
+nnoremap <C-K>               <C-w>W
+
+" quickfix & location list close
+nnoremap <leader>c :cclose<bar>lclose<cr>
+
+" Jump to tags in current file
+nnoremap <Leader>]           *
+nnoremap <Leader>[           #
+" Toggle highlight searches
+nnoremap hn                  :set hlsearch!<cr>
+" TODO: Highlight all occurences of current word without jumping
+"nnoremap hh                  :<cr>
+
+" vim to new shell, after done exit or use ctrl+d to bring back vim
 nnoremap <Leader>sh          :shell<cr>
-nnoremap <Leader>,sh         <C-Z>
+" <C-Z> to get same shell as vim was started
+" execute 'fg' command to bring vim back
 
 " vim plugins keymaps
-nnoremap <Leader>ntt         :NERDTreeToggle<cr>
-nnoremap <Leader>tbt         :TagbarToggle<cr>
+nnoremap <Leader>nt          :NERDTreeToggle<cr>
+nnoremap <Leader>tb          :TagbarToggle<cr>
 
 " fzf.vim keymaos
 " refer: https://github.com/junegunn/fzf.vim#readme
