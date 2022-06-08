@@ -263,7 +263,8 @@ nnoremap <Leader>syn         :ToggleSyntax<cr>
 
 " Vim grep ':vimgrep'
 " TODO: Add grep within current files, buffers, current directory, recursive
-nnoremap <Leader>vg          :vimgrep<space>
+command! -nargs=+ VGrepF execute 'silent vimgrep! <args> %' | copen
+nnoremap <Leader>vg          :VGrepF<space>
 
 " -- vim sessions
 let s:sessions_dir = '~/.vim/sessions'
