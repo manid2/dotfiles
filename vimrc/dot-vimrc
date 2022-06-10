@@ -32,8 +32,8 @@ set autoindent smartindent  " Smart autoindent on new lines.
 set hlsearch         " Highlight searches
 set nospell          " Disable built-in spell check use plugin
 
+" Readable colors in diff mode with syntax on
 if &diff
-	" NOTE: toggling syntax here is not working as it is being overwritten
 	" For xterm256 colors refer:
 	" https://www.ditig.com/256-colors-cheat-sheet
 	hi DiffAdd    ctermfg=White ctermbg=Black
@@ -41,6 +41,9 @@ if &diff
 	hi DiffChange ctermfg=White ctermbg=DarkGrey
 	hi DiffText   ctermfg=White ctermbg=DarkGreen
 endif
+
+" Readable colors in visual mode in all terminals
+hi Visual ctermbg=darkgrey ctermfg=white
 
 " --- vim-plug section vim plugin manager ------------------------------
 " https://github.com/junegunn/vim-plug
