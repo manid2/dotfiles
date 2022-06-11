@@ -253,7 +253,8 @@ nnoremap <C-A>tt             :TrimTrailingWhitespace<cr>
 nnoremap <C-A>tl             :TrimLeadingWhitespace<cr>
 
 " -- vim indent and format file
-nnoremap <C-A>ff         gg=G``
+nnoremap <C-A>fi         gg=G``
+nnoremap <C-A>fq         gggqG``
 
 " -- Toggle syntax highilight
 function ToggleSyntax()
