@@ -45,10 +45,6 @@ endif
 " Readable colors in visual mode in all terminals
 hi Visual ctermbg=darkgrey ctermfg=white
 
-if has("autocmd")
-	autocmd BufEnter *.txt colorscheme murphy | set textwidth=78
-endif
-
 " --- vim-plug section vim plugin manager ------------------------------
 " https://github.com/junegunn/vim-plug
 
