@@ -12,3 +12,7 @@ export mybp="$myrp/manid2.gitlab.io"
 alias mydp="cd \"$mydp\""
 alias myrp="cd \"$myrp\""
 alias mybp="cd \"$mybp\""
+
+slugify () {
+	echo "$1" | sed -E 's/[~\^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g'
+}
