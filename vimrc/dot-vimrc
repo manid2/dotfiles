@@ -270,6 +270,13 @@ nnoremap <Leader>syn         :ToggleSyntax<cr>
 command! -nargs=+ VGrepF execute 'silent vimgrep! <args> %' | copen
 nnoremap <Leader>vg          :VGrepF<space>
 
+" copy file path into clipboard
+let s:clip_cmd  = 'xclip -selection clipboard -i' " TODO: hide this in vim-ypcliboard
+let s:cfp = '<C-R>=expand("%")<cr>'
+let s:cfn = '<C-R>=expand("%:t")<cr>'
+exe 'nnoremap <Leader>fp :call WClipboard("'.s:clip_cmd.'", "'. s:cfp . '")<cr>'
+exe 'nnoremap <Leader>fn :call WClipboard("'.s:clip_cmd.'", "'. s:cfn . '")<cr>'
+
 " -- vim sessions
 let s:sessions_dir = '~/.vim/sessions'
 exe 'nnoremap <Leader>ss :Obsession ' . s:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
