@@ -161,9 +161,6 @@ nnoremap <C-K>               <C-w>W
 " quickfix & location list close
 nnoremap <leader>c :cclose<bar>lclose<cr>
 
-" Jump to tags in current file
-nnoremap <Leader>]           *
-nnoremap <Leader>[           #
 " Toggle highlight searches
 nnoremap hn                  :set hlsearch!<cr>
 " TODO: Highlight all occurences of current word without jumping
