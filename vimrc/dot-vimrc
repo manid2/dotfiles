@@ -177,26 +177,21 @@ nnoremap <Leader>tb          :TagbarToggle<cr>
 
 " fzf.vim keymaos
 " refer: https://github.com/junegunn/fzf.vim#readme
-nnoremap fff                 :Files<cr>
+nnoremap fzf                 :Files<cr>
 nnoremap fgf                 :GFiles<cr>
-nnoremap ff'                 :Buffers<cr>
-nnoremap ff,                 :Colors<cr>
+nnoremap fbf                 :Buffers<cr>
 nnoremap frg                 :Rg<cr>
-nnoremap f,l                 :Lines<cr>
-nnoremap ffl                 :BLines<cr>
+nnoremap flf                 :Lines<cr>
+nnoremap fbl                 :BLines<cr>
 nnoremap fft                 :Tags<cr>
 nnoremap ffb                 :BTags<cr>
 nnoremap ffm                 :Marks<cr>
 nnoremap ffw                 :Windows<cr>
-nnoremap ffvh                :History<cr>
-nnoremap f;h                 :History:<cr>
-nnoremap f's                 :History/<cr>
+nnoremap fsf                 :History/<cr>
 nnoremap fgc                 :Commits<cr>
 nnoremap fbc                 :BCommits<cr>
-nnoremap f,c                 :Commands<cr>
-nnoremap f,m                 :Maps<cr>
-nnoremap f't                 :Helptags<cr>
-nnoremap f,f                 :Filetypes<cr>
+nnoremap fcf                 :Commands<cr>
+nnoremap fmf                 :Maps<cr>
 
 command! -bang -nargs=* GGrep
 			\ call fzf#vim#grep(
@@ -206,8 +201,7 @@ command! -bang -nargs=* GGrep
 			\   'dir': systemlist(
 			\     'git rev-parse --show-toplevel')[0]}), <bang>0)
 
-nnoremap f;g                 :GGrep<space>
-nnoremap f'g                 :GGrep<cr>
+nnoremap fgg                 :GGrep <C-R>=expand('<cword>')<cr><cr>
 
 " --- vim custom functions & keymaps -----------------------------------
 " -- trim trailing whitespaces
