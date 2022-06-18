@@ -72,7 +72,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/nerdtree'
 Plug 'milkypostman/vim-togglelist'
 Plug 'pseewald/vim-anyfold'
-Plug 'manid2/vim-ypclipboard'
+Plug 'manid2/vim-ypclipboard', {'branch': 'dev'}
 
 " * Code editing plugins generic
 Plug 'preservim/tagbar'
@@ -268,11 +268,10 @@ command! -nargs=+ VGrepF execute 'silent vimgrep! <args> %' | copen
 nnoremap <Leader>vg          :VGrepF<space>
 
 " copy file path into clipboard
-let s:clip_cmd  = 'xclip -selection clipboard -i' " TODO: hide this in vim-ypcliboard
 let s:cfp = '<C-R>=expand("%")<cr>'
 let s:cfn = '<C-R>=expand("%:t")<cr>'
-exe 'nnoremap <Leader>fp :call WClipboard("'.s:clip_cmd.'", "'. s:cfp . '")<cr>'
-exe 'nnoremap <Leader>fn :call WClipboard("'.s:clip_cmd.'", "'. s:cfn . '")<cr>'
+exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
+exe 'nnoremap <silent> <Leader>fn :WClipboard '.s:cfn.'<cr>'
 
 " -- vim sessions
 let s:sessions_dir = '~/.vim/sessions'
