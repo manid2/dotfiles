@@ -175,6 +175,11 @@ nnoremap <Leader>sh          :shell<cr>
 nnoremap <Leader>nt          :NERDTreeToggle<cr>
 nnoremap <Leader>tb          :TagbarToggle<cr>
 
+" vim-fugitive keymaps
+nnoremap <Leader>gb          :Git blame<cr>
+nnoremap <Leader>gl          :Git log<cr>
+nnoremap <Leader>gd          :Git diff<cr>
+
 " fzf.vim keymaos
 " refer: https://github.com/junegunn/fzf.vim#readme
 nnoremap fzf                 :Files<cr>
