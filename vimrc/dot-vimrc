@@ -73,6 +73,7 @@ Plug 'preservim/nerdtree'
 Plug 'milkypostman/vim-togglelist'
 Plug 'pseewald/vim-anyfold'
 Plug 'manid2/vim-ypclipboard', {'branch': 'dev'}
+Plug 'manid2/vim-grep-replace', {'branch': 'dev'}
 
 " * Code editing plugins generic
 Plug 'preservim/tagbar'
@@ -264,11 +265,6 @@ command! -nargs=0 ToggleSyntax
 			\ call ToggleSyntax()
 
 nnoremap <Leader>syn         :ToggleSyntax<cr>
-
-" Vim grep ':vimgrep'
-" TODO: Add grep within current files, buffers, current directory, recursive
-command! -nargs=+ VGrepF execute 'silent vimgrep! <args> %' | copen
-nnoremap <Leader>vg          :VGrepF<space>
 
 " copy file path/name into clipboard
 let s:cfp = '<C-R>=expand("%")<cr>'
