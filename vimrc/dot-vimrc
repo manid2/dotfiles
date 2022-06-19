@@ -179,6 +179,8 @@ nnoremap <Leader>tb          :TagbarToggle<cr>
 nnoremap <Leader>gb          :Git blame<cr>
 nnoremap <Leader>gl          :Git log<cr>
 nnoremap <Leader>gd          :Git diff<cr>
+"   open git summary same as 'git status'
+nnoremap <Leader>gs          :Git<cr>
 
 " fzf.vim keymaos
 " refer: https://github.com/junegunn/fzf.vim#readme
