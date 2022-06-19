@@ -208,7 +208,8 @@ command! -bang -nargs=* GGrep
 			\   'dir': systemlist(
 			\     'git rev-parse --show-toplevel')[0]}), <bang>0)
 
-nnoremap fgg                 :GGrep <C-R>=expand('<cword>')<cr><cr>
+let s:cword =  "<C-R>=expand('<cword>')<cr>"
+exe 'nnoremap fgg :GGrep '.s:cword.'<cr>'
 
 " --- vim custom functions & keymaps -----------------------------------
 " -- trim trailing whitespaces
