@@ -270,7 +270,7 @@ nnoremap <Leader>syn         :ToggleSyntax<cr>
 command! -nargs=+ VGrepF execute 'silent vimgrep! <args> %' | copen
 nnoremap <Leader>vg          :VGrepF<space>
 
-" copy file path into clipboard
+" copy file path/name into clipboard
 let s:cfp = '<C-R>=expand("%")<cr>'
 let s:cfn = '<C-R>=expand("%:t")<cr>'
 exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
