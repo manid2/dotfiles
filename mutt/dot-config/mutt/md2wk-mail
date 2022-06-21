@@ -1,0 +1,17 @@
+set from = "manid2.work@gmail.com"
+set realname = "Mani Kumar D A"
+
+# Imap settings
+set imap_user = "manid2.work@gmail.com"
+set imap_pass = `secret-tool lookup md2work pass`
+
+# Smtp settings
+set smtp_url = "smtps://manid2.work@smtp.gmail.com"
+set smtp_pass = `secret-tool lookup md2work pass`
+
+# Remote gmail folders
+set folder = "imaps://imap.gmail.com/"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/Trash"
