@@ -12,6 +12,7 @@ install_pkgs_to_home () {
 		lynxrc \
 		tmux.conf \
 		vimrc \
+		ripgreprc \
 	)
 
 	if [[ $SHELL == "/usr/bin/zsh" ]]; then
@@ -34,6 +35,7 @@ install_pkgs_to_home () {
 install_pkgs_to_config () {
 	local pkgs_to_config=( \
 		shellcommon/dot-config/shellcommon \
+		mutt/dot-config/mutt \
 	)
 
 	if [[ $SHELL == "/usr/bin/zsh" ]]; then
