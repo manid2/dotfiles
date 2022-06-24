@@ -1,20 +1,32 @@
-set from = "manid2.work@gmail.com"
-set realname = "Mani Kumar D A"
+set my_md2wk_id = "manid2.work"
+set my_md2wk_name = "Mani Kumar"
+set my_md2wk_pass = `secret-tool lookup md2work pass`
 
-# Imap settings
-set imap_user = "manid2.work@gmail.com"
-set imap_pass = `secret-tool lookup md2work pass`
+# refer:
+# https://wiki.archlinux.org/title/mutt
 
-# Smtp settings
-set smtp_url = "smtps://manid2.work@smtp.gmail.com:587/"
-set smtp_pass = `secret-tool lookup md2work pass`
-
-# Remote gmail folders
-set folder = "imaps://imap.gmail.com/"
+# receive mail settings
+# native imap settings
+set imap_user = "$my_md2wk_id@gmail.com"
+set imap_pass = "$my_md2wk_pass"
+set folder = "imaps://$my_md2wk_id@imap.gmail.com/"
 set spoolfile = "+INBOX"
+
+# remote gmail folders
 set postponed = "+[Gmail]/Drafts"
-set record = "+[Gmail]/Sent<quote-char><space>Mail"
 set trash = "+[Gmail]/Bin"
 
-# TODO: avoid gnutls issue when sending mail
-# gnutls_handshake: An unexpected TLS packet was received.
+# send mail settings
+# native smtp settings
+set record = "+[Gmail]/Sent<quote-char><space>Mail"
+# prevent saving sent mails as gmail automatically saves sent mails to
+# '+[Gmail]/Sent'
+#unset record
+set copy=no
+
+set smtp_url = "smtps://$my_md2wk_id@smtp.gmail.com"
+set smtp_pass = "$my_md2wk_pass"
+
+set realname = "$my_md2wk_name"
+set from = "$my_md2wk_id@gmail.com"
+set use_from = yes
