@@ -14,7 +14,7 @@ set folder = "imaps://imap.gmail.com/"
 set spoolfile = "+INBOX"
 set postponed = "+[Gmail]/Drafts"
 set record = "+[Gmail]/Sent Mail"
-set trash = "+[Gmail]/Trash"
+set trash = "+[Gmail]/Bin"
 
 # TODO: avoid gnutls issue when sending mail
 # gnutls_handshake: An unexpected TLS packet was received.
