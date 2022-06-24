@@ -25,6 +25,10 @@ bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
 
+# prevent ':' `enter-command` in mutt to avoid showing secrets on mutt command
+# line now all commands must be bound to a key in advance.
+bind generic,alias,attach,browser,editor,index,compose,pager,pgp,postpone ':' noop
+
 # Store message headers locally to speed things up.  If hcache is a folder,
 # mutt will create sub cache folders for each account which may speeds things
 # up even more.
