@@ -1,3 +1,4 @@
+set ssl_starttls = yes
 set ssl_force_tls = yes
 set mail_check = 60
 set timeout = 10
