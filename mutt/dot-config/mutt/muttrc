@@ -11,3 +11,37 @@ macro index gd "<change-folder>$postponed<enter>" "go to drafts"
 macro index gs "<change-folder>$record<enter>" "go to sent"
 macro index gi "<change-folder>$spoolfile<Enter>" "go to inbox"
 macro index gt "<change-folder>$trash<enter>" "go to trash""
+
+# refer:
+# https://wiki.archlinux.org/title/mutt
+
+# set vi like key bindings
+bind pager j next-line
+bind pager k previous-line
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+# Store message headers locally to speed things up.  If hcache is a folder,
+# mutt will create sub cache folders for each account which may speeds things
+# up even more.
+set header_cache = ~/.cache/mutt
+
+set editor=vim
+
+# view URLs in a web browser requires 'urlview'
+macro pager cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+
+# view HTML mails by passing the html body to an external HTML program and then
+# dump it
+set mailcap_path = ~/.config/mutt/mailcap
+
+# automatically open HTML messages in exernal HTML program
+auto_view text/html
+
+# default to plain text when available and use external HTML program only when
+# it is not availble in the email.
+alternative_order text/plain text/html
