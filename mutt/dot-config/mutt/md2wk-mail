@@ -6,7 +6,7 @@ set imap_user = "manid2.work@gmail.com"
 set imap_pass = `secret-tool lookup md2work pass`
 
 # Smtp settings
-set smtp_url = "smtps://manid2.work@smtp.gmail.com"
+set smtp_url = "smtps://manid2.work@smtp.gmail.com:587/"
 set smtp_pass = `secret-tool lookup md2work pass`
 
 # Remote gmail folders
@@ -15,3 +15,6 @@ set spoolfile = "+INBOX"
 set postponed = "+[Gmail]/Drafts"
 set record = "+[Gmail]/Sent Mail"
 set trash = "+[Gmail]/Trash"
+
+# TODO: avoid gnutls issue when sending mail
+# gnutls_handshake: An unexpected TLS packet was received.
