@@ -1,3 +1,6 @@
+set send_charset = utf-8
+set edit_headers = yes
+set charset = utf-8 # fallback for send_charset
 set ssl_starttls = yes
 set ssl_force_tls = yes
 set mail_check = 60
@@ -5,6 +8,9 @@ set timeout = 10
 set sort = "reverse-date-received"
 set copy = no
 set signature = "~/.config/mutt/md2wk-sig"
+
+# don't qualify local addresses (without @host) using host name
+unset use_domain
 
 source "~/.config/mutt/md2wk-mail"
 
