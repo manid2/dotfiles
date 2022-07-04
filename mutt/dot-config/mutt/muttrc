@@ -49,9 +49,9 @@ macro pager cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 # dump it
 set mailcap_path = ~/.config/mutt/mailcap
 
-# automatically open HTML messages in exernal HTML program
+# automatically open HTML messages in external HTML program
 auto_view text/html
 
 # default to plain text when available and use external HTML program only when
-# it is not availble in the email.
+# it is not available in the email.
 alternative_order text/plain text/html
