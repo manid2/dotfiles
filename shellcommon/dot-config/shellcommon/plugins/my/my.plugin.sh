@@ -21,5 +21,14 @@ alias lnrs='lnr -s '
 alias lnrsf='lnr -sf '
 
 slugify () {
-	echo "$1" | sed -E 's/[~\^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g'
+	local _data=''
+	if test -z "$1"; then
+		while read -r data; do
+			_data="$data"
+		done
+	else
+		_data="$1"
+	fi
+
+	echo "$_data" | sed -E 's/[~\^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g'
 }
