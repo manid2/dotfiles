@@ -133,6 +133,8 @@ function! s:statusline_expr()
 				\"exists('g:loaded_fugitive') ?",
 				\"fugitive#statusline() :",
 				\"''")
+	let currtag = "%0.24{exists(':TagbarCurrentTag') ? ".
+				\"tagbar#currenttag('%s','') : ''}"
 	let sep     = '%='
 	let pos     = '%0.16(%l:%c%V %L%)'
 	let pct     = '%p%%'
@@ -144,6 +146,7 @@ function! s:statusline_expr()
 				\sp.ft.
 				\sp.relflnm.
 				\sp.gitst.
+				\sp.currtag.
 				\sep.
 				\pos.
 				\sp.pct
@@ -186,6 +189,8 @@ nnoremap <Leader>sh          :shell<cr>
 " vim plugins keymaps
 nnoremap <Leader>nt          :NERDTreeToggle<cr>
 nnoremap <Leader>tb          :TagbarToggle<cr>
+nnoremap <Leader>tc          :TagbarCurrentTag<cr>
+nnoremap <Leader>ty          :call WClipboard(tagbar#currenttag('%s',''))<cr>
 
 " vim-fugitive keymaps
 nnoremap <Leader>gb          :Git blame<cr>
