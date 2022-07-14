@@ -112,6 +112,7 @@ Plug 'kamykn/spelunker.vim'
 " * Syntax highlighters
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'nathanalderson/yang.vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
