@@ -68,7 +68,6 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'simeji/winresizer'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 "Plug 'tpope/vim-repeat' " NOTE: enable for most frequently used plugins/cmds
 Plug 'easymotion/vim-easymotion'
@@ -121,8 +120,6 @@ endif
 " --- statusline section -----------------------------------------------
 set laststatus=2     " Always show statusline
 function! s:statusline_expr()
-	" Show vim-obsession status if available
-	let session = "%{exists(':Obsession') ? ObsessionStatus() : ''}"
 	let cmode=" [%{mode('0')}] "
 	let bfno="[%n] "
 	let relflnm="[%-0.32f] "
@@ -139,7 +136,7 @@ function! s:statusline_expr()
 	let pct = ' %P'
 	hi StatusLine ctermbg=Green ctermfg=Black
 	hi StatusLineNC ctermbg=LightGray ctermfg=Black
-	return session.cmode.bfno.relflnm.trunc.modflg.ro.ft.
+	return cmode.bfno.relflnm.trunc.modflg.ro.ft.
 				\ftfmt.ften.gitst.sep.pos.higrp.pct
 endfunction
 let &statusline = s:statusline_expr()
@@ -276,9 +273,3 @@ let s:cfp = '<C-R>=expand("%")<cr>'
 let s:cfn = '<C-R>=expand("%:t")<cr>'
 exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
 exe 'nnoremap <silent> <Leader>fn :WClipboard '.s:cfn.'<cr>'
-
-" -- vim sessions
-let s:sessions_dir = '~/.vim/sessions'
-exe 'nnoremap <Leader>ss :Obsession ' . s:sessions_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exe 'nnoremap <Leader>sr :so ' . s:sessions_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
-nnoremap <Leader>sp          :Obsession<CR>
