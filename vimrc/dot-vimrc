@@ -219,7 +219,7 @@ exe 'nnoremap fgg :GGrep '.s:cword.'<cr>'
 
 " --- vim custom functions & keymaps -----------------------------------
 " -- trim trailing whitespaces
-function TrimTrailingWhitespace() range
+function! TrimTrailingWhitespace() range
 	let l:cmd = "keepjumps keeppatterns "
 	let l:pat = "s/\\s\\+$//e"
 	if exists('a:firstline')
@@ -235,7 +235,7 @@ command! -range=% TrimTrailingWhitespace
 			\ <line1>,<line2>call TrimTrailingWhitespace()
 
 " -- trim leading whitespaces
-function TrimLeadingWhitespace() range
+function! TrimLeadingWhitespace() range
 	let l:cmd = "keepjumps keeppatterns "
 	let l:pat = "s/^\\s\\+//e"
 	if exists('a:firstline')
@@ -258,7 +258,7 @@ nnoremap <C-A>i              gg=G``
 nnoremap <C-A>q              gggqG``
 
 " -- Toggle syntax highilight
-function ToggleSyntax()
+function! ToggleSyntax()
 	if exists("g:syntax_on")
 		syntax off
 	else
