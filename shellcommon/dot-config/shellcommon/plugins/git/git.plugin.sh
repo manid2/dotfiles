@@ -151,7 +151,7 @@ function git_repo_name() {
 }
 
 # git branch rename
-function gbrn() {
+function git_branch_rename() {
 	if [[ -z "$1" || -z "$2" ]]; then
 		echo "Usage: $0 old_branch new_branch"
 		return 1
@@ -193,6 +193,8 @@ alias gbpr='git_prune_local_branches'
 alias gcsun='git_set_user_name'
 alias gcsue='git_set_user_email'
 alias gcsui='git_set_user_info'
+alias gbrn='git_branch_rename'
+alias gbrc='git_branch_rename $(git_current_branch)'
 
 # aliases to git contrib modules
 alias gjd='git jump diff'
