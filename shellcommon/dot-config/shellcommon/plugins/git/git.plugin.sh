@@ -60,8 +60,8 @@ alias gls='git ls-files'
 alias glsm='git ls-files --modified'
 alias glso='git ls-files --others --exclude-standard'
 alias gfop='git format-patch'
-alias ggi='git gui'
-alias ggk='gitk'
+alias ggi='git gui &'
+alias ggk='gitk &'
 
 # --- functions ---
 # Theese functions should be read-only and should not interfere with other
@@ -216,13 +216,6 @@ alias gdh='git diff --color | diff-highlight | less -r'
 
 # TODO
 #
-# * Use common files for bash & zsh shells
-# * alias: git fetch, pull with --prune option
-# * alias: git remote prune branches
-# * alias: git worktree add, remove, prune
 # * alias: git archive zip, tar
-# * alias: git log in mulitple pretty formats
-# * function: git blame single file, range in file, multiple files
-# * function: git follow single file, range in file, multiple files
-# * function: prune remote branches and delete the corresponding 'gone'
-#   local branches.
+# * alias: git stash
+# * alias: git worktree add, remove, prune
