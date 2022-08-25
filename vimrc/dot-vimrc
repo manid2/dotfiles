@@ -158,11 +158,14 @@ let &statusline = s:statusline_expr()
 "let mapleader="\<space>" " default '\'
 
 " Save file in normal and also in insert mode
-inoremap <C-S>               <C-O>:update<cr><esc>
+inoremap <C-S>               <ESC>:update<cr>
 nnoremap <C-S>               :update<cr>
+" Alternative to <C-S> when terminal stops updating
+inoremap <C-A>s              <ESC>:update<cr>
+nnoremap <C-A>s              :update<cr>
 
 " Quit
-inoremap <C-Q>               <esc>:q<cr>
+inoremap <C-Q>               <ESC>:q<cr>
 nnoremap <C-Q>               :q<cr>
 nnoremap <C-Q>f              :q!<cr>
 nnoremap <C-Q>fa             :qall!<cr>
@@ -172,9 +175,6 @@ nnoremap <C-Q>o              :only<cr>
 " window movements
 nnoremap <C-J>               <C-w>w
 nnoremap <C-K>               <C-w>W
-
-" quickfix & location list close
-nnoremap <leader>c :cclose<bar>lclose<cr>
 
 " Toggle highlight searches
 nnoremap hn                  :set hlsearch!<cr>
