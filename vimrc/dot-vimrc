@@ -181,10 +181,8 @@ nnoremap <C-Q>o              :only<cr>
 nnoremap <C-J>               <C-w>w
 nnoremap <C-K>               <C-w>W
 
-" Toggle highlight searches
-nnoremap hn                  :set hlsearch!<cr>
-" TODO: Highlight all occurences of current word without jumping
-"nnoremap hh                  :<cr>
+" Highlight current word without jumping
+exe 'nnoremap <Leader>h :let @/=''\<'.s:cword.'\>''<cr>:set hlsearch<cr>'
 
 " vim to new shell, after done exit or use ctrl+d to bring back vim
 nnoremap <Leader>sh          :shell<cr>
