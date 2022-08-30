@@ -157,6 +157,11 @@ let &statusline = s:statusline_expr()
 " map leader key
 "let mapleader="\<space>" " default '\'
 
+" Common variables
+let s:cword = '<C-R>=expand("<cword>")<cr>'
+let s:cfp = '<C-R>=expand("%")<cr>'
+let s:cfn = '<C-R>=expand("%:t")<cr>'
+
 " Save file in normal and also in insert mode
 inoremap <C-S>               <ESC>:update<cr>
 nnoremap <C-S>               :update<cr>
@@ -225,7 +230,6 @@ command! -bang -nargs=* GGrep
 			\   'dir': systemlist(
 			\     'git rev-parse --show-toplevel')[0]}), <bang>0)
 
-let s:cword =  "<C-R>=expand('<cword>')<cr>"
 exe 'nnoremap fgg :GGrep '.s:cword.'<cr>'
 
 " --- vim custom functions & keymaps -----------------------------------
@@ -283,7 +287,5 @@ command! -nargs=0 ToggleSyntax
 nnoremap <Leader>syn         :ToggleSyntax<cr>
 
 " copy file path/name into clipboard
-let s:cfp = '<C-R>=expand("%")<cr>'
-let s:cfn = '<C-R>=expand("%:t")<cr>'
 exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
 exe 'nnoremap <silent> <Leader>fn :WClipboard '.s:cfn.'<cr>'
