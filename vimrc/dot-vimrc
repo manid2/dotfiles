@@ -66,6 +66,14 @@ map -                        <Plug>(easymotion-prefix)
 " TODO: Add custom function to enable/disable vim-markdown folding
 let g:vim_markdown_folding_disabled = 1
 
+" TODO: Use generic heading using function and filetype
+" Markdown headings
+nnoremap <leader>1           m`yypVr=``
+nnoremap <leader>2           m`yypVr-``
+nnoremap <leader>3           m`^i### <esc>``4l
+nnoremap <leader>4           m`^i#### <esc>``5l
+nnoremap <leader>5           m`^i##### <esc>``6l
+
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
 silent! if plug#begin('~/.vim/plugged')
