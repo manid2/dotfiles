@@ -59,6 +59,9 @@ let g:snipMate = { 'snippet_version' : 1 }
 " Disable spell check toggle enable/disable with 'ZT' in normal mode
 let g:enable_spelunker_vim = 0
 
+" Use '-' as easymotion prefix
+map -                        <Plug>(easymotion-prefix)
+
 " Disable vim-markdown folding configuration, enable with custom function
 " TODO: Add custom function to enable/disable vim-markdown folding
 let g:vim_markdown_folding_disabled = 1
