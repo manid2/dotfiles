@@ -117,6 +117,7 @@ Plug 'sukima/xmledit'
 "Plug 'jsfaint/gen_tags.vim'
 Plug 'preservim/vim-markdown'
 Plug 'manid2/vim-cscope-settings'
+Plug 'chrisbra/matchit'
 
 " * Text editing plugins
 Plug 'tpope/vim-surround'
