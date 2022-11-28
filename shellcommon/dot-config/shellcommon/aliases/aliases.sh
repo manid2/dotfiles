@@ -33,16 +33,12 @@ alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
 alias cp-nm='cp --no-preserve=mode' # cp no mode
 
 # date aliases
-alias dt='date'
-alias dty='date +"%Y"'
-alias dtm='date +"%m"'
-alias dtd='date +"%d"'
 alias dtymd='date +"%Y-%m-%d"'
 alias dtdmy='date +"%d-%m-%Y"'
-alias dtftm='date +"%H:%M:%S:%N"'
-alias dtr='date -R'
-alias dtu='date -u'
-alias dtdnw='date -d "now"'
+alias dttm='date +"%H-%M-%S"'
+alias dtts='date +"%Y-%m-%d-%H-%M-%S"'
+alias dtts2='date +"%Y%m%d%H%M%S"'
+alias dtts3='date +"%Y%m%d%H%M%S%N"'
 
 # tmux aliases
 alias tmux='tmux -u'
