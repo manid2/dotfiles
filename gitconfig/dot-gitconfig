@@ -5,8 +5,9 @@
 	diffFilter = delta --color-only
 [delta]
 	navigate = true  # use n and N to move between diff sections
-	line-numbers = true
-	keep-plus-minus-markers = true
+	#line-numbers = true
+	#keep-plus-minus-markers = true
+	#color-only = true
 [diff]
 	tool = vimdiff
 	colorMoved = default
