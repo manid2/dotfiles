@@ -188,6 +188,21 @@ function git_mr() {
 	__git_cmd fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
 }
 
+# toggle feature branch and its debug branch
+# useful for debugging feature branch but without making commits in it.
+fucntion gchd () {
+	local _cb=$(git_current_branch)
+	local _dbg="-debug"
+	# check if current branch name has '-debug' suffix
+	if [[ $_cb == *$_dbg ]] then
+		# remove '-debug' suffix and checkout
+		__git_cmd checkout ${_cb%"$_dbg"}
+	else
+		# append '-debug' suffix and checkout
+		__git_cmd checkout "$_cb$_dbg"
+	fi
+}
+
 # --- aliases ---
 # aliases for above functions
 alias grpp='git_repo_path'
