@@ -2,6 +2,7 @@
 plugins=(
 git
 my
+vman
 )
 
 # Source all plugins

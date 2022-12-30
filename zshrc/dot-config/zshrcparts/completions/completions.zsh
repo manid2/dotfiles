@@ -24,3 +24,6 @@ for comp_file in ~/.local/share/zsh/user-completions/_*; do
         source $comp_file
     fi
 done
+
+# map vman to man completions
+compdef vman="man"

@@ -32,6 +32,10 @@ set autoindent smartindent  " Smart autoindent on new lines.
 set hlsearch         " Highlight searches
 set nospell          " Disable built-in spell check use plugin
 
+" view man pages inside vim
+runtime ftplugin/man.vim
+set keywordprg=:Man
+
 " Readable colors in diff mode with syntax on
 if &diff
 	" For xterm256 colors refer:
