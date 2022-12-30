@@ -20,6 +20,8 @@ alias gcma='git commit --amend'
 alias gcmv='git commit -v'
 alias gcho='git checkout'
 alias gchb='git checkout -b'
+alias gchod='git checkout dev'
+alias gchom='git checkout main'
 alias gcls='git config --list --show-origin'
 alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
@@ -41,6 +43,8 @@ alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbi='git rebase --interactive'
+alias grbm='git rebase main'
+alias grbim='git rebase --interactive main'
 alias grbo='git rebase --onto'
 alias grs='git reset'
 alias grsh='git reset --hard'
@@ -196,18 +200,32 @@ function git_mr() {
 	__git_cmd fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
 }
 
-# toggle feature branch and its debug branch
+# * try toggle feature branch and its debug branch
+# * toggle dev branch and main branch
 # useful for debugging feature branch but without making commits in it.
-fucntion gchd () {
+function gchd() {
 	local _cb=$(git_current_branch)
-	local _dbg="-debug"
-	# check if current branch name has '-debug' suffix
-	if [[ $_cb == *$_dbg ]] then
-		# remove '-debug' suffix and checkout
+	local _dbg='-debug'
+	$(__git_cmd show-ref --quiet --verify -- "refs/heads/$_cb$_dbg")
+	local _has_dbg=$?
+	local _m='main'
+	local _d='dev'
+	# check if current branch is a debug branch
+	if [[ $_cb == *$_dbg ]]; then
+		# switch to feature branch
 		__git_cmd checkout ${_cb%"$_dbg"}
-	else
-		# append '-debug' suffix and checkout
+	# if current branch is a feature branch
+	# then switch to debug branch if it exists
+	elif [[ $_has_dbg == 0 ]]; then
 		__git_cmd checkout "$_cb$_dbg"
+	# check if current branch is 'main'
+	elif [[ $_cb == $_m ]]; then
+		# switch to 'dev' branch
+		__git_cmd checkout "$_d"
+	# check if current branch is 'dev'
+	elif [[ $_cb == $_d ]]; then
+		# switch to 'dev' branch
+		__git_cmd checkout "$_m"
 	fi
 }
 
