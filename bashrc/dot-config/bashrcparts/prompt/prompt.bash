@@ -6,7 +6,7 @@ if [ -f ~/.config/shellcommon/common/colors.sh ]; then
 fi
 
 # __head_ps1 = debian_chroot + user + host + cwd
-function make_color_head_ps1() {
+make_color_head_ps1 () {
 	local __user_and_host="$GREEN\u@\h"
 	local __cur_location="$BLUE\W" # W: cwd, w: full path to cwd
 
@@ -16,7 +16,7 @@ function make_color_head_ps1() {
 }
 
 # __tail_ps1 = __prompt_tail
-function make_color_tail_ps1() {
+make_color_tail_ps1 () {
 	local __prompt_tail="$VIOLET$"
 	local __ps1_color_reset="$RESET"
 
@@ -27,7 +27,7 @@ function make_color_tail_ps1() {
 }
 
 # __ps1_line = __head_ps1 + __body_ps1_git + __tail_ps1
-function make_color_prompt_line() {
+make_color_prompt_line () {
 	local __ps1_line="$(make_color_head_ps1)"
 
 	__ps1_line+="$RESET$(__git_ps1 ' (%s)')"
@@ -37,7 +37,7 @@ function make_color_prompt_line() {
 }
 
 # make colorless prompt line
-function make_colorless_prompt_line() {
+make_colorless_prompt_line () {
 	local __head_ps1="${debian_chroot:+($debian_chroot)}[\u@\h "
 	local __body_ps1='\W]'
 	local __tail_ps1='$ '
@@ -55,7 +55,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # Set the terminal title
-function set_terminal_title() {
+set_terminal_title () {
 	local __xterm_title=''
 	# Check if this is an xterm
 	case "$TERM" in
@@ -77,7 +77,7 @@ case "$TERM" in
 esac
 
 # make prompt wrapper
-function make_prompt_line() {
+make_prompt_line () {
 	if [ "$color_prompt" = yes ]; then
 		make_color_prompt_line
 	else
@@ -86,7 +86,7 @@ function make_prompt_line() {
 }
 
 # wrapper function
-function prompt_command() {
+prompt_command () {
 	make_prompt_line
 	set_terminal_title
 }

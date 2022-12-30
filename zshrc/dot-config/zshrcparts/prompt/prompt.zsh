@@ -7,7 +7,8 @@ fi
 
 # override default virtualenv indicator in prompt
 VIRTUAL_ENV_DISABLE_PROMPT=1
-venv_info() {
+
+venv_info () {
     [ $VIRTUAL_ENV ] && echo "(%B%F{reset}$(basename $VIRTUAL_ENV)%b%F{%(#.blue.green)})"
 }
 
@@ -114,7 +115,8 @@ xterm* | rxvt*)
 esac
 
 new_line_before_prompt=yes
-precmd() {
+
+precmd () {
     # Print the previously configured title
     print -Pnr -- "$TERM_TITLE"
 

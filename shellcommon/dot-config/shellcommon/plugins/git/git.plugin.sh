@@ -84,13 +84,13 @@ alias ggk='gitk &'
 # Wrap git commands in a local function instead of exporting the variable
 # directly in order to avoid interfering with git commands run by the user.
 
-function __git_cmd() {
+__git_cmd () {
 	GIT_OPTIONAL_LOCKS=0 command git "$@"
 }
 
 # NOTE: using '--quiet' with 'symbolic-ref' will not cause a fatal error (128)
 # if it's not a symbolic ref, but in a Git repo.
-function git_current_branch() {
+git_current_branch () {
 	local ref
 	ref=$(__git_cmd symbolic-ref --quiet HEAD 2> /dev/null)
 	local ret=$?
@@ -101,24 +101,24 @@ function git_current_branch() {
 	echo ${ref#refs/heads/}
 }
 
-function git_short_sha() {
+git_short_sha () {
 	__git_cmd rev-parse --short HEAD 2> /dev/null
 }
 
-function git_long_sha() {
+git_long_sha () {
 	__git_cmd rev-parse HEAD 2> /dev/null
 }
 
-function git_get_user_name() {
+git_get_user_name () {
 	__git_cmd config user.name 2>/dev/null
 }
 
-function git_get_user_email() {
+git_get_user_email () {
 	__git_cmd config user.email 2>/dev/null
 }
 
 # get user name and email info in "name <email>" format
-function git_get_user_info() {
+git_get_user_info () {
 	local git_user_info
 	local gcue
 	local gcun
@@ -130,16 +130,16 @@ function git_get_user_info() {
 	fi
 }
 
-function git_set_user_name() {
+git_set_user_name () {
 	__git_cmd config user.name $1 2>/dev/null
 }
 
-function git_set_user_email() {
+git_set_user_email () {
 	__git_cmd config user.email $1 2>/dev/null
 }
 
 # set user name and email using "name <email>" format
-function git_set_user_info() {
+git_set_user_info () {
 	local _git_user_info=$1
 	if [[ -z "$_git_user_info" ]]; then
 		return
@@ -154,14 +154,14 @@ function git_set_user_info() {
 	git_set_user_email "$_git_user_email"
 }
 
-function git_repo_path() {
+git_repo_path () {
 	local repo_path=$(__git_cmd rev-parse --show-toplevel 2>/dev/null)
 	if [[ -n "$repo_path" ]]; then
 		echo $repo_path
 	fi
 }
 
-function git_repo_name() {
+git_repo_name () {
 	local repo_name
 	if repo_name=$(git_repo_path) && [[ -n "$repo_name" ]]; then
 		echo ${repo_name:t}
@@ -169,7 +169,7 @@ function git_repo_name() {
 }
 
 # git branch rename
-function git_branch_rename() {
+git_branch_rename () {
 	if [[ -z "$1" || -z "$2" ]]; then
 		echo "Usage: $0 old_branch new_branch"
 		return 1
@@ -180,7 +180,7 @@ function git_branch_rename() {
 }
 
 # prune local branches 'gone' in remotes
-function git_prune_local_branches() {
+git_prune_local_branches () {
 	local _fmt="%(refname:short) %(upstream:track) refs/heads/**"
 	local _pat='/\[gone\]/'
 	local _awk="awk '$_pat {print \$1}'"
@@ -196,14 +196,14 @@ function git_prune_local_branches() {
 }
 
 # compatible with gitlab merge requests
-function git_mr() {
+git_mr () {
 	__git_cmd fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
 }
 
 # * try toggle feature branch and its debug branch
 # * toggle dev branch and main branch
 # useful for debugging feature branch but without making commits in it.
-function gchd() {
+gchd () {
 	local _cb=$(git_current_branch)
 	local _dbg='-debug'
 	$(__git_cmd show-ref --quiet --verify -- "refs/heads/$_cb$_dbg")
