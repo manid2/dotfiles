@@ -1,5 +1,15 @@
 # zsh prompt file, to be sourced into ~/.zshrc
 
+# Unicode characters
+if [ -f ~/.config/shellcommon/common/unicode-chars.sh ]; then
+	source ~/.config/shellcommon/common/unicode-chars.sh
+fi
+
+# Shell common prompt configs
+if [ -f ~/.config/shellcommon/prompt/prompt.sh ]; then
+	source ~/.config/shellcommon/prompt/prompt.sh
+fi
+
 # Variable to identify the chroot for display in prompt
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)
@@ -7,10 +17,7 @@ fi
 
 # override default virtualenv indicator in prompt
 VIRTUAL_ENV_DISABLE_PROMPT=1
-
-venv_info () {
-	[ $VIRTUAL_ENV ] && echo "(%B%F{reset}$(basename $VIRTUAL_ENV)%b%F{%(#.blue.green)})"
-}
+venv_info=${VIRTUAL_ENV:+$(basename $VIRTUAL_ENV)}
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -33,31 +40,52 @@ if [ -n "$force_color_prompt" ]; then
 	fi
 fi
 
+_gps1_pre=''
+_gps1_post=''
+
 if [ "$color_prompt" = yes ]; then
 	# set color prompt
-	# PROMPT = {debian_chroot}{venv_info}{user}@{host}{cwd}
-	prompt_symbol=@                      # user prompt symbol
-	[ "$EUID" -eq 0 ] && prompt_symbol=% # root user prompt symbol
-	# {debian_chroot}{venv_info}
-	PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)──}$(venv_info)'
-	# (user@host)
-	PROMPT+=$'(%B%F{%(#.red.blue)}%n$prompt_symbol%m%b%F{%(#.blue.green)})'
-	# [cwd]
-	PROMPT+=$'-[%F{%(#.magenta.cyan)}%1~%F{%(#.blue.green)}]'
-	# [date time] in %W dd/mm/yy and %* H:M:S in 24 hr format
-	PROMPT+=$'-[%F{%(#.cyan.magenta)}%W %*%F{%(#.blue.green)}]'
-	# [last command exit success/error symbol and code]
-	PROMPT+=$'-[%(?.%F{green}√%?%f.%F{red}?%?%f)%F{%(#.blue.green)}]'
-	# TBD use custom colors and in precomd() for git ps1 as used in bashrc
-	# (git ps1 line)
-	PROMPT+=$'%F{%(#.blue.green)}%F{reset}$(__git_ps1 " (%s)")%F{%(#.blue.green)}'
-	# user command line
-	PROMPT+=$'\n%b%F{%(#.blue.green)}└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+	# normal user color and symbol
+	_user_sym='$'
+	_user_color='%F{green}'
+	# root user color and symbol
+	if [ "$EUID" -eq 0 ]; then
+		_user_sym='#'
+		_user_color='%F{magenta}'
+	fi
+
+	# initialize PROMPT
+	PROMPT=''
+	# box start ┌──
+	PROMPT+=$'$_user_color$uc_bdl_dr$uc_bdl_h$uc_bdl_h'
+
+	# add chroot if available
+	PROMPT+=$'${debian_chroot:+($debian_chroot)$uc_bdl_h}'
+
+	# add venv if available
+	PROMPT+=$'${venv_info:+($venv_info)$uc_bdl_h}'
+
+	# (user@host:cwd)
+	PROMPT+=$'(%F{cyan}%n%f%F{yellow}@%f%F{cyan}%m%f%F{yellow}:%f'
+	PROMPT+=$'%F{blue}%16<..<%~%<<%f$_user_color)$uc_bdl_h'
+
+	# [date time] in dd-Mon-yyyy H:M:S.ms in 24 hr format
+	PROMPT+=$'(%F{magenta}%D{%d-%b-%Y %H:%M:%S.%.}%f$_user_color)$uc_bdl_h'
+
+	# last command exit code with color
+	PROMPT+=$'(%(?.%F{green}%?%f.%F{red}%?%f)$_user_color)'
+
+	_gps1_pre+=$PROMPT
+
+	# add user prompt symbol '$' or '#' if root
+	_gps1_post+=$'\n$uc_bdl_ur$uc_bdl_h%B%F{blue}$_user_sym%b%F{reset} '
+	PROMPT+='$_gps1_post'
+
 	RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
 	# enable syntax-highlighting
 	if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-		. /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+		source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 		ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 		ZSH_HIGHLIGHT_STYLES[default]=none
 		ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
@@ -129,9 +157,10 @@ precmd () {
 			print ""
 		fi
 	fi
-}
 
-# Shell common prompt configs
-if [ -f ~/.config/shellcommon/prompt/prompt.sh ]; then
-	source ~/.config/shellcommon/prompt/prompt.sh
-fi
+	# add git status prompt
+	if [ "$(command -v __git_ps1)" ]; then
+		__git_ps1 "$_gps1_pre" "$_gps1_post" \
+			"$uc_bdl_h(%%F{reset}%s%%f%$_user_color)"
+	fi
+}
