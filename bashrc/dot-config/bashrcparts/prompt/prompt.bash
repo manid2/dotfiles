@@ -82,6 +82,8 @@ PS1="$_ps1"
 PS2='> '
 PS4='+ '
 
+new_line_before_prompt=yes
+
 # This function executes before displaying the prompt.
 prompt_command () {
 	# this must be the first line to capture exit code of last executed
@@ -101,6 +103,16 @@ prompt_command () {
 	if [ "$(command -v __git_ps1)" ]; then
 		__git_ps1 "$_gps1_pre$_proc_exit_str" "$_gps1_post" \
 			"$uc_bdl_h($RESET%s$_user_color)"
+	fi
+
+	# Print a new line before the prompt, but only if it is not the first
+	# line
+	if [ "$new_line_before_prompt" = yes ]; then
+		if [ -z "$_NEW_LINE_BEFORE_PROMPT" ]; then
+			_NEW_LINE_BEFORE_PROMPT=1
+		else
+			echo
+		fi
 	fi
 
 	# set terminal title
