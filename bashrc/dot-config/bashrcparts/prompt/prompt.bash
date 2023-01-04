@@ -54,6 +54,14 @@ if [ "$EUID" -eq 0 ]; then
 	_user_color=$MAGENTA
 fi
 
+# Use ascii if unicode characters not supported or cause errors
+# FIXME: Errors seen on FreeBSD bash when using reverse search.
+if [ "$(uname -o)" = 'FreeBSD' ]; then
+	uc_bdl_dr='+--'
+	uc_bdl_h='-'
+	uc_bdl_ur='+-'
+fi
+
 # initliaze local ps1
 _ps1=''
 
@@ -75,7 +83,7 @@ _ps1+="[$MAGENTA\D{%d-%b-%Y %H:%M:%S}$_user_color]$uc_bdl_h"
 _gps1_pre+="$_ps1"
 
 # add user prompt symbol '$' or '#' if root
-_gps1_post+="\n$uc_bdl_ur$uc_bdl_h$BLUE$_user_sym$RESET "
+_gps1_post+="\n$_user_color$uc_bdl_ur$uc_bdl_h$BLUE$_user_sym$RESET "
 _ps1+="$_gps1_post"
 
 PS1="$_ps1"
@@ -125,6 +133,10 @@ prompt_command () {
 			_xterm_title=''
 			;;
 	esac
+
+	# TODO:
+	# * Restrict PS1 output to fixed length.
+	# * Use custom git PS1 to fixed length string and colors.
 
 	# set the prompt environment variables
 	PS1="${_xterm_title}${PS1}"

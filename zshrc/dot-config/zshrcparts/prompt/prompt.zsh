@@ -158,6 +158,10 @@ precmd () {
 		fi
 	fi
 
+	# TODO:
+	# * Restrict PS1 output to fixed length.
+	# * Use custom git PS1 to fixed length string and colors.
+
 	# add git status prompt
 	if [ "$(command -v __git_ps1)" ]; then
 		__git_ps1 "$_gps1_pre" "$_gps1_post" \
