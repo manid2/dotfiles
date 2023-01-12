@@ -25,5 +25,6 @@ for comp_file in ~/.local/share/zsh/user-completions/_*; do
     fi
 done
 
-# map vman to man completions
+# map custom commands to matching command completions
 compdef vman="man"
+compdef ysdo="sudo"

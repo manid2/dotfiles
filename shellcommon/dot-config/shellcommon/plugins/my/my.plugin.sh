@@ -32,3 +32,14 @@ slugify () {
 
 	echo "$_data" | sed -E 's/[~\^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g'
 }
+
+slugifyi () {
+	slugify "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+opens () {
+	open "$1" 2>/dev/null
+}
+
+# ssh aliases
+alias ssdeb01='ssh mkdeb01@mk-deb-001'
