@@ -2,39 +2,22 @@
 " properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
-	syntax on
-endif
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-if has("autocmd")
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-if has("autocmd")
-	filetype plugin indent on
-endif
-
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-	source /etc/vim/vimrc.local
-endif
-
-" --- Basic vim settings -----------------------------------------------
+" --- Vim options ------------------------------------------------------------
 set showcmd          " Show (partial) command in status line.
 set showmatch        " Show matching brackets.
-set autoindent smartindent  " Smart autoindent on new lines.
-set hlsearch         " Highlight searches
-set nospell          " Disable built-in spell check use plugin
+set autoindent       " Autoindent new lines based on previous line.
+set smartindent      " Like autoindent but recognizes C syntax and indents.
+set hlsearch         " Highlight searches.
+set nospell          " Disable built-in spell check use plugin.
 
-" view man pages inside vim
+" View man pages inside vim
 runtime ftplugin/man.vim
 set keywordprg=:Man
+
+" Set characters to see invisible characters
+if &listchars ==# 'eol:$'
+	set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
 
 " Readable colors in diff mode with syntax on
 if &diff
@@ -49,34 +32,60 @@ endif
 " Readable colors in visual mode in all terminals
 hi Visual ctermbg=darkgrey ctermfg=white
 
-" From vim-sensible plugin
-" Set characters to see invisible characters
-if &listchars ==# 'eol:$'
-	set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-endif
+" --- Custom functions and commands ------------------------------------------
+function! TrimTrailingWhitespace() range
+	let l:cmd="keepjumps keeppatterns "
+	let l:pat="s/\\s\\+$//e"
+	if exists('a:firstline')
+		exe l:cmd.a:firstline.",".a:lastline.l:pat
+	else
+		exe l:cmd.l:pat
+	endif
+	call winrestview(b:winview)
+endfunction
 
-" --- vim-plug section vim plugin manager ------------------------------
+function! TrimLeadingWhitespace() range
+	let l:cmd="keepjumps keeppatterns "
+	let l:pat="s/^\\s\\+//e"
+	if exists('a:firstline')
+		exe l:cmd.a:firstline.",".a:lastline.l:pat
+	else
+		exe l:cmd.l:pat
+	endif
+	call winrestview(b:winview)
+endfunction
+
+function! ToggleSyntax()
+	if exists("g:syntax_on")
+		syntax off
+	else
+		syntax enable
+	endif
+endfunction
+
+" Commands to use custom functions
+command! -range=% TrimTrailingWhitespace
+			\ let b:winview=winsaveview() |
+			\ <line1>,<line2>call TrimTrailingWhitespace()
+
+command! -range=% TrimLeadingWhitespace
+			\ let b:winview=winsaveview() |
+			\ <line1>,<line2>call TrimLeadingWhitespace()
+
+command! -nargs=0 ToggleSyntax call ToggleSyntax()
+
+" --- vim-plug section vim plugin manager ------------------------------------
 " https://github.com/junegunn/vim-plug
 
 " -- vim plugin options before loading -----------
-let g:snipMate = { 'snippet_version' : 1 }
-" Disable spell check toggle enable/disable with 'ZT' in normal mode
-let g:enable_spelunker_vim = 0
+" Use latest snipMate parser for new features.
+let g:snipMate={ 'snippet_version' : 1 }
+
+" Disable spell check on start as it slows down vim.
+let g:enable_spelunker_vim=0
 
 " Use '-' as easymotion prefix
 map -                        <Plug>(easymotion-prefix)
-
-" Disable vim-markdown folding configuration, enable with custom function
-" TODO: Add custom function to enable/disable vim-markdown folding
-let g:vim_markdown_folding_disabled = 1
-
-" TODO: Use generic heading using function and filetype
-" Markdown headings
-nnoremap <leader>1           m`yypVr=``
-nnoremap <leader>2           m`yypVr-``
-nnoremap <leader>3           m`^i### <esc>``4l
-nnoremap <leader>4           m`^i#### <esc>``5l
-nnoremap <leader>5           m`^i##### <esc>``6l
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
@@ -139,7 +148,7 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 call plug#end()
 endif
 
-" --- statusline section -----------------------------------------------
+" --- statusline section -----------------------------------------------------
 set laststatus=2     " Always show statusline
 function! s:statusline_expr()
 	let sp      = ' '
@@ -175,14 +184,11 @@ function! s:statusline_expr()
 endfunction
 let &statusline = s:statusline_expr()
 
-" --- keymaps section --------------------------------------------------
-" map leader key
-"let mapleader="\<space>" " default '\'
-
+" --- keymaps section --------------------------------------------------------
 " Common variables
-let s:cword = '<C-R>=expand("<cword>")<cr>'
-let s:cfp = '<C-R>=expand("%")<cr>'
-let s:cfn = '<C-R>=expand("%:t")<cr>'
+let s:cword='<C-R>=expand("<cword>")<cr>'
+let s:cfp='<C-R>=expand("%")<cr>'
+let s:cfn='<C-R>=expand("%:t")<cr>'
 
 " Save file in normal and also in insert mode
 inoremap <C-S>               <ESC>:update<cr>
@@ -203,13 +209,30 @@ nnoremap <C-Q>o              :only<cr>
 nnoremap <C-J>               <C-w>w
 nnoremap <C-K>               <C-w>W
 
+" Indent and format file
+nnoremap <C-A>i              gg=G``
+nnoremap <C-A>q              gggqG``
+
 " Highlight current word without jumping
 exe 'nnoremap <Leader>h :let @/=''\<'.s:cword.'\>''<cr>:set hlsearch<cr>'
 
-" vim to new shell, after done exit or use ctrl+d to bring back vim
+" Vim to new shell, after done exit or use ctrl+d to bring back vim
 nnoremap <Leader>sh          :shell<cr>
 " <C-Z> to get same shell as vim was started
 " execute 'fg' command to bring vim back
+
+" Custom functions keymaps
+nnoremap <Leader>tt          :TrimTrailingWhitespace<cr>
+nnoremap <Leader>tl          :TrimLeadingWhitespace<cr>
+nnoremap <Leader>syn         :ToggleSyntax<cr>
+
+" TODO: Use generic heading using function and filetype
+" Markdown headings
+nnoremap <leader>1           m`yypVr=``
+nnoremap <leader>2           m`yypVr-``
+nnoremap <leader>3           m`^i### <esc>``4l
+nnoremap <leader>4           m`^i#### <esc>``5l
+nnoremap <leader>5           m`^i##### <esc>``6l
 
 " vim plugins keymaps
 nnoremap <Leader>nt          :NERDTreeToggle<cr>
@@ -221,11 +244,9 @@ nnoremap <Leader>ty          :call WClipboard(tagbar#currenttag('%s',''))<cr>
 nnoremap <Leader>gb          :Git blame<cr>
 nnoremap <Leader>gl          :Git log<cr>
 nnoremap <Leader>gd          :Git diff<cr>
-"   open git summary same as 'git status'
 nnoremap <Leader>gs          :Git<cr>
 
 " fzf.vim keymaos
-" refer: https://github.com/junegunn/fzf.vim#readme
 nnoremap fzf                 :Files<cr>
 nnoremap fgf                 :GFiles<cr>
 nnoremap fbf                 :Buffers<cr>
@@ -250,62 +271,10 @@ command! -bang -nargs=* GGrep
 			\   'dir': systemlist(
 			\     'git rev-parse --show-toplevel')[0]}), <bang>0)
 
+
+" Grep word under cursor with git grep useful when no tags.
 exe 'nnoremap fgg :GGrep '.s:cword.'<cr>'
 
-" --- vim custom functions & keymaps -----------------------------------
-" -- trim trailing whitespaces
-function! TrimTrailingWhitespace() range
-	let l:cmd = "keepjumps keeppatterns "
-	let l:pat = "s/\\s\\+$//e"
-	if exists('a:firstline')
-		exe l:cmd.a:firstline.",".a:lastline.l:pat
-	else
-		exe l:cmd.l:pat
-	endif
-	call winrestview(b:winview)
-endfunction
-
-command! -range=% TrimTrailingWhitespace
-			\ let b:winview = winsaveview() |
-			\ <line1>,<line2>call TrimTrailingWhitespace()
-
-" -- trim leading whitespaces
-function! TrimLeadingWhitespace() range
-	let l:cmd = "keepjumps keeppatterns "
-	let l:pat = "s/^\\s\\+//e"
-	if exists('a:firstline')
-		exe l:cmd.a:firstline.",".a:lastline.l:pat
-	else
-		exe l:cmd.l:pat
-	endif
-	call winrestview(b:winview)
-endfunction
-
-command! -range=% TrimLeadingWhitespace
-			\ let b:winview = winsaveview() |
-			\ <line1>,<line2>call TrimLeadingWhitespace()
-
-nnoremap <Leader>tt          :TrimTrailingWhitespace<cr>
-nnoremap <Leader>tl          :TrimLeadingWhitespace<cr>
-
-" -- vim indent and format file
-nnoremap <C-A>i              gg=G``
-nnoremap <C-A>q              gggqG``
-
-" -- Toggle syntax highilight
-function! ToggleSyntax()
-	if exists("g:syntax_on")
-		syntax off
-	else
-		syntax enable
-	endif
-endfunction
-
-command! -nargs=0 ToggleSyntax
-			\ call ToggleSyntax()
-
-nnoremap <Leader>syn         :ToggleSyntax<cr>
-
-" copy file path/name into clipboard
+" Copy file path/name into clipboard
 exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
 exe 'nnoremap <silent> <Leader>fn :WClipboard '.s:cfn.'<cr>'
