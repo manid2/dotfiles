@@ -242,40 +242,95 @@ call plug#end()
 endif
 
 " --- statusline section -----------------------------------------------------
-set laststatus=2     " Always show statusline
-function! s:statusline_expr()
-	let sp      = ' '
-	let cmode   = "%{mode('0')}"
-	let ro      = "%{&readonly ? 'R' : ''}"
-	let mo      = "%{!&modifiable ? 'M' : ''}"
-	let modflg  = "%{&modified ? '+' : '-'}"
-	let ft      = printf("%%{%s}%%{%s}",
-		\"strpart(&filetype, 0, 7)",
-		\"len(&filetype) > 7 ? '>' : ''")
-	let relflnm = "[%0.16f]"
-	let gitst   = printf("%%0.14{%s%s%s}",
-		\"exists('g:loaded_fugitive') ?",
-		\"fugitive#statusline() :",
-		\"''")
-	let currtag = "%0.24{exists(':TagbarCurrentTag') ? ".
-		\"tagbar#currenttag('%s','') : ''}"
-	let sep     = '%='
-	let pos     = '%0.16(%l:%c%V %L%)'
-	let pct     = '%p%%'
+" TODO: move statusline section into a plugin
+"   refer: https://stackoverflow.com/a/17184285
 
-	hi StatusLine ctermbg=Green ctermfg=Black
-	hi StatusLineNC ctermbg=LightGray ctermfg=Black
+" Define global variables
 
-	return cmode.ro.mo.modflg.
-		\sp.ft.
-		\sp.relflnm.
-		\sp.gitst.
-		\sp.currtag.
-		\sep.
-		\pos.
-		\sp.pct
+" NOTE: Execute system commands at the start to avoid errors in vim and slows
+" down vim as it evaluates status line expression continuously.
+let g:vim_git_branch=trim(system("git branch --show-current 2>/dev/null"))
+
+" Disable word count on status line on start as it slows down vim.
+let g:statusline_wordcount_disabled=1
+
+" statusline helper functions
+function! SiSlSecModeFlags()
+	let l:ro=&readonly ? 'R' : ''
+	let l:mf=&modified ? '+' : ''
+	let l:bfn=len(getbufinfo({'buflisted':1}))
+	let l:bfn=l:bfn > 1 ? '/'.string(l:bfn) : ''
+	return "%0.10(".mode('0').l:ro.l:mf." %n".l:bfn."%)"
 endfunction
-let &statusline = s:statusline_expr()
+
+function! SiSlSecFileType()
+	" TODO: truncate right when exceeding max chars.
+	return "%0.10(".&filetype."%)"
+endfunction
+
+function! SiSlSecGitStr()
+	return "%0.24(".g:vim_git_branch."%)"
+endfunction
+
+function! SiSlSecCurrentTag()
+	let l:ct=''
+	if exists(':TagbarCurrentTag')
+		let l:ct="%0.24(".tagbar#currenttag('%s', '')."%)"
+	endif
+	return l:ct
+endfunction
+
+function! SiSlSecWordCount()
+	let l:wc=''
+	if g:statusline_wordcount_disabled
+		return l:wc
+	endif
+	if has_key(wordcount(),'visual_words')
+		let l:wc=wordcount().visual_words."/".wordcount().words
+	else
+		let l:wc=wordcount().cursor_words."/".wordcount().words
+	endif
+	return "%0.9(".l:wc."%)"
+endfunction
+
+function! SiSlSecRelFileInfo()
+	return "%0.50(%f:%l:%c%V|%L|%p%%%)"
+endfunction
+
+function! s:statusline_expr()
+	let l:sp=' '
+	return    '%{%SiSlSecModeFlags()%}'.l:sp.
+		\ '%{%SiSlSecFileType()%}'.l:sp.
+		\ '%{%SiSlSecGitStr()%}'.l:sp.
+		\ '%{%SiSlSecCurrentTag()%}'.
+		\ "%=".
+		\ '%{%SiSlSecWordCount()%}'.l:sp.
+		\ '%{%SiSlSecRelFileInfo()%}'
+endfunction
+
+set laststatus=2     " Always show statusline
+let &statusline=s:statusline_expr()
+
+" Highlight status line
+hi StatusLine ctermbg=Green ctermfg=Black
+hi StatusLineNC ctermbg=LightGray ctermfg=Black
+
+" Custom status line functions.
+function! ToggleStatuslineWordcount()
+	if g:statusline_wordcount_disabled
+		let g:statusline_wordcount_disabled=0
+	else
+		let g:statusline_wordcount_disabled=1
+	endif
+endfunction
+
+" TODO: Add toggle function for status line sections to view them as needed.
+
+" Custom status line commands.
+command! -nargs=0 ToggleStatuslineWordcount call ToggleStatuslineWordcount()
+
+" Custom status line keymaps.
+nnoremap <silent> <leader>wc :ToggleStatuslineWordcount<cr>
 
 " --- keymaps section --------------------------------------------------------
 " Common variables
