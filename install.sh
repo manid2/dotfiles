@@ -13,6 +13,7 @@ install_pkgs_to_home () {
 		tmux.conf \
 		vimrc \
 		ripgreprc \
+		coloritrc \
 	)
 
 	if [[ $SHELL == "/usr/bin/zsh" ]]; then
