@@ -3,21 +3,37 @@
 runtime! debian.vim
 
 " --- Vim options ------------------------------------------------------------
+set nocompatible     " Use Vim defaults instead of 100% vi compatibility.
 set showcmd          " Show (partial) command in status line.
 set showmatch        " Show matching brackets.
 set autoindent       " Autoindent new lines based on previous line.
 set smartindent      " Like autoindent but recognizes C syntax and indents.
 set hlsearch         " Highlight searches.
 set nospell          " Disable built-in spell check use plugin.
+set wildmenu         " Display completion matches in a status line.
+set scrolloff=5      " Show 5 lines of context around the cursor.
+set history=100      " Command line history.
+set nomodeline       " Disable modelines for security reasons.
+set backspace=indent,eol,start  " More powerful backspacing.
 
 " View man pages inside vim
 runtime ftplugin/man.vim
 set keywordprg=:Man
 
+" Set default dictionary
+set dictionary+=/usr/share/dict/words
+set dictionary+=~/.local/share/dict/words
+set complete+=k      " Allow word completions from dictionary.
+
 " Set characters to see invisible characters
 if &listchars ==# 'eol:$'
 	set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
+
+syntax enable
+
+" Load indentation rules and plugins according to the detected filetype.
+filetype plugin indent on
 
 " Readable colors in diff mode with syntax on
 if &diff
