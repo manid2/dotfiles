@@ -82,6 +82,16 @@ function! ToggleSyntax()
 	endif
 endfunction
 
+function! ToggleMarkdownFolding()
+	if g:vim_markdown_folding_disabled
+		let g:vim_markdown_folding_disabled=0
+		setlocal foldlevel=0
+	else
+		let g:vim_markdown_folding_disabled=1
+		setlocal foldlevel=99
+	endif
+endfunction
+
 " Commands to use custom functions
 command! -range=% TrimTrailingWhitespace
 	\ let b:winview=winsaveview() |
@@ -92,6 +102,7 @@ command! -range=% TrimLeadingWhitespace
 	\ <line1>,<line2>call TrimLeadingWhitespace()
 
 command! -nargs=0 ToggleSyntax call ToggleSyntax()
+command! -nargs=0 ToggleMarkdownFolding call ToggleMarkdownFolding()
 
 " --- Auto commands ----------------------------------------------------------
 " Auto commands common to all files
@@ -104,6 +115,13 @@ augroup common
 		\ |     exe "normal! g`\""
 		\ | endif
 
+	" Default options for any file type
+	autocmd FileType *
+		\   let g:statusline_wordcount_disabled=1
+		\ | let g:vim_markdown_folding_disabled=1
+		\ | setlocal foldlevel=99
+		\ | nnoremap <Leader>f <Nop>
+
 	autocmd FileType markdown,text,vim,c,cpp,h,hh,hpp,make
 		\ setlocal textwidth=78
 
@@ -114,6 +132,14 @@ augroup common
 	" custom script to show dict output with colors in pager.
 	" dictls = dict "$@" | colorit | less -r
 	autocmd FileType markdown,text setlocal keywordprg=dictls
+augroup end
+
+augroup markdown
+	autocmd!
+	autocmd FileType markdown
+		\   let g:statusline_wordcount_disabled=0
+		\ | setlocal foldlevel=99
+		\ | nnoremap <Leader>f :ToggleMarkdownFolding<cr>
 augroup end
 
 " --- vim-plug section vim plugin manager ------------------------------------
