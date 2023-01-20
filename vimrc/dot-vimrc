@@ -93,6 +93,29 @@ command! -range=% TrimLeadingWhitespace
 
 command! -nargs=0 ToggleSyntax call ToggleSyntax()
 
+" --- Auto commands ----------------------------------------------------------
+" Auto commands common to all files
+augroup common
+	autocmd!
+	" jump to the last position when reopening a file
+	autocmd BufReadPost *
+		\   if line("'\"") >= 1 && line("'\"") <= line("$")
+		\     && &ft !~# 'commit'
+		\ |     exe "normal! g`\""
+		\ | endif
+
+	autocmd FileType markdown,text,vim,c,cpp,h,hh,hpp,make
+		\ setlocal textwidth=78
+
+	" TODO: use vim plugin similar to ftplugin/man.vim to use
+	" dictionary for K command in vim for markdown and text files.
+	"
+	" Use custom script till vim dict plugin is ready. 'dictls' is a
+	" custom script to show dict output with colors in pager.
+	" dictls = dict "$@" | colorit | less -r
+	autocmd FileType markdown,text setlocal keywordprg=dictls
+augroup end
+
 " --- vim-plug section vim plugin manager ------------------------------------
 " https://github.com/junegunn/vim-plug
 
