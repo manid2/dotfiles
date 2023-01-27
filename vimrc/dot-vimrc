@@ -45,13 +45,24 @@ if &diff
 	hi DiffText   ctermfg=White ctermbg=DarkGreen
 endif
 
-" Readable colors in visual mode in all terminals
-hi Visual ctermbg=darkgrey ctermfg=white
+" Readable colors for some highlight groups
+hi Visual ctermfg=White ctermbg=Cyan
+hi ColorColumn cterm=bold ctermfg=White ctermbg=Magenta
+hi CursorColumn ctermfg=White ctermbg=Blue
+hi clear CursorLine " Remove underline
+hi CursorLine ctermfg=White ctermbg=Blue
+hi CursorLineNr cterm=bold ctermfg=DarkGreen ctermbg=DarkGrey
 
 " Use 1 shiftwidth for line continuation in vim scripts
 let g:vim_indent_cont=shiftwidth()
 
 " --- Custom functions and commands ------------------------------------------
+"  TOOD: Trim trailing whitespaces and format text:
+"  o) on edited lines only.
+"  o) on list of lines only.
+"  o) on `git diff -U0` lines.
+"  o) with option to highlight and confirmation.
+"  o) automatically before buffer write.
 function! TrimTrailingWhitespace() range
 	let l:cmd="keepjumps keeppatterns "
 	let l:pat="s/\\s\\+$//e"
@@ -92,6 +103,19 @@ function! ToggleMarkdownFolding()
 	endif
 endfunction
 
+function! ToggleHighlightLongLines()
+	if exists('w:long_line_match')
+		silent! call matchdelete(w:long_line_match)
+		unlet w:long_line_match
+	elseif &textwidth > 0
+		let w:long_line_match =
+			\ matchadd('ColorColumn', '\%>'.&textwidth.'v.\+', -1)
+	else
+		let w:long_line_match = 
+			\ matchadd('ColorColumn', '\%>79v.\+', -1)
+	endif
+endfunction
+
 " Commands to use custom functions
 command! -range=% TrimTrailingWhitespace
 	\ let b:winview=winsaveview() |
@@ -103,6 +127,7 @@ command! -range=% TrimLeadingWhitespace
 
 command! -nargs=0 ToggleSyntax call ToggleSyntax()
 command! -nargs=0 ToggleMarkdownFolding call ToggleMarkdownFolding()
+command! -nargs=0 ToggleHighlightLongLines call ToggleHighlightLongLines()
 
 " --- Auto commands ----------------------------------------------------------
 " Auto commands common to all files
@@ -293,6 +318,7 @@ nnoremap <Leader>sh          :shell<cr>
 nnoremap <Leader>tt          :TrimTrailingWhitespace<cr>
 nnoremap <Leader>tl          :TrimLeadingWhitespace<cr>
 nnoremap <Leader>syn         :ToggleSyntax<cr>
+nnoremap <Leader>hll         :ToggleHighlightLongLines<cr>
 
 " TODO: Use generic heading using function and filetype
 " Markdown headings
