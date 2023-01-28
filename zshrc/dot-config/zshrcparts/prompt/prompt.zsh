@@ -41,6 +41,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 _gps1_pre=''
+_gps1_str=''
 _gps1_post=''
 
 if [ "$color_prompt" = yes ]; then
@@ -79,7 +80,7 @@ if [ "$color_prompt" = yes ]; then
 
 	# add user prompt symbol '$' or '#' if root
 	_gps1_post+=$'\n$uc_bdl_ur$uc_bdl_h%B%F{blue}$_user_sym%b%F{reset} '
-	PROMPT+='$_gps1_post'
+	PROMPT+="$_gps1_post"
 
 	RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
@@ -158,13 +159,17 @@ precmd () {
 		fi
 	fi
 
-	# TODO:
-	# * Restrict PS1 output to fixed length.
-	# * Use custom git PS1 to fixed length string and colors.
+	PROMPT="$_gps1_pre"
 
 	# add git status prompt
 	if [ "$(command -v __git_ps1)" ]; then
-		__git_ps1 "$_gps1_pre" "$_gps1_post" \
-			"$uc_bdl_h(%%F{reset}%s%%f%$_user_color)"
+		_gps1_str="$(__git_ps1 '%s')"
+		if [ -n "${_gps1_str// -}" ]; then
+			PROMPT+="$uc_bdl_h("
+			PROMPT+=$'%24<..<$_gps1_str%<<'
+			PROMPT+="$_user_color)"
+		fi
 	fi
+
+	PROMPT+="$_gps1_post"
 }

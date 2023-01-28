@@ -43,6 +43,7 @@ if [ "$color_prompt" != 'yes' ]; then
 fi
 
 _gps1_pre=''
+_gps1_str=''
 _gps1_post=''
 
 # normal user color and symbol
@@ -62,6 +63,17 @@ if [ "$(uname -o)" = 'FreeBSD' ]; then
 	uc_bdl_ur='+-'
 fi
 
+# truncate strings to 'n' chars
+truncate_str_n () {
+    str=$1
+    len=$2
+    if [ ${#str} -ge $len ]; then
+        printf "..""${str: -$((len-2)):$len}"
+    else
+        printf "$str"
+    fi
+}
+
 # initliaze local ps1
 _ps1=''
 
@@ -75,11 +87,11 @@ _ps1+="${debian_chroot:+($debian_chroot)$uc_bdl_h}"
 _ps1+="${venv_info:+($venv_info)$uc_bdl_h}"
 
 # (user@host:cwd)
-PROMPT_DIRTRIM=2
-_ps1+="($CYAN\u$YELLOW@$CYAN\h$YELLOW:$BLUE\w$_user_color)$uc_bdl_h"
+_ps1_cwd='$(truncate_str_n ${PWD/#$HOME/"~"} 16)'
+_ps1+="($CYAN\u$YELLOW@$CYAN\h$YELLOW:$BLUE$_ps1_cwd$_user_color)$uc_bdl_h"
 
 # [date time] in dd-Mon-yyyy H:M:S in 24 hr format
-_ps1+="[$MAGENTA\D{%d-%b-%Y %H:%M:%S}$_user_color]$uc_bdl_h"
+_ps1+="[$MAGENTA\D{%d-%b-%Y %H:%M:%S}$_user_color]"
 _gps1_pre+="$_ps1"
 
 # add user prompt symbol '$' or '#' if root
@@ -107,11 +119,19 @@ prompt_command () {
 	fi
 	_proc_exit_str+="$_user_color]"
 
+	PS1="$_gps1_pre"
+
 	# add git status prompt
 	if [ "$(command -v __git_ps1)" ]; then
-		__git_ps1 "$_gps1_pre$_proc_exit_str" "$_gps1_post" \
-			"$uc_bdl_h($RESET%s$_user_color)"
+		_gps1_str="$(__git_ps1 '%s')"
+		if [ -n "${_gps1_str// -}" ]; then
+			PS1+="$uc_bdl_h("
+			PS1+="$(truncate_str_n $"$_gps1_str" 24)"
+			PS1+="$_user_color)"
+		fi
 	fi
+
+	PS1+="$_gps1_post"
 
 	# Print a new line before the prompt, but only if it is not the first
 	# line
@@ -133,10 +153,6 @@ prompt_command () {
 			_xterm_title=''
 			;;
 	esac
-
-	# TODO:
-	# * Restrict PS1 output to fixed length.
-	# * Use custom git PS1 to fixed length string and colors.
 
 	# set the prompt environment variables
 	PS1="${_xterm_title}${PS1}"
