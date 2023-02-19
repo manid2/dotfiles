@@ -303,25 +303,36 @@ call plug#end()
 endif
 
 " --- statusline section -----------------------------------------------------
-" TODO: move statusline section into a plugin
+" TODO: Move statusline section into a plugin
 "   refer: https://stackoverflow.com/a/17184285
+" TODO: Use autoload functions instead of function name prefix.
 
 " Define global variables
 
 " NOTE: Execute system commands at the start to avoid errors in vim and slows
 " down vim as it evaluates status line expression continuously.
-let g:vim_git_branch=trim(system("git branch --show-current 2>/dev/null"))
+let s:git_str_cmd="$SHELL -c ".shellescape(
+	\"source ~/.local/bin/git-sh-prompt; ".
+	\"GIT_PS1_SHOWDIRTYSTATE='y' ".
+	\"GIT_PS1_SHOWSTASHSTATE='y' ".
+	\"GIT_PS1_SHOWUNTRACKEDFILES='y' ".
+	\"GIT_PS1_DESCRIBE_STYLE='contains' ".
+	\"GIT_PS1_SHOWUPSTREAM='auto' ".
+	\"__git_ps1")
+let g:vim_git_branch=trim(system(s:git_str_cmd))
 
 " Disable word count on status line on start as it slows down vim.
 let g:statusline_wordcount_disabled=1
 
 " statusline helper functions
 function! SiSlSecModeFlags()
+	let l:md=mode(0)
 	let l:ro=&readonly ? 'R' : ''
+	let l:mo=!&modifiable ? 'M' : ''
 	let l:mf=&modified ? '+' : ''
 	let l:bfn=len(getbufinfo({'buflisted':1}))
 	let l:bfn=l:bfn > 1 ? '/'.string(l:bfn) : ''
-	return "%0.10(".mode('0').l:ro.l:mf." %n".l:bfn."%)"
+	return "%0.10(".l:md.l:ro.l:mo.l:mf." %n".l:bfn."%)"
 endfunction
 
 function! SiSlSecFileType()
@@ -358,19 +369,23 @@ function! SiSlSecRelFileInfo()
 	return "%0.50(%f:%l:%c%V|%L|%p%%%)"
 endfunction
 
-function! s:statusline_expr()
+function! StatuslineExpr()
 	let l:sp=' '
-	return    '%{%SiSlSecModeFlags()%}'.l:sp.
-		\ '%{%SiSlSecFileType()%}'.l:sp.
-		\ '%{%SiSlSecGitStr()%}'.l:sp.
-		\ '%{%SiSlSecCurrentTag()%}'.
-		\ "%=".
-		\ '%{%SiSlSecWordCount()%}'.l:sp.
-		\ '%{%SiSlSecRelFileInfo()%}'
+	let l:secsp="%="
+	let l:func_refs = [
+		\ SiSlSecModeFlags(),
+		\ SiSlSecFileType(),
+		\ SiSlSecGitStr(),
+		\ SiSlSecCurrentTag(),
+		\ l:secsp,
+		\ SiSlSecWordCount(),
+		\ SiSlSecRelFileInfo()
+		\ ]
+	return join(l:func_refs, l:sp)
 endfunction
 
 set laststatus=2     " Always show statusline
-let &statusline=s:statusline_expr()
+set statusline=%{%StatuslineExpr()%}
 
 " Custom status line functions.
 function! ToggleStatuslineWordcount()
