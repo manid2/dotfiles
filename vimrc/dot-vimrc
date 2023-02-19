@@ -15,6 +15,10 @@ set scrolloff=5      " Show 5 lines of context around the cursor.
 set history=100      " Command line history.
 set nomodeline       " Disable modelines for security reasons.
 set backspace=indent,eol,start  " More powerful backspacing.
+" Set characters to see invisible characters
+set listchars=tab:>\ ,lead:.,trail:-,extends:>,precedes:<,nbsp:+
+" Find include files in file relative directory and vim current directory.
+set path+=include,./include
 
 " View man pages inside vim
 runtime ftplugin/man.vim
@@ -24,11 +28,6 @@ set keywordprg=:Man
 set dictionary+=/usr/share/dict/words
 set dictionary+=~/.local/share/dict/words
 set complete+=k      " Allow word completions from dictionary.
-
-" Set characters to see invisible characters
-if &listchars ==# 'eol:$'
-	set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-endif
 
 syntax enable
 
@@ -177,6 +176,8 @@ command! -nargs=0 HighlightGroup call HighlightGroup()
 
 " TODO: Add function, command and keymap to format text into table.
 " TODO: Add function, command and keymap to search only in visual selctions.
+" TODO: Add custom function to format code using 'formatexpr=mylang#Format()'
+" TODO: Add abbreviations to reduce typing.
 
 " --- Auto commands ----------------------------------------------------------
 " Auto commands common to all files
