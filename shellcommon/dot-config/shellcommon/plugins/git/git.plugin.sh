@@ -35,6 +35,7 @@ alias gf='git fetch'
 alias gfa='git fetch --all'
 alias gfap='git fetch --all --prune'
 alias gfp='git fetch --prune'
+alias gg='git -c core.pager=less grep -n'
 alias gpl='git pull'
 alias gps='git push'
 alias gpsa='git push --all'
@@ -261,9 +262,6 @@ alias gjd='git jump diff'
 alias gjm='git jump merge'
 alias gjg='git jump grep'
 alias gjw='git jump ws'
-
-# git grep aliases
-alias gg='git grep -n'
 
 # git diff-highlight aliases
 alias gdh='git diff --color | diff-highlight | less -r'

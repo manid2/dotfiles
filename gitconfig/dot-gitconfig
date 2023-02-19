@@ -5,9 +5,13 @@
 	diffFilter = delta --color-only
 [delta]
 	navigate = true  # use n and N to move between diff sections
-	#line-numbers = true
-	#keep-plus-minus-markers = true
-	#color-only = true
+
+# NOTE: Use git grep with custom colors and 'less' pager as a workaround for
+# git-delta pager changing '-' to ':' in some file names.
+[color "grep"]
+	filename = magenta
+	linenumber = green
+
 [diff]
 	tool = vimdiff
 	colorMoved = default
