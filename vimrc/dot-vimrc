@@ -35,26 +35,35 @@ syntax enable
 " Load indentation rules and plugins according to the detected filetype.
 filetype plugin indent on
 
-" Readable colors in diff mode with syntax on
-if &diff
-	" For xterm256 colors refer:
-	" https://www.ditig.com/256-colors-cheat-sheet
-	hi DiffAdd    ctermfg=White ctermbg=Black
-	hi DiffDelete ctermfg=White ctermbg=DarkRed
-	hi DiffChange ctermfg=White ctermbg=DarkGrey
-	hi DiffText   ctermfg=White ctermbg=DarkGreen
-endif
-
-" Readable colors for some highlight groups
-hi Visual ctermfg=White ctermbg=Cyan
-hi ColorColumn cterm=bold ctermfg=White ctermbg=Magenta
-hi CursorColumn ctermfg=White ctermbg=Blue
-hi clear CursorLine " Remove underline
-hi CursorLine ctermfg=White ctermbg=Blue
-hi CursorLineNr cterm=bold ctermfg=DarkGreen ctermbg=DarkGrey
-
 " Use 1 shiftwidth for line continuation in vim scripts
 let g:vim_indent_cont=shiftwidth()
+
+" --- Highlight colors -------------------------------------------------------
+" Override colors for some highlight groups
+"
+" NOTE: These colors are correct for default.vim colorscheme.
+" TODO: Use custom function to set highlight colors.
+"
+" For xterm256 colors refer:
+" https://vimhelp.org/syntax.txt.html#cterm-colors
+
+hi clear CursorLine
+
+hi Normal       ctermfg=Grey
+hi Visual       ctermfg=White       ctermbg=Cyan
+hi Search       ctermfg=LightYellow ctermbg=Black
+hi DiffAdd      ctermfg=White       ctermbg=Black
+hi DiffDelete   ctermfg=White       ctermbg=DarkRed
+hi DiffChange   ctermfg=White       ctermbg=DarkGrey
+hi DiffText     ctermfg=White       ctermbg=DarkGreen
+hi CursorColumn ctermfg=White       ctermbg=Blue
+hi CursorLine   ctermfg=White       ctermbg=Blue
+hi StatusLine   ctermbg=Green       ctermfg=Black
+hi StatusLineNC ctermbg=LightGray   ctermfg=Black
+hi MatchParen   ctermfg=Cyan        ctermbg=Black
+
+hi CursorLineNr cterm=bold ctermfg=DarkGreen ctermbg=DarkGrey
+hi ColorColumn  cterm=bold ctermfg=White     ctermbg=Magenta
 
 " --- Custom functions and commands ------------------------------------------
 "  TODO: Trim trailing whitespaces and format text:
@@ -308,10 +317,6 @@ endfunction
 
 set laststatus=2     " Always show statusline
 let &statusline=s:statusline_expr()
-
-" Highlight status line
-hi StatusLine ctermbg=Green ctermfg=Black
-hi StatusLineNC ctermbg=LightGray ctermfg=Black
 
 " Custom status line functions.
 function! ToggleStatuslineWordcount()
