@@ -17,7 +17,9 @@ fi
 
 # override default virtualenv indicator in prompt
 VIRTUAL_ENV_DISABLE_PROMPT=1
-venv_info=${VIRTUAL_ENV:+$(basename $VIRTUAL_ENV)}
+venv_info () {
+	[ $VIRTUAL_ENV ] && echo "(${VIRTUAL_ENV:+$(basename $VIRTUAL_ENV)})$uc_bdl_h"
+}
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -64,7 +66,7 @@ if [ "$color_prompt" = yes ]; then
 	PROMPT+=$'${debian_chroot:+($debian_chroot)$uc_bdl_h}'
 
 	# add venv if available
-	PROMPT+=$'${venv_info:+($venv_info)$uc_bdl_h}'
+	PROMPT+=$'$(venv_info)'
 
 	# (user@host:cwd)
 	PROMPT+=$'(%F{cyan}%n%f%F{yellow}@%f%F{cyan}%m%f%F{yellow}:%f'
