@@ -57,7 +57,7 @@ hi CursorLineNr cterm=bold ctermfg=DarkGreen ctermbg=DarkGrey
 let g:vim_indent_cont=shiftwidth()
 
 " --- Custom functions and commands ------------------------------------------
-"  TOOD: Trim trailing whitespaces and format text:
+"  TODO: Trim trailing whitespaces and format text:
 "  o) on edited lines only.
 "  o) on list of lines only.
 "  o) on `git diff -U0` lines.
@@ -111,7 +111,7 @@ function! ToggleHighlightLongLines()
 		let w:long_line_match =
 			\ matchadd('ColorColumn', '\%>'.&textwidth.'v.\+', -1)
 	else
-		let w:long_line_match = 
+		let w:long_line_match =
 			\ matchadd('ColorColumn', '\%>79v.\+', -1)
 	endif
 endfunction
@@ -192,7 +192,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-unimpaired'
-"Plug 'tpope/vim-repeat' " NOTE: enable for most frequently used plugins/cmds
+Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/nerdtree'
@@ -212,7 +212,6 @@ Plug 'honza/vim-snippets'
 " -- garbas/vim-snipmate dependencies end --------
 Plug 'garbas/vim-snipmate'
 Plug 'vim-scripts/a.vim'
-"Plug 'vim-scripts/OmniCppComplete' " NOTE: hard to use
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'bergercookie/vim-deb-preview'
 Plug 'vim-scripts/gnupg'
@@ -230,7 +229,6 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'google/vim-searchindex'
 Plug 'kamykn/spelunker.vim'
-"Plug 'dhruvasagar/vim-table-mode'
 
 " * Syntax highlighters
 Plug 'ekalinin/Dockerfile.vim'
@@ -330,7 +328,7 @@ endfunction
 command! -nargs=0 ToggleStatuslineWordcount call ToggleStatuslineWordcount()
 
 " Custom status line keymaps.
-nnoremap <silent> <leader>wc :ToggleStatuslineWordcount<cr>
+nnoremap <silent> <Leader>wc :ToggleStatuslineWordcount<cr>
 
 " --- keymaps section --------------------------------------------------------
 " Common variables
@@ -377,11 +375,11 @@ nnoremap <Leader>hll         :ToggleHighlightLongLines<cr>
 
 " TODO: Use generic heading using function and filetype
 " Markdown headings
-nnoremap <leader>1           m`yypVr=``
-nnoremap <leader>2           m`yypVr-``
-nnoremap <leader>3           m`^i### <esc>``4l
-nnoremap <leader>4           m`^i#### <esc>``5l
-nnoremap <leader>5           m`^i##### <esc>``6l
+nnoremap <Leader>1           m`yypVr=``
+nnoremap <Leader>2           m`yypVr-``
+nnoremap <Leader>3           m`^i### <esc>``4l
+nnoremap <Leader>4           m`^i#### <esc>``5l
+nnoremap <Leader>5           m`^i##### <esc>``6l
 
 " vim plugins keymaps
 nnoremap <Leader>nt          :NERDTreeToggle<cr>
