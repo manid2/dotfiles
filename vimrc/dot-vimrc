@@ -38,6 +38,13 @@ filetype plugin indent on
 " Use 1 shiftwidth for line continuation in vim scripts
 let g:vim_indent_cont=shiftwidth()
 
+" Enable optional C syntax
+let c_gnu=1
+let c_comment_strings=1
+let c_space_errors=1
+let c_ansi_typedefs=1
+let c_ansi_constants=1
+
 " --- Highlight colors -------------------------------------------------------
 " Override colors for some highlight groups
 "
@@ -125,6 +132,33 @@ function! ToggleHighlightLongLines()
 	endif
 endfunction
 
+function! DiffOrig()
+	exe "vert new ".expand('%').".orig~"
+	r #
+	1d_
+	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=".&ft
+	diffthis
+	wincmd p
+	diffthis
+endfunction
+
+function! DiffGit()
+	let l:fp=expand('%')
+	exe "vert new ".l:fp.".git~"
+	exe "read !git diff ".fnameescape(l:fp)." | patch -p1 -Rs -o -"
+	1d_
+	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=".&ft
+	diffthis
+	wincmd p
+	diffthis
+endfunction
+
+function! HighlightGroup()
+	let l:syn_id=synID(line('.'), col('.'), 1)
+	echo synIDattr(l:syn_id, 'name').' -> '.
+		\ synIDattr(synIDtrans(l:syn_id), 'name')
+endfunction
+
 " Commands to use custom functions
 command! -range=% TrimTrailingWhitespace
 	\ let b:winview=winsaveview() |
@@ -137,6 +171,12 @@ command! -range=% TrimLeadingWhitespace
 command! -nargs=0 ToggleSyntax call ToggleSyntax()
 command! -nargs=0 ToggleMarkdownFolding call ToggleMarkdownFolding()
 command! -nargs=0 ToggleHighlightLongLines call ToggleHighlightLongLines()
+command! -nargs=0 DiffOrig call DiffOrig()
+command! -nargs=0 DiffGit call DiffGit()
+command! -nargs=0 HighlightGroup call HighlightGroup()
+
+" TODO: Add function, command and keymap to format text into table.
+" TODO: Add function, command and keymap to search only in visual selctions.
 
 " --- Auto commands ----------------------------------------------------------
 " Auto commands common to all files
@@ -158,6 +198,16 @@ augroup common
 
 	autocmd FileType markdown,text,vim,c,cpp,h,hh,hpp,make
 		\ setlocal textwidth=78
+
+	autocmd FileType sh,zsh,bash,python
+		\ setlocal textwidth=78
+
+	autocmd FileType python
+		\ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+	autocmd FileType html,jinja.html,css,scss,toml,yml
+		\ setlocal textwidth=0 tabstop=2 softtabstop=2 shiftwidth=2
+		\ expandtab
 
 	" TODO: use vim plugin similar to ftplugin/man.vim to use
 	" dictionary for K command in vim for markdown and text files.
@@ -185,6 +235,10 @@ let g:snipMate={ 'snippet_version' : 1 }
 
 " Disable spell check on start as it slows down vim.
 let g:enable_spelunker_vim=0
+
+" 'vim-markdown' plugin settings
+let g:vim_markdown_toml_frontmatter=1
+let g:vim_markdown_new_list_item_indent=2
 
 " Use '-' as easymotion prefix
 map -                        <Plug>(easymotion-prefix)
@@ -360,6 +414,11 @@ nnoremap <C-Q>o              :only<cr>
 nnoremap <C-J>               <C-w>w
 nnoremap <C-K>               <C-w>W
 
+" text movements
+nnoremap 0                   ^
+nnoremap 9                   $
+nnoremap <Leader>0           0
+
 " Indent and format file
 nnoremap <C-A>i              gg=G``
 nnoremap <C-A>q              gggqG``
@@ -367,17 +426,25 @@ nnoremap <C-A>q              gggqG``
 " Highlight current word without jumping
 exe 'nnoremap <Leader>h :let @/=''\<'.s:cword.'\>''<cr>:set hlsearch<cr>'
 
+" Highlight group of cursor
+nnoremap <Leader>hig :HighlightGroup<cr>
+
 " Vim to new shell, after done exit or use ctrl+d to bring back vim
 nnoremap <Leader>sh          :shell<cr>
 " <C-Z> to get same shell as vim was started
 " execute 'fg' command to bring vim back
 
 " Custom functions keymaps
-nnoremap <Leader>tt          :TrimTrailingWhitespace<cr>
-nnoremap <Leader>tl          :TrimLeadingWhitespace<cr>
+nnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
+nnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>
+xnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
+xnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>
 nnoremap <Leader>syn         :ToggleSyntax<cr>
 nnoremap <Leader>hll         :ToggleHighlightLongLines<cr>
+nnoremap <Leader>do          :DiffOrig<cr>
+nnoremap <Leader>dg          :DiffGit<cr>
 
+" TODO: Add insert mode keymap to toggle 'paste'
 " TODO: Use generic heading using function and filetype
 " Markdown headings
 nnoremap <Leader>1           m`yypVr=``
@@ -429,3 +496,6 @@ exe 'nnoremap fgg :GGrep '.s:cword.'<cr>'
 " Copy file path/name into clipboard
 exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
 exe 'nnoremap <silent> <Leader>fn :WClipboard '.s:cfn.'<cr>'
+
+" Source local vimrc
+nnoremap <Leader>lv          :source ./local-vimrc.vim <bar> edit<cr>
