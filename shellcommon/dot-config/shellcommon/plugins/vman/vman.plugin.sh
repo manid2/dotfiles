@@ -26,14 +26,45 @@
 # The command line completion code snippet are also taken from there for zsh
 # and bash.
 
-vman () {
+_pre_man () {
+	local _cmd=$1; shift;
+	local _msg=''
+	local _ret=0
+
 	if [ $# -eq 0 ]; then
-		echo "What manual page do you want?";
-		return 0
-	elif ! man -w "$@" > /dev/null; then
-		# return if no man page found
-		return 1
+		_msg=$(man 2>&1)
+		_ret=$?
+	else
+		_msg=$(man -w "$@" 2>&1)
+		_ret=$?
 	fi
 
-	vim -M +MANPAGER <(man "$@")
+	if [ $_ret -ne 0 ]; then
+		echo ${_msg/man /$_cmd }
+	fi
+
+	return $_ret
+}
+
+vman () {
+	_pre_man "$0" "$@"
+	local _ret=$?
+	if [ $_ret -eq 0 ]; then
+		vim -M +MANPAGER <(man "$@")
+		_ret=$?
+	fi
+	return $_ret
+}
+
+yman () {
+	_pre_man "$0" "$@"
+	local _ret=$?
+	if [ $_ret -eq 0 ]; then
+		local _man_cmd=$([ -n "$2" ] &&
+			echo "man:$2($1)" || echo "man:$1");
+
+		yelp "$_man_cmd" 2>/dev/null &
+		_ret=$?
+	fi
+	return $_ret
 }

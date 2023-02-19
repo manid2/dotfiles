@@ -27,4 +27,5 @@ done
 
 # map custom commands to matching command completions
 compdef vman="man"
+compdef yman="man"
 compdef ysdo="sudo"
