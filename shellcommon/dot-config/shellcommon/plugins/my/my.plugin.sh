@@ -41,5 +41,9 @@ opens () {
 	open "$1" 2>/dev/null
 }
 
+aliasg () {
+	alias | grep --color=always "$@" | less -r -F
+}
+
 # ssh aliases
 alias ssdeb01='ssh mkdeb01@mk-deb-001'
