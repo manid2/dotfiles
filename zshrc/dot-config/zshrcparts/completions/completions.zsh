@@ -23,6 +23,11 @@ if [ -x /usr/bin/dircolors ]; then
     zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 fi
 
+# source fzf auto completions
+if [ -f ~/.vim/plugged/fzf/shell/completion.zsh ]; then
+	source ~/.vim/plugged/fzf/shell/completion.zsh
+fi
+
 # source user created completion scripts
 for comp_file in ~/.local/share/zsh/user-completions/_*; do
     if [ -f $comp_file ]; then

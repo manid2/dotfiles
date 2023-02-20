@@ -5,3 +5,6 @@ fi
 
 # add user local bin path
 path=($HOME/.local/bin $path)
+
+# add fzf in vim-plug path to PATH
+path=("$HOME/.vim/plugged/fzf/bin" $path)

@@ -250,7 +250,7 @@ silent! if plug#begin('~/.vim/plugged')
 " Shorthand notation, fetches https://github.com/{user}/{repo}
 
 " * UI/UX plugins
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'simeji/winresizer'
