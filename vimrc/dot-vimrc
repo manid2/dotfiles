@@ -215,7 +215,7 @@ augroup common
 		\ setlocal textwidth=0 tabstop=2 softtabstop=2 shiftwidth=2
 		\ expandtab
 
-	autocmd FileType diff,gitrebase
+	autocmd FileType diff,gitrebase,qf
 		\ setlocal nospell
 
 	" TODO: use vim plugin similar to ftplugin/man.vim to use
@@ -501,6 +501,15 @@ nnoremap fgc                 :Commits<cr>
 nnoremap fbc                 :BCommits<cr>
 nnoremap fcf                 :Commands<cr>
 nnoremap fmf                 :Maps<cr>
+
+" TODO: WIP implement fzf spell suggestions
+"function! FzfSpellSink(word)
+	"exe 'normal! "_ciw'.a:word
+"endfunction
+
+"function! FzfSpellSource(word)
+	"return spellsuggest(a:word)
+"endfunction
 
 command! -bang -nargs=* GGrep
 	\ call fzf#vim#grep(
