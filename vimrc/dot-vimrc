@@ -55,21 +55,21 @@ let c_ansi_constants=1
 
 hi clear CursorLine
 
-hi Normal       ctermfg=Grey
-hi Visual       ctermfg=White       ctermbg=Cyan
-hi Search       ctermfg=LightYellow ctermbg=Black
-hi DiffAdd      ctermfg=White       ctermbg=Black
-hi DiffDelete   ctermfg=White       ctermbg=DarkRed
-hi DiffChange   ctermfg=White       ctermbg=DarkGrey
-hi DiffText     ctermfg=White       ctermbg=DarkGreen
 hi CursorColumn ctermfg=White       ctermbg=Blue
 hi CursorLine   ctermfg=White       ctermbg=Blue
+hi DiffAdd      ctermfg=White       ctermbg=Black
+hi DiffChange   ctermfg=White       ctermbg=DarkGrey
+hi DiffDelete   ctermfg=White       ctermbg=DarkRed
+hi DiffText     ctermfg=White       ctermbg=DarkGreen
+hi MatchParen   ctermfg=Cyan        ctermbg=Black
+hi Normal       ctermfg=Grey
+hi Search       ctermfg=LightYellow ctermbg=Black
 hi StatusLine   ctermbg=Green       ctermfg=Black
 hi StatusLineNC ctermbg=LightGray   ctermfg=Black
-hi MatchParen   ctermfg=Cyan        ctermbg=Black
+hi Visual       ctermfg=White       ctermbg=Cyan
 
-hi CursorLineNr cterm=bold ctermfg=DarkGreen ctermbg=DarkGrey
 hi ColorColumn  cterm=bold ctermfg=White     ctermbg=Magenta
+hi CursorLineNr cterm=bold ctermfg=DarkGreen ctermbg=DarkGrey
 
 " --- Custom functions and commands ------------------------------------------
 "  TODO: Trim trailing whitespaces and format text:
