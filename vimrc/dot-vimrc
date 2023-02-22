@@ -9,7 +9,7 @@ set showmatch        " Show matching brackets.
 set autoindent       " Autoindent new lines based on previous line.
 set smartindent      " Like autoindent but recognizes C syntax and indents.
 set hlsearch         " Highlight searches.
-set nospell          " Disable built-in spell check use plugin.
+set spell            " Enable vim spell check
 set wildmenu         " Display completion matches in a status line.
 set scrolloff=5      " Show 5 lines of context around the cursor.
 set history=100      " Command line history.
@@ -23,11 +23,6 @@ set path+=include,./include
 " View man pages inside vim
 runtime ftplugin/man.vim
 set keywordprg=:Man
-
-" Set default dictionary
-set dictionary+=/usr/share/dict/words
-set dictionary+=~/.local/share/dict/words
-set complete+=k      " Allow word completions from dictionary.
 
 syntax enable
 
@@ -54,6 +49,8 @@ let c_ansi_constants=1
 " https://vimhelp.org/syntax.txt.html#cterm-colors
 
 hi clear CursorLine
+hi clear SpellBad
+hi clear SpellCap
 
 hi CursorColumn ctermfg=White       ctermbg=Blue
 hi CursorLine   ctermfg=White       ctermbg=Blue
@@ -68,8 +65,10 @@ hi StatusLine   ctermbg=Green       ctermfg=Black
 hi StatusLineNC ctermbg=LightGray   ctermfg=Black
 hi Visual       ctermfg=White       ctermbg=Cyan
 
-hi ColorColumn  cterm=bold ctermfg=White     ctermbg=Magenta
-hi CursorLineNr cterm=bold ctermfg=DarkGreen ctermbg=DarkGrey
+hi ColorColumn  cterm=bold      ctermfg=White     ctermbg=Magenta
+hi CursorLineNr cterm=bold      ctermfg=DarkGreen ctermbg=DarkGrey
+hi SpellBad     cterm=underline ctermfg=DarkGrey
+hi SpellCap     cterm=underline ctermfg=Red
 
 " --- Custom functions and commands ------------------------------------------
 "  TODO: Trim trailing whitespaces and format text:
@@ -210,6 +209,9 @@ augroup common
 		\ setlocal textwidth=0 tabstop=2 softtabstop=2 shiftwidth=2
 		\ expandtab
 
+	autocmd FileType diff,gitrebase
+		\ setlocal nospell
+
 	" TODO: use vim plugin similar to ftplugin/man.vim to use
 	" dictionary for K command in vim for markdown and text files.
 	"
@@ -233,9 +235,6 @@ augroup end
 " -- vim plugin options before loading -----------
 " Use latest snipMate parser for new features.
 let g:snipMate={ 'snippet_version' : 1 }
-
-" Disable spell check on start as it slows down vim.
-let g:enable_spelunker_vim=0
 
 " 'vim-markdown' plugin settings
 let g:vim_markdown_toml_frontmatter=1
@@ -292,7 +291,6 @@ Plug 'chrisbra/matchit'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'google/vim-searchindex'
-Plug 'kamykn/spelunker.vim'
 
 " * Syntax highlighters
 Plug 'ekalinin/Dockerfile.vim'
