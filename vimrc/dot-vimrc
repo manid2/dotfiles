@@ -22,6 +22,9 @@ set listchars=tab:>\ ,lead:.,trail:-,extends:>,precedes:<,nbsp:+
 " Find include files in file relative directory and vim current directory.
 set path+=include,./include
 
+" Add system include paths
+set path+=/usr/include/x86_64-linux-gnu
+
 " View man pages inside vim
 runtime ftplugin/man.vim
 set keywordprg=:Man
