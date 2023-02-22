@@ -6,8 +6,8 @@ runtime! debian.vim
 set nocompatible     " Use Vim defaults instead of 100% vi compatibility.
 set showcmd          " Show (partial) command in status line.
 set showmatch        " Show matching brackets.
-set autoindent       " Autoindent new lines based on previous line.
-set smartindent      " Like autoindent but recognizes C syntax and indents.
+set autoindent       " Auto indent new lines based on previous line.
+set smartindent      " Like 'autoindent' but recognizes C syntax and indents.
 set hlsearch         " Highlight searches.
 set spell            " Enable vim spell check
 set wildmenu         " Display completion matches in a status line.
@@ -15,8 +15,10 @@ set scrolloff=5      " Show 5 lines of context around the cursor.
 set history=100      " Command line history.
 set nomodeline       " Disable modelines for security reasons.
 set backspace=indent,eol,start  " More powerful backspacing.
+
 " Set characters to see invisible characters
 set listchars=tab:>\ ,lead:.,trail:-,extends:>,precedes:<,nbsp:+
+
 " Find include files in file relative directory and vim current directory.
 set path+=include,./include
 
@@ -24,6 +26,7 @@ set path+=include,./include
 runtime ftplugin/man.vim
 set keywordprg=:Man
 
+" Enable syntax highlight
 syntax enable
 
 " Load indentation rules and plugins according to the detected filetype.
@@ -174,7 +177,7 @@ command! -nargs=0 DiffGit call DiffGit()
 command! -nargs=0 HighlightGroup call HighlightGroup()
 
 " TODO: Add function, command and keymap to format text into table.
-" TODO: Add function, command and keymap to search only in visual selctions.
+" TODO: Add function, command and keymap to search only in visual selections.
 " TODO: Add custom function to format code using 'formatexpr=mylang#Format()'
 " TODO: Add abbreviations to reduce typing.
 
@@ -479,7 +482,7 @@ nnoremap <Leader>gl          :Git log<cr>
 nnoremap <Leader>gd          :Git diff<cr>
 nnoremap <Leader>gs          :Git<cr>
 
-" fzf.vim keymaos
+" fzf.vim keymaps
 nnoremap fzf                 :Files<cr>
 nnoremap fgf                 :GFiles<cr>
 nnoremap fbf                 :Buffers<cr>
