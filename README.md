@@ -1,14 +1,7 @@
 dotfiles
 ========
 
-<img src="dotfiles_logo_edited.png"
-     alt="dotfiles logo"
-     title="dotfiles logo"
-     width="320">
-
-Logo based on [jglovier/dotfiles-logo][dotfiles_logo_repo]
-
-`dotfiles` repo to synchronize user configurations.
+`~/.dotfiles` repo to synchronize user configurations.
 
 Install
 -------
