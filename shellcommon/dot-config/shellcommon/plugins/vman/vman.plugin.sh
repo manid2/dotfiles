@@ -50,7 +50,17 @@ vman () {
 	_pre_man "$0" "$@"
 	local _ret=$?
 	if [ $_ret -eq 0 ]; then
-		vim -M +MANPAGER <(man "$@")
+		vim.basic -M +MANPAGER <(man "$@")
+		_ret=$?
+	fi
+	return $_ret
+}
+
+nman () {
+	_pre_man "$0" "$@"
+	local _ret=$?
+	if [ $_ret -eq 0 ]; then
+		nvim -M +Man! <(man "$@")
 		_ret=$?
 	fi
 	return $_ret

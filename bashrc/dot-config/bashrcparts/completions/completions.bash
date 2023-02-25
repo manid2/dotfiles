@@ -5,5 +5,6 @@ fi
 
 # map custom commands to matching command completions
 complete -o default -o nospace -F _man vman
+complete -o default -o nospace -F _man nman
 complete -o default -o nospace -F _man yman
 complete -o default -o nospace -F _sudo ysdo
