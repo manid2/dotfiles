@@ -40,6 +40,7 @@ install_pkgs_to_config () {
 		shellcommon/dot-config/shellcommon \
 		mutt/dot-config/mutt \
 		nvim/dot-config/nvim \
+		tig/dot-config/tig \
 	)
 
 	if [[ $SHELL == "/usr/bin/zsh" ]]; then
