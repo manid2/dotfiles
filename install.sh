@@ -2,6 +2,8 @@
 #
 # Installs dotfiles if not already installed.
 
+# TODO: Add help, command line options and handle optional packages.
+
 # get the sorted list of packages
 # find . -maxdepth 1 -not -name '.git' -not -name '.' -type d -printf '%f\n' |
 # sort | xclip -sel clip
@@ -37,6 +39,7 @@ install_pkgs_to_config () {
 	local pkgs_to_config=( \
 		shellcommon/dot-config/shellcommon \
 		mutt/dot-config/mutt \
+		nvim/dot-config/nvim \
 	)
 
 	if [[ $SHELL == "/usr/bin/zsh" ]]; then
@@ -45,6 +48,7 @@ install_pkgs_to_config () {
 		pkgs_to_config+=(bashrc/dot-config/bashrcparts)
 	fi
 
+	# TODO: Use $XDG_CONFIG_HOME with $HOME/.config as fallback.
 	CONFIG_HOME="$HOME/.config"
 	for pkg in "${pkgs_to_config[@]}"
 	do
