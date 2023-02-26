@@ -35,23 +35,10 @@ nnoremap <C-A>q              gggqG``
 " Highlight current word without jumping
 exe 'nnoremap <Leader>h :let @/=''\<'.s:cword.'\>''<cr>:set hlsearch<cr>'
 
-" Highlight group of cursor
-nnoremap <Leader>hig :HighlightGroup<cr>
-
 " Vim to new shell, after done exit or use ctrl+d to bring back vim
 nnoremap <Leader>sh          :shell<cr>
 " <C-Z> to get same shell as vim was started
 " execute 'fg' command to bring vim back
-
-" Custom functions keymaps
-nnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
-nnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>
-xnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
-xnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>
-nnoremap <Leader>syn         :ToggleSyntax<cr>
-nnoremap <Leader>hll         :ToggleHighlightLongLines<cr>
-nnoremap <Leader>do          :DiffOrig<cr>
-nnoremap <Leader>dg          :DiffGit<cr>
 
 " TODO: Add insert mode keymap to toggle 'paste'
 " TODO: Use generic heading using function and filetype

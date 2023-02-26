@@ -1,5 +1,6 @@
 " --- nvim options -----------------------------------------------------------
 set scrolloff=5      " Show 5 lines of context around the cursor.
+set statusline=%{%statusline#statusline#expr()%}
 
 " Set characters to see invisible characters
 set listchars=tab:>\ ,lead:.,trail:-,extends:>,precedes:<,nbsp:+
