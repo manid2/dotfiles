@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# TODO: Add help and an option to dry-run.
+
+uninstall_home () {
+	mapfile -t _pkgs_in_home < <( \
+	    find $HOME -maxdepth 1 \
+	        \( -name "\.*rc" -o -name "\.gitconfig" \
+	           -o -name "\.tmux.conf" \
+	        \) -type l -printf "%p\n" | \
+	    sort
+	)
+
+	for pkg in "${_pkgs_in_home[@]}"
+	do
+		if [ -f $pkg ]; then
+			echo "Uninstalling $pkg"
+			rm "$pkg"
+		fi
+	done
+}
+
+uninstall_config () {
+	local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+	mapfile -t _pkgs_in_config < <( \
+	    find $config_home -maxdepth 1 -type l -printf "%p\n" | \
+	    sort
+	)
+
+	for pkg in "${_pkgs_in_config[@]}"
+	do
+		if [ -d $pkg ]; then
+			echo "Uninstalling $pkg"
+			rm "$pkg"
+		fi
+	done
+}
+
+uninstall_sshconfig () {
+	home_ssh_config="$HOME/.ssh/config"
+	if [ -L $home_ssh_config ]; then
+		echo "Uninstalling $home_ssh_config"
+		rm "$home_ssh_config"
+	fi
+}
+
+uninstall_home
+uninstall_config
+uninstall_sshconfig

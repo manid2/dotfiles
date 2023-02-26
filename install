@@ -1,80 +1,56 @@
 #!/bin/bash
-#
-# Installs dotfiles if not already installed.
 
-# TODO: Add help, command line options and handle optional packages.
+# TODO: Add help and an option to force install.
 
-# get the sorted list of packages
-# find . -maxdepth 1 -not -name '.git' -not -name '.' -type d -printf '%f\n' |
-# sort | xclip -sel clip
-
-install_pkgs_to_home () {
-	local pkgs_to_home=( \
-		gitconfig \
-		lynxrc \
-		tmux.conf \
-		vimrc \
-		ripgreprc \
-		coloritrc \
+install_home () {
+	mapfile -t _pkgs_to_home < <( \
+	    find . -maxdepth 1 \
+	        \( -name "dot-*rc" -o -name "dot-gitconfig" \
+		   -o -name "dot-tmux.conf" \
+	        \) -type f -printf "%P\n" | \
+	    sort
 	)
 
-	if [[ $SHELL == "/usr/bin/zsh" ]]; then
-		pkgs_to_home+=(zshrc)
-	else
-		pkgs_to_home+=(bashrc)
-	fi
-
-	for pkg in "${pkgs_to_home[@]}"
+	for pkg in "${_pkgs_to_home[@]}"
 	do
-		if [ ! -f ~/.$pkg ]; then
-			rel_path=$(realpath --relative-to=$HOME $pkg/dot-$pkg)
-			ln -s $rel_path ~/.$pkg
-		else
-			echo "'$pkg' already installed."
+		pkg_dest="$HOME/.${pkg#dot-}"
+		if [ ! -f $pkg_dest ]; then
+			rel_path=$(realpath --relative-to=$HOME $pkg)
+			echo "Installing $pkg to $pkg_dest"
+			ln -s "$rel_path" "$pkg_dest"
 		fi
 	done
 }
 
-install_pkgs_to_config () {
-	local pkgs_to_config=( \
-		shellcommon/dot-config/shellcommon \
-		mutt/dot-config/mutt \
-		nvim/dot-config/nvim \
-		tig/dot-config/tig \
+install_config () {
+	mapfile -t _pkgs_to_config < <( \
+	    find dot-config/ -maxdepth 1 ! -path dot-config/ -type d \
+	        -printf "%p\n" | \
+	    sort
 	)
 
-	if [[ $SHELL == "/usr/bin/zsh" ]]; then
-		pkgs_to_config+=(zshrc/dot-config/zshrcparts)
-	else
-		pkgs_to_config+=(bashrc/dot-config/bashrcparts)
-	fi
-
-	# TODO: Use $XDG_CONFIG_HOME with $HOME/.config as fallback.
-	CONFIG_HOME="$HOME/.config"
-	for pkg in "${pkgs_to_config[@]}"
+	local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+	for pkg in "${_pkgs_to_config[@]}"
 	do
-		pkg_base=$(basename $pkg)
-		pkg_dest="$CONFIG_HOME/$pkg_base"
+		pkg_dest="$config_home/${pkg#dot-config/}"
 		if [ ! -d $pkg_dest ]; then
-			rel_path=$(realpath --relative-to=$CONFIG_HOME $pkg)
-			ln -s $rel_path $pkg_dest
-		else
-			echo "'$pkg' already installed."
+			rel_path=$(realpath --relative-to=$config_home $pkg)
+			echo "Installing $pkg to $pkg_dest"
+			ln -s "$rel_path" "$pkg_dest"
 		fi
 	done
 }
 
 install_sshconfig () {
-	pkg_ssh_config='ssh/dot-ssh/config'
+	pkg_ssh_config='dot-ssh/config'
 	home_ssh_config="$HOME/.ssh/config"
 	if [ ! -f $home_ssh_config ]; then
 		rel_path=$(realpath --relative-to=$HOME/.ssh $pkg_ssh_config)
-		ln -s $rel_path $home_ssh_config
-	else
-		echo "'$pkg_ssh_config' already installed."
+		echo "Installing $pkg_ssh_config to $home_ssh_config"
+		ln -s "$rel_path" "$home_ssh_config"
 	fi
 }
 
-install_pkgs_to_home
-install_pkgs_to_config
+install_home
+install_config
 install_sshconfig

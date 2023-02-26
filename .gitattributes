@@ -1,12 +1,12 @@
 # help github linguist to detect language and highlight syntax
-# TODO: Remove these where file extensions can be added.
-bashrc/dot-bashrc linguist-language=bash
-coloritrc/dot-coloritrc linguist-language=m4
-gitconfig/dot-gitconfig linguist-language=gitconfig
-lynxrc/dot-lynxrc linguist-language=npmrc
-mutt/dot-config/mutt/* linguist-language=sh
-ripgreprc/dot-ripgreprc linguist-language=npmrc
-ssh/dot-ssh/config linguist-language=sshconfig
-tmux.conf/dot-tmux.conf linguist-language=sh
-vimrc/dot-vimrc linguist-language=vim
-zshrc/dot-zshrc linguist-language=zsh
+dot-bashrc linguist-language=bash
+dot-coloritrc linguist-language=m4
+dot-config/mutt/* linguist-language=sh
+dot-config/tig/* linguist-language=sh
+dot-gitconfig linguist-language=gitconfig
+dot-lynxrc linguist-language=npmrc
+dot-ripgreprc linguist-language=npmrc
+dot-ssh/config linguist-language=ssh-config
+dot-tmux.conf linguist-language=sh
+dot-vimrc linguist-language=vim
+dot-zshrc linguist-language=zsh
