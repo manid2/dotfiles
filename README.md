@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-`~/.dotfiles` repo to synchronize user configurations.
+`~/.dotfiles` repository to synchronize user configurations.
 
 Install
 -------
