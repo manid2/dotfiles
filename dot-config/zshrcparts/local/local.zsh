@@ -7,4 +7,5 @@ fi
 path=($HOME/.local/bin $path)
 
 # add fzf in vim-plug path to PATH
+# TODO: use sym link to fzf binary in ~/.local/bin
 path=("$HOME/.vim/plugged/fzf/bin" $path)
