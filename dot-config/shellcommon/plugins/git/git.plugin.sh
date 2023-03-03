@@ -249,6 +249,13 @@ gchd () {
 	fi
 }
 
+# git archive
+git_tar () {
+	local _prefix="$(git_repo_path)"
+	_prefix=$(basename $_prefix)
+	__git_cmd archive --format=tar --prefix="$_prefix/" HEAD -o "$_prefix.tar"
+}
+
 # --- aliases ---
 # aliases for above functions
 alias grpp='git_repo_path'
@@ -280,5 +287,4 @@ alias gdh='git diff --color | diff-highlight | less -r'
 
 # TODO
 #
-# * alias: git archive zip, tar
 # * alias: git worktree add, remove, prune
