@@ -57,6 +57,8 @@ let c_ansi_constants=1
 hi clear CursorLine
 hi clear SpellBad
 hi clear SpellCap
+hi clear StatusLine
+hi clear StatusLineNC
 
 hi CursorColumn ctermfg=White       ctermbg=Blue
 hi CursorLine   ctermfg=White       ctermbg=Blue
@@ -67,8 +69,9 @@ hi DiffText     ctermfg=White       ctermbg=DarkGreen
 hi MatchParen   ctermfg=Cyan        ctermbg=Black
 hi Normal       ctermfg=Grey
 hi Search       ctermfg=LightYellow ctermbg=Black
-hi StatusLine   ctermbg=Green       ctermfg=Black
-hi StatusLineNC ctermbg=LightGray   ctermfg=Black
+hi SignColumn                       ctermbg=None
+hi StatusLine   ctermfg=Green       ctermbg=None
+hi StatusLineNC ctermfg=Grey        ctermbg=None
 hi Visual       ctermfg=White       ctermbg=Cyan
 
 hi ColorColumn  cterm=bold      ctermfg=White     ctermbg=Magenta
