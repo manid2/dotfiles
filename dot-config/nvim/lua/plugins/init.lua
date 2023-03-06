@@ -20,4 +20,11 @@ packer.startup(function(use)
 	use "williamboman/mason.nvim"
 end)
 
-require("mason").setup()
+-- Setup plugins
+local _border = "single"
+
+require("mason").setup({
+	ui = {
+		border = _border
+	}
+})

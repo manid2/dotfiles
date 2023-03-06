@@ -21,6 +21,8 @@ hi DiffDelete   ctermfg=White  ctermbg=DarkRed
 hi DiffText     ctermfg=White  ctermbg=DarkGreen
 hi MatchParen   ctermfg=Cyan   ctermbg=Black
 hi Normal       ctermfg=Grey
+hi NormalFloat                 ctermbg=None
+hi FloatBorder  ctermfg=None   ctermbg=None
 hi StatusLine   ctermfg=Green  ctermbg=None
 hi StatusLineNC ctermfg=Grey   ctermbg=None
 hi Search       ctermfg=Yellow ctermbg=DarkBlue
