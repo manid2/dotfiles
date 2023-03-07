@@ -214,7 +214,7 @@ augroup common
 	autocmd FileType python
 		\ setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
-	autocmd FileType html,jinja.html,css,scss,toml,yml
+	autocmd FileType html,jinja.html,css,scss,toml,yml,json
 		\ setlocal textwidth=0 tabstop=2 softtabstop=2 shiftwidth=2
 		\ expandtab
 

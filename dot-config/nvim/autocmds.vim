@@ -52,7 +52,7 @@ augroup end
 
 augroup mk_html
 	autocmd!
-	autocmd FileType html,jinja.html,css,scss,toml,yml
+	autocmd FileType html,jinja.html,css,scss,toml,yml,json
 		\ setlocal spell textwidth=0 tabstop=2 softtabstop=2
 		\ shiftwidth=2 expandtab
 augroup end
