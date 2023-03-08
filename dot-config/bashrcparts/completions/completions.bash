@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090
 # source fzf auto completions
 if [ -f ~/.vim/plugged/fzf/shell/completion.bash ]; then
 	source ~/.vim/plugged/fzf/shell/completion.bash

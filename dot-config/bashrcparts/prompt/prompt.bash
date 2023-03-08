@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090
 # bash prompt file, to be sourced into ~/.bashrc
 
 # Shell common colors
@@ -21,6 +22,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # override default virtualenv indicator in prompt
+# shellcheck disable=2034
 VIRTUAL_ENV_DISABLE_PROMPT=1
 venv_info=${VIRTUAL_ENV:+$(basename $VIRTUAL_ENV)}
 
@@ -67,10 +69,10 @@ fi
 truncate_str_n () {
     str=$1
     len=$2
-    if [ ${#str} -ge $len ]; then
-        printf "..""${str: -$((len-2)):$len}"
+    if [ "${#str}" -ge "$len" ]; then
+        printf "..%s" "${str: -$((len-2)):$len}"
     else
-        printf "$str"
+        printf "%s" "$str"
     fi
 }
 
@@ -87,6 +89,7 @@ _ps1+="${debian_chroot:+($debian_chroot)$uc_bdl_h}"
 _ps1+="${venv_info:+($venv_info)$uc_bdl_h}"
 
 # (user@host:cwd)
+# shellcheck disable=SC2016
 _ps1_cwd='$(truncate_str_n ${PWD/#$HOME/"~"} 16)'
 _ps1+="($CYAN\u$YELLOW@$CYAN\h$YELLOW:$BLUE$_ps1_cwd$_user_color)$uc_bdl_h"
 
@@ -113,8 +116,10 @@ prompt_command () {
 	local _proc_exit_str=''
 
 	if [ "$_proc_exit" -eq 0 ]; then
+		# shellcheck disable=1087
 		_proc_exit_str+="$_user_color[$GREEN$_proc_exit"
 	else
+		# shellcheck disable=1087
 		_proc_exit_str+="$_user_color[$RED$_proc_exit"
 	fi
 	_proc_exit_str+="$_user_color]"

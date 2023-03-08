@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090
 # source fzf key bindings
 if [ -f ~/.vim/plugged/fzf/shell/key-bindings.bash ]; then
 	source ~/.vim/plugged/fzf/shell/key-bindings.bash

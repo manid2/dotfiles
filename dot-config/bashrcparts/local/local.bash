@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090
 # source shell common local settings
 if [ -f ~/.config/shellcommon/local/local.sh ]; then
 	source ~/.config/shellcommon/local/local.sh

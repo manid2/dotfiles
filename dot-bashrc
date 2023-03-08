@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1090
 #
 # Root bashrc, contains sym links to logically grouped settings
 
@@ -30,6 +31,7 @@ if ! shopt -oq posix; then
 fi
 
 # Below line added by Sandvine logon script
+# shellcheck disable=SC1091
 if [ -f /etc/profile.d/sandvine.rc ]; then . /etc/profile.d/sandvine.rc; fi
 
 # source shell common settings
