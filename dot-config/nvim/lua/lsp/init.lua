@@ -2,12 +2,6 @@
 -- TODO: Toggle LSP diagnostics and code actions as they are noisy.
 -- TODO: Setup formatters and code completions.
 
-local shell_ft = {
-	filetypes = {
-		"sh", "bash"
-	}
-}
-
 local docs_ft = {
 	filetypes = {
 		"markdown", "text"
@@ -17,9 +11,15 @@ local docs_ft = {
 local null_ls = require "null-ls"
 -- LSP for shell scripting.
 local shellcheck_diagnostics =
-		null_ls.builtins.diagnostics.shellcheck.with(shell_ft)
+		null_ls.builtins.diagnostics.shellcheck.with({
+		    extra_filetypes = { "bash" },
+		    diagnostics_format = "#{s} #{c}: #{m}",
+		})
 local shellcheck_code_actions =
-		null_ls.builtins.code_actions.shellcheck.with(shell_ft)
+		null_ls.builtins.code_actions.shellcheck.with({
+		    extra_filetypes = { "bash" },
+		    diagnostics_format = "#{s} #{c}: #{m}",
+		})
 local zsh_diagnostics = null_ls.builtins.diagnostics.zsh
 -- LSP for documentation.
 local markdownlint_diagnostics =
