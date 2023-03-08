@@ -35,7 +35,10 @@ local jq_formatting = null_ls.builtins.formatting.jq
 local todo_comments = null_ls.builtins.diagnostics.todo_comments
 local trail_space = null_ls.builtins.diagnostics.trail_space
 
+local _border = "single"
+
 null_ls.setup ({
+	border = _border,
 	debug = false,
 	sources = {
 		shellcheck_diagnostics,
@@ -93,8 +96,6 @@ for _, lsp in pairs(servers) do
 end
 
 -- Configure UI
-local _border = "single"
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 	vim.lsp.handlers.hover,
 	{ border = _border }
