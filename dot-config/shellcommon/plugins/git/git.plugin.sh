@@ -118,7 +118,7 @@ git_current_branch () {
 		[[ $ret == 128 ]] && return  # no git repo.
 		ref=$(__git_cmd rev-parse --short HEAD 2> /dev/null) || return
 	fi
-	echo ${ref#refs/heads/}
+	echo "${ref#refs/heads/}"
 }
 
 git_short_sha () {
@@ -146,16 +146,16 @@ git_get_user_info () {
 	gcue=$(git_get_user_email)
 	if [[ -n "$gcun" && -n "$gcue" ]]; then
 		git_user_info="$gcun <$gcue>"
-		echo $git_user_info
+		echo "$git_user_info"
 	fi
 }
 
 git_set_user_name () {
-	__git_cmd config user.name $1 2>/dev/null
+	__git_cmd config user.name "$1" 2>/dev/null
 }
 
 git_set_user_email () {
-	__git_cmd config user.email $1 2>/dev/null
+	__git_cmd config user.email "$1" 2>/dev/null
 }
 
 # set user name and email using "name <email>" format
@@ -164,27 +164,31 @@ git_set_user_info () {
 	if [[ -z "$_git_user_info" ]]; then
 		return
 	fi
+	# shellcheck disable=SC2016
 	local _split_n='echo $_git_user_info | cut -d "<" -f1'
+	# shellcheck disable=SC2016
 	local _split_e='echo $_git_user_info | cut -d "<" -f2'
 	local _trim="awk '{\$1=\$1};1'"
 
-	local _git_user_name=$(eval "$_split_n" | eval "$_trim" )
-	local _git_user_email=$(eval "$_split_e" | tr '>' ' ' | eval "$_trim")
+	local _git_user_name _git_user_email
+	_git_user_name=$(eval "$_split_n" | eval "$_trim" )
+	_git_user_email=$(eval "$_split_e" | tr '>' ' ' | eval "$_trim")
 	git_set_user_name "$_git_user_name"
 	git_set_user_email "$_git_user_email"
 }
 
 git_repo_path () {
-	local repo_path=$(__git_cmd rev-parse --show-toplevel 2>/dev/null)
+	local repo_path
+	repo_path=$(__git_cmd rev-parse --show-toplevel 2>/dev/null)
 	if [[ -n "$repo_path" ]]; then
-		echo $repo_path
+		echo "$repo_path"
 	fi
 }
 
 git_repo_name () {
 	local repo_name
 	if repo_name=$(git_repo_path) && [[ -n "$repo_name" ]]; then
-		echo ${repo_name:t}
+		echo "${repo_name:t}"
 	fi
 }
 
@@ -204,46 +208,56 @@ git_prune_local_branches () {
 	local _fmt="%(refname:short) %(upstream:track) refs/heads/**"
 	local _pat='/\[gone\]/'
 	local _awk="awk '$_pat {print \$1}'"
-	local _lbes=$(__git_cmd for-each-ref --format="$_fmt" | eval "$_awk" )
-	local _lbes_arr=($(echo $_lbes | tr '\n' ' '))
+	local _lbes _lbes_arr
+	_lbes=$(__git_cmd for-each-ref --format="$_fmt" | eval "$_awk" )
+
+	while IFS= read -r line; do
+		_lbes_arr+=("$line")
+	done <<-EOF
+		$_lbes
+	EOF
+
 	for _lb in "${_lbes_arr[@]}"
 	do
-		if [[ ! -z "$_lb" ]]; then
+		if [[ -n "$_lb" ]]; then
 			echo "Pruning: $_lb"
-			__git_cmd branch -D $_lb
+			__git_cmd branch -D "$_lb"
 		fi
 	done
 }
 
 # compatible with gitlab merge requests
 git_mr () {
-	__git_cmd fetch $1 merge-requests/$2/head:mr/$1/$2 && git checkout mr/$1/$2
+	__git_cmd fetch "$1" "merge-requests/$2/head:mr/$1/$2" &&
+		git checkout "mr/$1/$2"
 }
 
 # * try toggle feature branch and its debug branch
 # * toggle dev branch and main branch
 # useful for debugging feature branch but without making commits in it.
 gchd () {
-	local _cb=$(git_current_branch)
-	local _dbg='-debug'
-	$(__git_cmd show-ref --quiet --verify -- "refs/heads/$_cb$_dbg")
+	local _cb _dbg
+	_cb=$(git_current_branch)
+	_dbg='-debug'
+	__git_cmd show-ref --quiet --verify -- "refs/heads/$_cb$_dbg"
 	local _has_dbg=$?
 	local _m='main'
 	local _d='dev'
+
 	# check if current branch is a debug branch
-	if [[ $_cb == *$_dbg ]]; then
+	if [[ "$_cb" == "*$_dbg" ]]; then
 		# switch to feature branch
-		__git_cmd checkout ${_cb%"$_dbg"}
+		__git_cmd checkout "${_cb%"$_dbg"}"
 	# if current branch is a feature branch
 	# then switch to debug branch if it exists
 	elif [[ $_has_dbg == 0 ]]; then
 		__git_cmd checkout "$_cb$_dbg"
 	# check if current branch is 'main'
-	elif [[ $_cb == $_m ]]; then
+	elif [[ "$_cb" == "$_m" ]]; then
 		# switch to 'dev' branch
 		__git_cmd checkout "$_d"
 	# check if current branch is 'dev'
-	elif [[ $_cb == $_d ]]; then
+	elif [[ "$_cb" == "$_d" ]]; then
 		# switch to 'dev' branch
 		__git_cmd checkout "$_m"
 	fi
@@ -251,8 +265,9 @@ gchd () {
 
 # git archive
 git_tar () {
-	local _prefix="$(git_repo_path)"
-	_prefix=$(basename $_prefix)
+	local _prefix
+	_prefix="$(git_repo_path)"
+	_prefix=$(basename "$_prefix")
 	__git_cmd archive --format=tar --prefix="$_prefix/" HEAD -o "$_prefix.tar"
 }
 

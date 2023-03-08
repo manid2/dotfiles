@@ -27,7 +27,7 @@
 # and bash.
 
 _pre_man () {
-	local _cmd=$1; shift;
+	local _cmd="$1"; shift;
 	local _msg=''
 	local _ret=0
 
@@ -40,7 +40,7 @@ _pre_man () {
 	fi
 
 	if [ $_ret -ne 0 ]; then
-		echo ${_msg/man /$_cmd }
+		echo "${_msg/man /$_cmd }"
 	fi
 
 	return $_ret
@@ -70,7 +70,8 @@ yman () {
 	_pre_man "$0" "$@"
 	local _ret=$?
 	if [ $_ret -eq 0 ]; then
-		local _man_cmd=$([ -n "$2" ] &&
+		local _man_cmd
+		_man_cmd=$([ -n "$2" ] &&
 			echo "man:$2($1)" || echo "man:$1");
 
 		yelp "$_man_cmd" 2>/dev/null &

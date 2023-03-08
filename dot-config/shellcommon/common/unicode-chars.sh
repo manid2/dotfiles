@@ -1,3 +1,4 @@
+# shellcheck disable=all
 # Unicode characters
 # use ctrl+shift+u, enter unicode number and press space
 

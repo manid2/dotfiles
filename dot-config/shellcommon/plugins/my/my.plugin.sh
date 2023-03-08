@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090,SC1091
 # source shell common file
 if [ -f ~/.config/shellcommon/common/common.sh ]; then
 	source ~/.config/shellcommon/common/common.sh
@@ -5,16 +6,17 @@ fi
 
 # --- aliases ---
 # workspace aliases
+# shellcheck disable=2154
 export mydp="$mwp/mydocs"
 export myrp="$mwp/myrepos"
 export mybp="$myrp/manid2.gitlab.io"
 
-alias mydp="cd \"$mydp\""
-alias myrp="cd \"$myrp\""
-alias mybp="cd \"$mybp\""
+alias mydp='cd "$mydp"'
+alias myrp='cd "$myrp"'
+alias mybp='cd "$mybp"'
 
 lnr () {
-	ln $1 `realpath --relative-to=$2 $3` $4
+	ln "$1" "$(realpath --relative-to="$2" "$3")" "$4"
 }
 
 alias lnrs='lnr -s '

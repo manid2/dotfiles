@@ -1,3 +1,4 @@
+# shellcheck disable=all
 # source local git-sh-prompt script
 if [ -f ~/.local/bin/git-sh-prompt ]; then
     # git ps1 options

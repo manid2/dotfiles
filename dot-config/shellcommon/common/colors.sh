@@ -1,3 +1,4 @@
+# shellcheck disable=all
 # ANSI color codes
 # prompt colors
 MAGENTA='\[\033[00;35m\]'
