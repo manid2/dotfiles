@@ -1,3 +1,4 @@
+# shellcheck shell=bash disable=all
 # zsh options file, to be sourced into ~/.zshrc
 
 setopt autocd              # change directory just by typing its name

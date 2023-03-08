@@ -1,3 +1,4 @@
+# shellcheck shell=bash disable=all
 # zsh plugins file, to be sourced into ~/.zshrc
 
 # Source command-not-found plugin if available

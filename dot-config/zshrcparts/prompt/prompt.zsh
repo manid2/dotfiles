@@ -1,3 +1,4 @@
+# shellcheck shell=bash disable=all
 # zsh prompt file, to be sourced into ~/.zshrc
 
 # Unicode characters

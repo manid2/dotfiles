@@ -1,3 +1,4 @@
+# shellcheck shell=bash disable=1090 disable=SC2034
 # zsh keymaps file, to be sourced into ~/.zshrc
 
 # configure key keybindings
@@ -8,6 +9,7 @@ if [ -f ~/.vim/plugged/fzf/shell/key-bindings.zsh ]; then
 	source ~/.vim/plugged/fzf/shell/key-bindings.zsh
 
 	# fzf check spelling with dictionary preview.
+	# shellcheck disable=SC2120
 	__fspell () {
 		local cmd="command cat /usr/share/dict/words 2>/dev/null"
 		local item

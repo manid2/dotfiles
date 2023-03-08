@@ -1,4 +1,5 @@
 #!/bin/zsh
+# shellcheck shell=bash disable=SC1090
 #
 # Root zshrc, contains sym links to logically grouped settings
 

@@ -1,3 +1,4 @@
+# shellcheck shell=bash disable=SC1090
 # zsh completions file, to be sourced into ~/.zshrc
 
 # enable completion features
@@ -16,12 +17,9 @@ zstyle ':completion:*:*:*:*:*' menu select
 # FIXME: ignore these file patterns '*.o-*'
 zstyle ':completion:*:*:vim:*:*files' ignored-patterns '*.o'
 
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-
-    # Take advantage of $LS_COLORS for completion as well
-    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-fi
+# Take advantage of $LS_COLORS for completion as well
+# shellcheck disable=2296
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # source fzf auto completions
 if [ -f ~/.vim/plugged/fzf/shell/completion.zsh ]; then
@@ -30,8 +28,8 @@ fi
 
 # source user created completion scripts
 for comp_file in ~/.local/share/zsh/user-completions/_*; do
-    if [ -f $comp_file ]; then
-        source $comp_file
+    if [ -f "$comp_file" ]; then
+        source "$comp_file"
     fi
 done
 

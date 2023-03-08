@@ -20,7 +20,11 @@ local shellcheck_code_actions =
 		    extra_filetypes = { "bash" },
 		    diagnostics_format = "#{s} #{c}: #{m}",
 		})
-local zsh_diagnostics = null_ls.builtins.diagnostics.zsh
+local zsh_diagnostics = null_ls.builtins.diagnostics.shellcheck.with({
+		    filetypes = { "zsh" },
+		    diagnostics_format = "#{s} #{c}: #{m}",
+		    extra_args = { "--shell", "bash" },
+		})
 -- LSP for documentation.
 local markdownlint_diagnostics =
 		null_ls.builtins.diagnostics.markdownlint
