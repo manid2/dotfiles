@@ -9,7 +9,7 @@ Install
 Use `install` script.
 
 ```sh
-$ ./install
+./install
 ```
 
 Uninstall
@@ -18,5 +18,5 @@ Uninstall
 Use `uninstall` script.
 
 ```sh
-$ ./uninstall
+./uninstall
 ```
