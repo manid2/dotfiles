@@ -14,8 +14,8 @@ install_home () {
 	for pkg in "${_pkgs_to_home[@]}"
 	do
 		pkg_dest="$HOME/.${pkg#dot-}"
-		if [ ! -f $pkg_dest ]; then
-			rel_path=$(realpath --relative-to=$HOME $pkg)
+		if [ ! -f "$pkg_dest" ]; then
+			rel_path="$(realpath --relative-to="$HOME" "$pkg")"
 			echo "Installing $pkg to $pkg_dest"
 			ln -s "$rel_path" "$pkg_dest"
 		fi
@@ -33,8 +33,8 @@ install_config () {
 	for pkg in "${_pkgs_to_config[@]}"
 	do
 		pkg_dest="$config_home/${pkg#dot-config/}"
-		if [ ! -d $pkg_dest ]; then
-			rel_path=$(realpath --relative-to=$config_home $pkg)
+		if [ ! -d "$pkg_dest" ]; then
+			rel_path="$(realpath --relative-to="$config_home" "$pkg")"
 			echo "Installing $pkg to $pkg_dest"
 			ln -s "$rel_path" "$pkg_dest"
 		fi
@@ -44,8 +44,8 @@ install_config () {
 install_sshconfig () {
 	pkg_ssh_config='dot-ssh/config'
 	home_ssh_config="$HOME/.ssh/config"
-	if [ ! -f $home_ssh_config ]; then
-		rel_path=$(realpath --relative-to=$HOME/.ssh $pkg_ssh_config)
+	if [ ! -f "$home_ssh_config" ]; then
+		rel_path="$(realpath --relative-to="$HOME/.ssh" "$pkg_ssh_config")"
 		echo "Installing $pkg_ssh_config to $home_ssh_config"
 		ln -s "$rel_path" "$home_ssh_config"
 	fi
