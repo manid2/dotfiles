@@ -25,6 +25,8 @@ local zsh_diagnostics = null_ls.builtins.diagnostics.shellcheck.with({
 		    diagnostics_format = "#{s} #{c}: #{m}",
 		    extra_args = { "--shell", "bash" },
 		})
+-- Linter for vim scripts.
+local vim_diagnostics = null_ls.builtins.diagnostics.vint
 -- LSP for documentation.
 local markdownlint_diagnostics =
 		null_ls.builtins.diagnostics.markdownlint
@@ -48,6 +50,7 @@ null_ls.setup ({
 		shellcheck_diagnostics,
 		shellcheck_code_actions,
 		zsh_diagnostics,
+		vim_diagnostics,
 		markdownlint_diagnostics,
 		write_good_diagnostics,
 		curlylint_diagnostics,
@@ -88,6 +91,7 @@ end
 -- TODO: Add LSP for javascript, babeljs and typescript.
 local servers = {
 	"clangd",
+	"vimls",
 	"pyright",
 	"gopls",
 	"rust_analyzer",
