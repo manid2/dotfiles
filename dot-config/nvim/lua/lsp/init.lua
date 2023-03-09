@@ -1,6 +1,20 @@
 -- Setup LSP non LSP provided files using null-ls plugin.
 -- TODO: Toggle LSP diagnostics and code actions as they are noisy.
 -- TODO: Setup formatters and code completions.
+-- TODO: Setup linters for file types:
+-- * c
+-- * cpp
+-- * python
+-- * lua
+-- * yaml
+-- * json
+-- * toml
+-- * make
+-- * cmake
+-- * gitcommit
+-- * html
+-- * css
+-- * scss
 
 local docs_ft = {
 	filetypes = {
@@ -29,7 +43,9 @@ local zsh_diagnostics = null_ls.builtins.diagnostics.shellcheck.with({
 local vim_diagnostics = null_ls.builtins.diagnostics.vint
 -- LSP for documentation.
 local markdownlint_diagnostics =
-		null_ls.builtins.diagnostics.markdownlint
+		null_ls.builtins.diagnostics.markdownlint.with({
+		    diagnostics_format = "#{s} #{c}: #{m}",
+		})
 local write_good_diagnostics =
 		null_ls.builtins.diagnostics.write_good.with(docs_ft)
 -- LSP for web filetypes.
