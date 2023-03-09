@@ -87,10 +87,10 @@ hi SpellCap     cterm=underline ctermfg=Red
 "  o) with option to highlight and confirmation.
 "  o) automatically before buffer write.
 function! TrimTrailingWhitespace() range
-	let l:cmd="keepjumps keeppatterns "
+	let l:cmd='keepjumps keeppatterns '
 	let l:pat="s/\\s\\+$//e"
 	if exists('a:firstline')
-		exe l:cmd.a:firstline.",".a:lastline.l:pat
+		exe l:cmd.a:firstline.','.a:lastline.l:pat
 	else
 		exe l:cmd.l:pat
 	endif
@@ -98,10 +98,10 @@ function! TrimTrailingWhitespace() range
 endfunction
 
 function! TrimLeadingWhitespace() range
-	let l:cmd="keepjumps keeppatterns "
+	let l:cmd='keepjumps keeppatterns '
 	let l:pat="s/^\\s\\+//e"
 	if exists('a:firstline')
-		exe l:cmd.a:firstline.",".a:lastline.l:pat
+		exe l:cmd.a:firstline.','.a:lastline.l:pat
 	else
 		exe l:cmd.l:pat
 	endif
@@ -109,7 +109,7 @@ function! TrimLeadingWhitespace() range
 endfunction
 
 function! ToggleSyntax()
-	if exists("g:syntax_on")
+	if exists('g:syntax_on')
 		syntax off
 	else
 		syntax enable
@@ -140,10 +140,11 @@ function! ToggleHighlightLongLines()
 endfunction
 
 function! DiffOrig()
-	exe "vert new ".expand('%').".orig~"
+	exe 'vert new '.expand('%').'.orig~'
 	r #
 	1d_
-	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=".&ft
+	exe 'setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile '.
+		\ 'readonly filetype='.&filetype
 	diffthis
 	wincmd p
 	diffthis
@@ -151,10 +152,11 @@ endfunction
 
 function! DiffGit()
 	let l:fp=expand('%')
-	exe "vert new ".l:fp.".git~"
-	exe "read !git diff ".fnameescape(l:fp)." | patch -p1 -Rs -o -"
+	exe 'vert new '.l:fp.'.git~'
+	exe 'read !git diff '.fnameescape(l:fp).' | patch -p1 -Rs -o -'
 	1d_
-	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=".&ft
+	exe 'setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile '.
+		\ 'readonly filetype='.&filetype
 	diffthis
 	wincmd p
 	diffthis
@@ -293,7 +295,7 @@ Plug 'sukima/xmledit'
 " automatic tags updation
 "Plug 'jsfaint/gen_tags.vim'
 Plug 'preservim/vim-markdown'
-if has("cscope")
+if has('cscope')
 	Plug 'manid2/vim-cscope-settings', {'branch': 'dev'}
 endif
 Plug 'chrisbra/matchit'
@@ -321,14 +323,14 @@ endif
 
 " NOTE: Execute system commands at the start to avoid errors in vim and slows
 " down vim as it evaluates status line expression continuously.
-let s:git_str_cmd="$SHELL -c ".shellescape(
-	\"source ~/.local/bin/git-sh-prompt; ".
+let s:git_str_cmd='$SHELL -c '.shellescape(
+	\'source ~/.local/bin/git-sh-prompt; '.
 	\"GIT_PS1_SHOWDIRTYSTATE='y' ".
 	\"GIT_PS1_SHOWSTASHSTATE='y' ".
 	\"GIT_PS1_SHOWUNTRACKEDFILES='y' ".
 	\"GIT_PS1_DESCRIBE_STYLE='contains' ".
 	\"GIT_PS1_SHOWUPSTREAM='auto' ".
-	\"__git_ps1")
+	\'__git_ps1')
 let g:vim_git_branch=trim(system(s:git_str_cmd))
 
 " Disable word count on status line on start as it slows down vim.
@@ -342,22 +344,22 @@ function! SiSlSecModeFlags()
 	let l:mf=&modified ? '+' : ''
 	let l:bfn=len(getbufinfo({'buflisted':1}))
 	let l:bfn=l:bfn > 1 ? '/'.string(l:bfn) : ''
-	return "%0.10(".l:md.l:ro.l:mo.l:mf." %n".l:bfn."%)"
+	return '%0.10('.l:md.l:ro.l:mo.l:mf.' %n'.l:bfn.'%)'
 endfunction
 
 function! SiSlSecFileType()
 	" TODO: truncate right when exceeding max chars.
-	return "%0.10(".&filetype."%)"
+	return '%0.10('.&filetype.'%)'
 endfunction
 
 function! SiSlSecGitStr()
-	return "%0.24(".g:vim_git_branch."%)"
+	return '%0.24('.g:vim_git_branch.'%)'
 endfunction
 
 function! SiSlSecCurrentTag()
 	let l:ct=''
 	if exists(':TagbarCurrentTag')
-		let l:ct="%0.24(".tagbar#currenttag('%s', '')."%)"
+		let l:ct='%0.24('.tagbar#currenttag('%s', '').'%)'
 	endif
 	return l:ct
 endfunction
@@ -368,20 +370,20 @@ function! SiSlSecWordCount()
 		return l:wc
 	endif
 	if has_key(wordcount(),'visual_words')
-		let l:wc=wordcount().visual_words."/".wordcount().words
+		let l:wc=wordcount().visual_words.'/'.wordcount().words
 	else
-		let l:wc=wordcount().cursor_words."/".wordcount().words
+		let l:wc=wordcount().cursor_words.'/'.wordcount().words
 	endif
-	return "%0.9(".l:wc."%)"
+	return '%0.9('.l:wc.'%)'
 endfunction
 
 function! SiSlSecRelFileInfo()
-	return "%0.50(%f:%l:%c%V|%L|%p%%%)"
+	return '%0.50(%f:%l:%c%V|%L|%p%%%)'
 endfunction
 
 function! StatuslineExpr()
 	let l:sp=' '
-	let l:secsp="%="
+	let l:secsp='%='
 	let l:func_refs = [
 		\ SiSlSecModeFlags(),
 		\ SiSlSecFileType(),

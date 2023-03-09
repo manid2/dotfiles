@@ -47,7 +47,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'bergercookie/vim-deb-preview'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/vim-markdown'
-if has("cscope")
+if has('cscope')
 	Plug 'manid2/vim-cscope-settings', {'branch': 'dev'}
 endif
 Plug 'chrisbra/matchit'

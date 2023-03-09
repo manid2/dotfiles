@@ -5,37 +5,37 @@
 "  o) on `git diff -U0` lines.
 "  o) with option to highlight and confirmation.
 "  o) automatically before buffer write.
-function! custom#functions#trim_trail_ws() range
-	let l:cmd="keepjumps keeppatterns "
+function! custom#functions#trim_trail_ws() range abort
+	let l:cmd='keepjumps keeppatterns '
 	let l:pat="s/\\s\\+$//e"
 	if exists('a:firstline')
-		exe l:cmd.a:firstline.",".a:lastline.l:pat
+		exe l:cmd.a:firstline.','.a:lastline.l:pat
 	else
 		exe l:cmd.l:pat
 	endif
 	call winrestview(b:winview)
 endfunction
 
-function! custom#functions#trim_lead_ws() range
-	let l:cmd="keepjumps keeppatterns "
+function! custom#functions#trim_lead_ws() range abort
+	let l:cmd='keepjumps keeppatterns '
 	let l:pat="s/^\\s\\+//e"
 	if exists('a:firstline')
-		exe l:cmd.a:firstline.",".a:lastline.l:pat
+		exe l:cmd.a:firstline.','.a:lastline.l:pat
 	else
 		exe l:cmd.l:pat
 	endif
 	call winrestview(b:winview)
 endfunction
 
-function! custom#functions#toggle_syn()
-	if exists("g:syntax_on")
+function! custom#functions#toggle_syn() abort
+	if exists('g:syntax_on')
 		syntax off
 	else
 		syntax enable
 	endif
 endfunction
 
-function! custom#functions#toggle_md_fold()
+function! custom#functions#toggle_md_fold() abort
 	if g:vim_markdown_folding_disabled
 		let g:vim_markdown_folding_disabled=0
 		setlocal foldlevel=0
@@ -45,7 +45,7 @@ function! custom#functions#toggle_md_fold()
 	endif
 endfunction
 
-function! custom#functions#toggle_hi_long_lines()
+function! custom#functions#toggle_hi_long_lines() abort
 	if exists('w:long_line_match')
 		silent! call matchdelete(w:long_line_match)
 		unlet w:long_line_match
@@ -58,28 +58,30 @@ function! custom#functions#toggle_hi_long_lines()
 	endif
 endfunction
 
-function! custom#functions#diff_orig()
-	exe "vert new ".expand('%').".orig~"
+function! custom#functions#diff_orig() abort
+	exe 'vert new '.expand('%').'.orig~'
 	r #
 	1d_
-	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=".&ft
+	exe 'setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile '.
+		\ 'readonly filetype='.&filetype
 	diffthis
 	wincmd p
 	diffthis
 endfunction
 
-function! custom#functions#diff_git()
+function! custom#functions#diff_git() abort
 	let l:fp=expand('%')
-	exe "vert new ".l:fp.".git~"
-	exe "read !git diff ".fnameescape(l:fp)." | patch -p1 -Rs -o -"
+	exe 'vert new '.l:fp.'.git~'
+	exe 'read !git diff '.fnameescape(l:fp).' | patch -p1 -Rs -o -'
 	1d_
-	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=".&ft
+	exe 'setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile '.
+		\ 'readonly filetype='.&filetype
 	diffthis
 	wincmd p
 	diffthis
 endfunction
 
-function! custom#functions#hi_grp()
+function! custom#functions#hi_grp() abort
 	let l:syn_id=synID(line('.'), col('.'), 1)
 	echo synIDattr(l:syn_id, 'name').' -> '.
 		\ synIDattr(synIDtrans(l:syn_id), 'name')
