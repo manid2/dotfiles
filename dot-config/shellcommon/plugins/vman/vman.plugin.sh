@@ -60,7 +60,7 @@ nman () {
 	_pre_man "$0" "$@"
 	local _ret=$?
 	if [ $_ret -eq 0 ]; then
-		nvim -M +Man! <(man "$@")
+		nvim +Man! < <(man "$@")
 		_ret=$?
 	fi
 	return $_ret
