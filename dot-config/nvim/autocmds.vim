@@ -1,4 +1,4 @@
-" --- nvim autocmds ----------------------------------------------------------
+" --- vim autocmds -----------------------------------------------------------
 " Auto commands common to all files
 augroup mk_cmn
 	autocmd!
@@ -20,13 +20,24 @@ augroup end
 augroup mk_c
 	autocmd!
 	autocmd FileType c,cpp
-		\ setlocal spell textwidth=78
+		\ setlocal spell textwidth=78 include&
+		\ path+=include,./include
+		\ path+=/usr/include/x86_64-linux-gnu
+		\ | let c_gnu=1
+		\ | let c_comment_strings=1
+		\ | let c_space_errors=1
+		\ | let c_ansi_typedefs=1
+		\ | let c_ansi_constants=1
 augroup end
 
 augroup mk_sh
 	autocmd!
 	autocmd FileType sh,zsh,bash,vim,lua
 		\ setlocal spell textwidth=78
+	autocmd FileType sh,zsh,bash
+		\ setlocal include=^\\s*\\%(\\.\\\|source\\)\\s
+	autocmd FileType vim
+		\ let g:vim_indent_cont=shiftwidth()
 augroup end
 
 augroup mk_py

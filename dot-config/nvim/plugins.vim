@@ -1,4 +1,4 @@
-" --- nvim plugins -----------------------------------------------------------
+" --- vim plugins ------------------------------------------------------------
 " vim-plug plugin manager
 " https://github.com/junegunn/vim-plug
 
@@ -15,7 +15,12 @@ map -                        <Plug>(easymotion-prefix)
 
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
-silent! if plug#begin(stdpath('data').'/plugged')
+let s:plugged='~/.vim/plugged'
+if has('nvim')
+	let s:plugged=stdpath('data').'/plugged'
+endif
+
+silent! if plug#begin(s:plugged)
 " List all plugins here
 " Shorthand notation, fetches https://github.com/{user}/{repo}
 

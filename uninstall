@@ -36,6 +36,13 @@ uninstall_config () {
 	done
 }
 
+unlink_vimrc () {
+	if [ -d "$HOME/.vim" ]; then
+		echo "Removing $HOME/.vim"
+		rm -rf "$HOME/.vim"
+	fi
+}
+
 uninstall_sshconfig () {
 	home_ssh_config="$HOME/.ssh/config"
 	if [ -L "$home_ssh_config" ]; then
@@ -46,4 +53,5 @@ uninstall_sshconfig () {
 
 uninstall_home
 uninstall_config
+unlink_vimrc
 uninstall_sshconfig

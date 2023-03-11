@@ -4,11 +4,11 @@
 
 install_home () {
 	mapfile -t _pkgs_to_home < <( \
-	    find . -maxdepth 1 \
-	        \( -name "dot-*rc" -o -name "dot-gitconfig" \
-		   -o -name "dot-tmux.conf" \
-	        \) -type f -printf "%P\n" | \
-	    sort
+		find . -maxdepth 1 \
+		\( -name "dot-*rc" -o -name "dot-gitconfig" \
+		-o -name "dot-tmux.conf" \
+		\) -type f -printf "%P\n" | \
+		sort
 	)
 
 	for pkg in "${_pkgs_to_home[@]}"
@@ -24,9 +24,9 @@ install_home () {
 
 install_config () {
 	mapfile -t _pkgs_to_config < <( \
-	    find dot-config/ -maxdepth 1 ! -path dot-config/ -type d \
-	        -printf "%p\n" | \
-	    sort
+		find dot-config/ -maxdepth 1 ! -path dot-config/ -type d \
+		-printf "%p\n" | \
+		sort
 	)
 
 	local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -37,6 +37,72 @@ install_config () {
 			rel_path="$(realpath --relative-to="$config_home" "$pkg")"
 			echo "Installing $pkg to $pkg_dest"
 			ln -s "$rel_path" "$pkg_dest"
+		fi
+	done
+}
+
+link_vimrc () {
+	local xdg_config="${XDG_CONFIG_HOME:-$HOME/.config}"
+	local xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"
+	local nvim_home="$xdg_config/nvim"
+	local nvim_autoload="$nvim_home/autoload"
+	local nvim_data="$xdg_data/nvim"
+	local vim_home="$HOME/.vim"
+	local vim_autoload="$vim_home/autoload"
+	local rel_path
+
+	# link ~/.vimrc to nvim/init.vim
+	if [ ! -f "$HOME/.vimrc" ]; then
+		rel_path="$(realpath --relative-to="$HOME" "$nvim_home/init.vim")"
+		echo "Linking $rel_path to $HOME/.vimrc"
+		ln -s "$rel_path" "$HOME/.vimrc"
+	fi
+
+	if [ ! -d "$vim_autoload" ]; then
+		mkdir -pv "$vim_autoload"
+	fi
+
+	# link vim-plug in nvim to vim
+	if [ ! -f "$vim_autoload/plug.vim" ]; then
+		rel_path="$(realpath --relative-to="$vim_autoload" \
+			"$nvim_data/site/autoload/plug.vim")"
+
+		echo "Linking $rel_path to $vim_autoload/plug.vim"
+		ln -s "$rel_path" "$vim_autoload/plug.vim"
+	fi
+
+	# link 'plugged' in nvim to vim
+	if [ ! -d "$vim_home/plugged" ]; then
+		rel_path="$(realpath --relative-to="$vim_home" \
+			"$nvim_data/plugged")"
+
+		echo "Linking $rel_path to $vim_home/plugged"
+		ln -s "$rel_path" "$vim_home/plugged"
+	fi
+
+	# link all files and folders in nvim home to vim home
+	for _f in "$nvim_home"/*; do
+		local _d="$vim_home/${_f##*/}"
+
+		if [ ! -e "$_d" ]; then
+			rel_path="$(realpath --relative-to="$vim_home" \
+				"$_f")"
+
+			echo "Linking $rel_path to $_d"
+			ln -s "$rel_path" "$_d"
+		fi
+	done
+
+	# link all files and folders in nvim autoload to vim autoload
+	for _f in "$nvim_autoload"/*; do
+		local _d="$vim_autoload/${_f##*/}"
+
+		if [ ! -e "$_d" ]; then
+			rel_path="$(realpath --relative-to="$vim_autoload" \
+				"$_f")"
+
+			echo "Linking $rel_path to $_d"
+			ln -s "$rel_path" "$_d"
 		fi
 	done
 }
@@ -53,4 +119,5 @@ install_sshconfig () {
 
 install_home
 install_config
+link_vimrc
 install_sshconfig
