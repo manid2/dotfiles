@@ -2,52 +2,64 @@
 
 # TODO: Add help and an option to dry-run.
 
-uninstall_home () {
-	mapfile -t _pkgs_in_home < <( \
-	    find "$HOME" -maxdepth 1 \
-	        \( -name "\.*rc" -o -name "\.gitconfig" \
-	           -o -name "\.tmux.conf" \
-	        \) -type l -printf "%p\n" | \
-	    sort
-	)
+# Stop on first error.
+set -e
 
-	for pkg in "${_pkgs_in_home[@]}"
+source dot-config/shellcommon/common/common.sh
+source dot-config/shellcommon/common/colors.sh
+
+logfile=$(mktemp -t "dotfiles-uninstall-XXXX")
+
+unlink_msg () {
+	local msg="${RED}Remove${RESET} "
+	msg+="${BLUE}$1${RESET} "
+	msg_fmt "$logfile" "$msg"
+}
+
+unlink () {
+	local pkg="$1"
+	unlink_msg "${pkg/"$HOME"/'~'}"
+	rm -rf "$pkg"
+}
+
+uninstall_home () {
+	while IFS= read -r pkg;
 	do
-		if [ -f "$pkg" ]; then
-			echo "Uninstalling $pkg"
-			rm "$pkg"
-		fi
-	done
+		unlink "$pkg"
+	done < <( \
+		find "$HOME" -maxdepth 1 \
+		\( -name "\.*rc" -o -name "\.gitconfig" \
+		-o -name "\.tmux.conf" \
+		\) -type l -printf "%p\n" | \
+		sort
+	)
 }
 
 uninstall_config () {
-	local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
-	mapfile -t _pkgs_in_config < <( \
-	    find "$config_home" -maxdepth 1 -type l -printf "%p\n" | \
-	    sort
-	)
-
-	for pkg in "${_pkgs_in_config[@]}"
+	while IFS= read -r pkg;
 	do
-		if [ -d "$pkg" ]; then
-			echo "Uninstalling $pkg"
-			rm "$pkg"
-		fi
-	done
+		unlink "$pkg"
+	done < <( \
+		find "$xdg_config" -maxdepth 1 -type l -printf "%p\n" | \
+		sort
+	)
 }
 
 unlink_vimrc () {
-	if [ -d "$HOME/.vim" ]; then
-		echo "Removing $HOME/.vim"
-		rm -rf "$HOME/.vim"
-	fi
+	local vim_home="$HOME/.vim"
+	while IFS= read -r pkg;
+	do
+		unlink "$pkg"
+	done < <( \
+		find "$vim_home" -type l -printf "%p\n" | \
+		sort
+	)
 }
 
 uninstall_sshconfig () {
-	home_ssh_config="$HOME/.ssh/config"
-	if [ -L "$home_ssh_config" ]; then
-		echo "Uninstalling $home_ssh_config"
-		rm "$home_ssh_config"
+	pkg="$HOME/.ssh/config"
+	if [ -L "$pkg" ]; then
+		unlink "$pkg"
 	fi
 }
 
@@ -55,3 +67,5 @@ uninstall_home
 uninstall_config
 unlink_vimrc
 uninstall_sshconfig
+column -t "$logfile"
+rm "$logfile"

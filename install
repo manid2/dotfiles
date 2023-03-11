@@ -2,60 +2,79 @@
 
 # TODO: Add help and an option to force install.
 
+# Stop on first error.
+set -e
+
+source dot-config/shellcommon/common/common.sh
+source dot-config/shellcommon/common/colors.sh
+
+logfile=$(mktemp -t "dotfiles-install-XXXX")
+
+link_msg () {
+	local msg="${GREEN}Linking${RESET} "
+	msg+="${BLUE}$1${RESET} "
+	msg+="${GREEN}to${RESET} "
+	msg+="${CYAN}$2${RESET} "
+	msg_fmt "$logfile" "$msg"
+}
+
+link () {
+	local src="$1"
+	local dst="$2"
+	ln -s "$src" "$dst"
+}
+
 install_home () {
-	mapfile -t _pkgs_to_home < <( \
-		find . -maxdepth 1 \
+	while IFS= read -r pkg;
+	do
+		local pkg_dst="${pkg##*/}"
+		pkg_dst="$HOME/${pkg_dst/dot-/.}"
+		if [ ! -f "$pkg_dst" ]; then
+			local pkg_src="${pkg#"$HOME/"}"
+			link_msg "${pkg#"$PWD/"}" "${pkg_dst/"$HOME"/'~'}"
+			link "$pkg_src" "$pkg_dst"
+		fi
+	done < <( \
+		find "$PWD" -maxdepth 1 \
 		\( -name "dot-*rc" -o -name "dot-gitconfig" \
 		-o -name "dot-tmux.conf" \
-		\) -type f -printf "%P\n" | \
+		\) -type f -printf "%p\n" | \
 		sort
 	)
-
-	for pkg in "${_pkgs_to_home[@]}"
-	do
-		pkg_dest="$HOME/.${pkg#dot-}"
-		if [ ! -f "$pkg_dest" ]; then
-			rel_path="$(realpath --relative-to="$HOME" "$pkg")"
-			echo "Installing $pkg to $pkg_dest"
-			ln -s "$rel_path" "$pkg_dest"
-		fi
-	done
 }
 
 install_config () {
-	mapfile -t _pkgs_to_config < <( \
-		find dot-config/ -maxdepth 1 ! -path dot-config/ -type d \
-		-printf "%p\n" | \
+	while IFS= read -r pkg;
+	do
+		local pkg_dst="${pkg##*/}"
+		pkg_dst="$xdg_config/$pkg_dst"
+		if [ ! -d "$pkg_dst" ]; then
+			pkg_src="$(realpath --relative-to="$xdg_config" "$pkg")"
+			link_msg "${pkg#"$PWD/"}" "${pkg_dst/"$HOME"/'~'}"
+			link "$pkg_src" "$pkg_dst"
+		fi
+	done < <( \
+		find "$PWD/dot-config" -maxdepth 1 \
+		-not -path "$PWD/dot-config" -type d -printf "%p\n" | \
 		sort
 	)
-
-	local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
-	for pkg in "${_pkgs_to_config[@]}"
-	do
-		pkg_dest="$config_home/${pkg#dot-config/}"
-		if [ ! -d "$pkg_dest" ]; then
-			rel_path="$(realpath --relative-to="$config_home" "$pkg")"
-			echo "Installing $pkg to $pkg_dest"
-			ln -s "$rel_path" "$pkg_dest"
-		fi
-	done
 }
 
 link_vimrc () {
-	local xdg_config="${XDG_CONFIG_HOME:-$HOME/.config}"
-	local xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"
 	local nvim_home="$xdg_config/nvim"
 	local nvim_autoload="$nvim_home/autoload"
 	local nvim_data="$xdg_data/nvim"
 	local vim_home="$HOME/.vim"
 	local vim_autoload="$vim_home/autoload"
-	local rel_path
+	local pkg_src pkg_dst
 
 	# link ~/.vimrc to nvim/init.vim
-	if [ ! -f "$HOME/.vimrc" ]; then
-		rel_path="$(realpath --relative-to="$HOME" "$nvim_home/init.vim")"
-		echo "Linking $rel_path to $HOME/.vimrc"
-		ln -s "$rel_path" "$HOME/.vimrc"
+	pkg_dst="$HOME/.vimrc"
+	if [ ! -f "$pkg_dst" ]; then
+		local nvim_init="$nvim_home/init.vim"
+		pkg_src="${nvim_init#"$HOME/"}"
+		link_msg "${nvim_init/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
+		link "$pkg_src" "$pkg_dst"
 	fi
 
 	if [ ! -d "$vim_autoload" ]; then
@@ -63,57 +82,53 @@ link_vimrc () {
 	fi
 
 	# link vim-plug in nvim to vim
-	if [ ! -f "$vim_autoload/plug.vim" ]; then
-		rel_path="$(realpath --relative-to="$vim_autoload" \
-			"$nvim_data/site/autoload/plug.vim")"
-
-		echo "Linking $rel_path to $vim_autoload/plug.vim"
-		ln -s "$rel_path" "$vim_autoload/plug.vim"
+	pkg_dst="$vim_autoload/plug.vim"
+	if [ ! -f "$pkg_dst" ]; then
+		local nvim_plug="$nvim_data/site/autoload/plug.vim"
+		pkg_src="${nvim_plug/"$HOME"/../..}"
+		link_msg "${nvim_plug/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
+		link "$pkg_src" "$pkg_dst"
 	fi
 
 	# link 'plugged' in nvim to vim
-	if [ ! -d "$vim_home/plugged" ]; then
-		rel_path="$(realpath --relative-to="$vim_home" \
-			"$nvim_data/plugged")"
-
-		echo "Linking $rel_path to $vim_home/plugged"
-		ln -s "$rel_path" "$vim_home/plugged"
+	pkg_dst="$vim_home/plugged"
+	if [ ! -d "$pkg_dst" ]; then
+		local nvim_plugged="$nvim_data/plugged"
+		pkg_src="${nvim_plugged/"$HOME"/..}"
+		link_msg "${nvim_plugged/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
+		link "$pkg_src" "$pkg_dst"
 	fi
 
 	# link all files and folders in nvim home to vim home
-	for _f in "$nvim_home"/*; do
-		local _d="$vim_home/${_f##*/}"
-
-		if [ ! -e "$_d" ]; then
-			rel_path="$(realpath --relative-to="$vim_home" \
-				"$_f")"
-
-			echo "Linking $rel_path to $_d"
-			ln -s "$rel_path" "$_d"
+	for nvim_src in "$nvim_home"/*;
+	do
+		local pkg_dst="$vim_home/${nvim_src##*/}"
+		if [ ! -e "$pkg_dst" ]; then
+			pkg_src="${nvim_src/"$HOME"/..}"
+			link_msg "${nvim_src/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
+			link "$pkg_src" "$pkg_dst"
 		fi
 	done
 
 	# link all files and folders in nvim autoload to vim autoload
-	for _f in "$nvim_autoload"/*; do
-		local _d="$vim_autoload/${_f##*/}"
-
-		if [ ! -e "$_d" ]; then
-			rel_path="$(realpath --relative-to="$vim_autoload" \
-				"$_f")"
-
-			echo "Linking $rel_path to $_d"
-			ln -s "$rel_path" "$_d"
+	for nvim_src in "$nvim_autoload"/*;
+	do
+		local pkg_dst="$vim_autoload/${nvim_src##*/}"
+		if [ ! -e "$pkg_dst" ]; then
+			pkg_src="${nvim_src/"$HOME"/../..}"
+			link_msg "${nvim_src/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
+			link "$pkg_src" "$pkg_dst"
 		fi
 	done
 }
 
 install_sshconfig () {
-	pkg_ssh_config='dot-ssh/config'
-	home_ssh_config="$HOME/.ssh/config"
-	if [ ! -f "$home_ssh_config" ]; then
-		rel_path="$(realpath --relative-to="$HOME/.ssh" "$pkg_ssh_config")"
-		echo "Installing $pkg_ssh_config to $home_ssh_config"
-		ln -s "$rel_path" "$home_ssh_config"
+	pkg="dot-ssh/config"
+	pkg_dst="$HOME/.ssh/config"
+	if [ ! -f "$pkg_dst" ]; then
+		pkg_src="$(realpath --relative-to="$HOME/.ssh" "$pkg")"
+		link_msg "$pkg" "${pkg_dst/"$HOME"/'~'}"
+		link "$pkg_src" "$pkg_dst"
 	fi
 }
 
@@ -121,3 +136,5 @@ install_home
 install_config
 link_vimrc
 install_sshconfig
+column -t "$logfile"
+rm "$logfile"
