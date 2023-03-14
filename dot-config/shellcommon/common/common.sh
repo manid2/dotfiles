@@ -1,4 +1,15 @@
-# shellcheck shell=bash disable=SC2034
+# shellcheck shell=bash disable=SC2034,SC2059
+
+# Export to command line tools
+if [ "$(command -v fzf)" ]; then
+	export FZF_DEFAULT_COMMAND='fd'
+	export FZF_DEFAULT_OPTS='--no-mouse'
+fi
+
+if [ "$(command -v rg)" ]; then
+	export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+fi
+
 # XDG base directories
 xdg_config="${XDG_CONFIG_HOME:-$HOME/.config}"
 xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"
