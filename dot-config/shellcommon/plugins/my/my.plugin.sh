@@ -22,10 +22,18 @@ lnr () {
 	local dst="$3"
 	ln "$opt" "$(realpath --relative-to="$rl_dst" "$src")" "$dst"
 }
+
+_lnrb () {
+	local opt="$1"
+	local src="$2"
+	local dst="$HOME/.local/bin"
+	lnr "$opt" "$dst" "$src" "$dst"
 }
 
 alias lnrs='lnr -s '
 alias lnrsf='lnr -sf '
+alias lnrb='_lnrb -s '
+alias lnrbf='_lnrb -sf '
 
 slugify () {
 	local _data=''
