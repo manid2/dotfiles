@@ -16,7 +16,12 @@ alias myrp='cd "$myrp"'
 alias mybp='cd "$mybp"'
 
 lnr () {
-	ln "$1" "$(realpath --relative-to="$2" "$3")" "$4"
+	local opt="$1"
+	local rl_dst="$2"
+	local src="$3"
+	local dst="$3"
+	ln "$opt" "$(realpath --relative-to="$rl_dst" "$src")" "$dst"
+}
 }
 
 alias lnrs='lnr -s '
