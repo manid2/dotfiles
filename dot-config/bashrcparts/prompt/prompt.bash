@@ -1,10 +1,19 @@
-# shellcheck disable=SC1090
+# shellcheck shell=bash disable=SC1090
 # bash prompt file, to be sourced into ~/.bashrc
 
-# Shell common colors
-if [ -f ~/.config/shellcommon/common/colors.sh ]; then
-	source ~/.config/shellcommon/common/colors.sh
-fi
+# ANSI color codes
+# prompt colors
+MAGENTA='\[\033[00;35m\]'
+BLUE='\[\033[00;34m\]'
+GREEN='\[\033[00;32m\]'
+
+# git prompt colors
+RED='\[\033[00;31m\]'
+YELLOW='\[\033[00;33m\]'
+CYAN='\[\033[00;36m\]'
+
+# reset colors
+RESET='\[\033[00m\]'
 
 # Unicode characters
 if [ -f ~/.config/shellcommon/common/unicode-chars.sh ]; then
