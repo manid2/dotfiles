@@ -2,7 +2,10 @@
 
 # Export to command line tools
 if [ "$(command -v fzf)" ]; then
-	export FZF_DEFAULT_COMMAND='fd'
+	_fd='fd --strip-cwd-prefix'
+	export FZF_DEFAULT_COMMAND="$_fd"
+	export FZF_CTRL_T_COMMAND="$_fd"
+	export FZF_ALT_C_COMMAND="$_fd"
 	export FZF_DEFAULT_OPTS='--no-mouse'
 fi
 
