@@ -1,0 +1,4 @@
+QUILT_DIFF_ARGS="-u --color=auto"
+QUILT_DIFF_OPTS="-p"
+QUILT_PATCH_OPTS="-u -F0"
+QUILT_REFRESH_ARGS="-u --diffstat --strip-trailing-whitespace --no-timestamps"
