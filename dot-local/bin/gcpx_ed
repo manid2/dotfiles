@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Replace SHA1 line in git cherry pick commit message
+
+sed -i 's/(cherry picked.*\([0-9a-f]\{40\}\))/Backport-Of: \1/' $1
