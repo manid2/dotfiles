@@ -1,0 +1,148 @@
+#!/bin/bash
+#
+# Script borrowed from
+# https://github.com/cirosantilli/linux-cheat/blob/master/ubuntu-18.04.1-desktop-amd64.sh
+#
+# Following the answer on StackOverflow
+# https://askubuntu.com/a/1046792
+#
+# Modified to use Xubuntu 22.04 desktop amd64 and few improvements.
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# defaults
+THIS_SCRIPT="${0##*/}"
+GUEST_OS="xubuntu-22.04-desktop-amd64"
+GUEST_CPUS='2'
+GUEST_RAM='4G'
+GUEST_HDD='40G'
+QEMU_IMAGES_DIR=~/.local/qemu/images
+
+_help_qemu_images_dir () {
+	cat <<EOF
+The guest OS ISO image must be downloaded into this path:
+
+    $QEMU_IMAGES_DIR
+EOF
+}
+
+# print help doc
+_help () {
+	cat <<EOF
+Usage: $THIS_SCRIPT [options]
+
+$(_help_qemu_images_dir)
+
+Options:
+    [-g|--guest-os]
+        Name of guest OS matching the iso file name
+    [-c|--cpus]
+        No of CPUs.
+    [-r|--ram]
+        System memory RAM size.
+    [-d|--disk]
+        Hard disk memory HDD size.
+
+Examples:
+    * Using a default Guest OS '$GUEST_OS'
+        $THIS_SCRIPT
+
+    * Using any Guest OS
+        $THIS_SCRIPT -g \$GUEST_OS
+EOF
+}
+
+# echo before executing the commands
+_exec () {
+	echo "cmd: $@"
+	"$@"
+}
+
+# parse command line arguments
+while [[ $# -gt 0 ]]
+do
+	key="$1"
+	case $key in
+		-g|--guest-os)
+			GUEST_OS="$2"
+			shift
+			;;
+		-c|--cpus)
+			GUEST_CPUS="$2"
+			shift
+			;;
+		-r|--ram)
+			GUEST_RAM="$2"
+			shift
+			;;
+		-d|--disk)
+			GUEST_HDD="$2"
+			shift
+			;;
+		-h|--help)
+			_help
+			exit
+			;;
+		*)
+			break
+			;;
+	esac
+	shift
+done
+
+if [ ! -d "$QEMU_IMAGES_DIR" ]; then
+	_help_qemu_images_dir
+	exit 1
+fi
+
+qemu_guest_os="$QEMU_IMAGES_DIR/$GUEST_OS"
+guest_iso="$qemu_guest_os.iso"
+guest_disk_fmt='qcow2'
+guest_disk_img="$qemu_guest_os.img.$guest_disk_fmt"
+guest_disk_snapshot="$qemu_guest_os.snapshot.$guest_disk_fmt"
+
+# Go through installer manually.
+if [ ! -f "$guest_disk_img" ]; then
+	_exec \
+		qemu-img create \
+		-f "$guest_disk_fmt" \
+		"$guest_disk_img" \
+		$GUEST_HDD \
+		;
+
+	_exec \
+		qemu-system-x86_64 \
+		-cdrom "$guest_iso" \
+		-drive "file=${guest_disk_img},format=${guest_disk_fmt}" \
+		-enable-kvm \
+		-m $GUEST_RAM \
+		-smp $GUEST_CPUS \
+		;
+fi
+
+# Snapshot the installation.
+if [ ! -f "$guest_disk_snapshot" ]; then
+	_exec \
+		qemu-img create \
+		-b "$guest_disk_img" \
+		-f "$guest_disk_fmt" \
+		-F "$guest_disk_fmt" \
+		"$guest_disk_snapshot" \
+		;
+fi
+
+# Run the installed image.
+_exec \
+	qemu-system-x86_64 \
+	-drive "file=${guest_disk_snapshot},format=${guest_disk_fmt}" \
+	-enable-kvm \
+	-m $GUEST_RAM \
+	-serial mon:stdio \
+	-smp $GUEST_CPUS \
+	-audiodev id=pa,driver=pa \
+	-vga virtio \
+	-cpu host \
+	"$@" \
+	;
