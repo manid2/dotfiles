@@ -35,6 +35,16 @@ uninstall_home () {
 	)
 }
 
+uninstall_local_bin () {
+	while IFS= read -r pkg;
+	do
+		unlink "$HOME/.local/bin/${pkg##*/}"
+	done < <( \
+		find "$PWD/dot-local/bin" -maxdepth 1 -type f -printf "%p\n" \
+		| sort
+	)
+}
+
 uninstall_config () {
 	while IFS= read -r pkg;
 	do
@@ -64,6 +74,7 @@ uninstall_sshconfig () {
 }
 
 uninstall_home
+uninstall_local_bin
 uninstall_config
 unlink_vimrc
 uninstall_sshconfig
