@@ -45,6 +45,7 @@ alias xclip-sc-no-lf='xargs echo -n | xclip-sc'
 alias cp-nm='cp --no-preserve=mode' # cp no mode
 
 # date aliases
+alias dtz='date +"%Y-%m-%dT%H:%M:%S%z"'
 alias dtymd='date +"%Y-%m-%d"'
 alias dtdmy='date +"%d-%m-%Y"'
 alias dttm='date +"%H-%M-%S"'
