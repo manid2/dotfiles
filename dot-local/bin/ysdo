@@ -1,0 +1,20 @@
+#!/bin/bash
+# ---
+# Password less sudo without editing sudoers file.
+# This is used to prevent executing sudo when not needed.
+# ---
+
+ysdo_argv=$*
+ysdo_user="$USER"
+ysdo_user_pw="$(secret-tool lookup vpnuser mani)"
+
+expect_cmds=$(cat <<EOF
+set timeout 20
+spawn sudo $ysdo_argv
+expect -ex {[sudo] password for $ysdo_user:}
+send "$ysdo_user_pw\r"
+interact
+EOF
+)
+
+expect -c "$expect_cmds"
