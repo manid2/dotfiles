@@ -1,0 +1,3 @@
+#!/bin/bash
+
+dict "$@" | colorit | less -r -F
