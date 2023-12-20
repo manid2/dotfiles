@@ -17,7 +17,7 @@ if [ -x /usr/bin/dircolors ]; then
 	export LESS_TERMCAP_us=$'\E[1;32m'  # begin underline
 	export LESS_TERMCAP_ue=$'\E[0m'     # reset underline
 
-	alias ls='ls --color=always'
+	alias ls='ls --color=auto'
 	alias ip='ip --color=auto'
 	alias diff='diff --color=auto'
 	alias grep='grep --color=auto'
