@@ -61,6 +61,12 @@ alias tmns='tmux new -s'
 alias tmks='tmux kill-session -t'
 alias tmat='tmux a -t'
 
+# nvim aliases
+alias nv='nvim'
+alias nvdiff='nvim -d'
+alias nvr='nvim -R'
+alias nvrm='nvim -RM'
+
 # TODO: add hexdump aliases
 # TODO: add tar aliases
 # TODO: add find aliases
