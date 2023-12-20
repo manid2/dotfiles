@@ -9,6 +9,7 @@ if !has('nvim')
 	set wildmenu     " Display completion matches in a status line.
 	set nomodeline   " Disable modelines for security reasons.
 	set backspace=indent,eol,start  " More powerful backspacing.
+	set background=dark
 
 	" View man pages inside vim
 	runtime ftplugin/man.vim

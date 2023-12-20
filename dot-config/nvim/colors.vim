@@ -19,7 +19,7 @@ hi DiffAdd      ctermfg=White  ctermbg=Black
 hi DiffChange   ctermfg=White  ctermbg=DarkGrey
 hi DiffDelete   ctermfg=White  ctermbg=DarkRed
 hi DiffText     ctermfg=White  ctermbg=DarkGreen
-hi MatchParen   ctermfg=Cyan   ctermbg=Black
+hi MatchParen   ctermfg=Cyan   ctermbg=DarkGrey
 hi Normal       ctermfg=Grey
 hi NormalFloat                 ctermbg=None
 hi FloatBorder  ctermfg=None   ctermbg=None
