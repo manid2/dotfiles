@@ -245,7 +245,7 @@ gchd () {
 	local _d='dev'
 
 	# check if current branch is a debug branch
-	if [[ "$_cb" == "*$_dbg" ]]; then
+	if [[ "$_cb" == *"$_dbg" ]]; then
 		# switch to feature branch
 		__git_cmd checkout "${_cb%"$_dbg"}"
 	# if current branch is a feature branch

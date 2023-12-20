@@ -19,7 +19,7 @@ lnr () {
 	local opt="$1"
 	local rl_dst="$2"
 	local src="$3"
-	local dst="$3"
+	local dst="$4"
 	ln "$opt" "$(realpath --relative-to="$rl_dst" "$src")" "$dst"
 }
 
