@@ -30,10 +30,23 @@ _lnrb () {
 	lnr "$opt" "$dst" "$src" "$dst"
 }
 
+_lnrd () {
+	local opt="$1"
+	local sdir="$2"
+	local ddir="$3"
+
+	for sfile in "$sdir"/*;
+	do
+		lnr "$opt" "$ddir" "$sfile" "$ddir"
+	done
+}
+
 alias lnrs='lnr -s '
 alias lnrsf='lnr -sf '
 alias lnrb='_lnrb -s '
 alias lnrbf='_lnrb -sf '
+alias lnrd='_lnrd -s '
+alias lnrdf='_lnrd -sf '
 
 slugify () {
 	local _data=''
