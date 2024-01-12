@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: Add help and an option to force install.
-
 # Stop on first error.
 set -e
 

@@ -1,10 +1,4 @@
 " --- nvim custom functions --------------------------------------------------
-"  TODO: Trim trailing whitespaces and format text:
-"  o) on edited lines only.
-"  o) on list of lines only.
-"  o) on `git diff -U0` lines.
-"  o) with option to highlight and confirmation.
-"  o) automatically before buffer write.
 function! custom#functions#trim_trail_ws() range abort
 	let l:cmd='keepjumps keeppatterns '
 	let l:pat="s/\\s\\+$//e"

@@ -40,7 +40,6 @@ nnoremap <Leader>sh          :shell<cr>
 " <C-Z> to get same shell as vim was started
 " execute 'fg' command to bring vim back
 
-" TODO: Add insert mode keymap to toggle 'paste'
 " TODO: Use generic heading using function and filetype
 " Markdown headings
 nnoremap <Leader>1           m`yypVr=``

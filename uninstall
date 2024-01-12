@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: Add help and an option to dry-run.
-
 # Stop on first error.
 set -e
 

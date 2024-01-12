@@ -1,11 +1,6 @@
-# Inital code borrowed from ohmyzsh/plugins/git plugin
-# Extensively modified to make it practical and readable.
-# Its easy to remember the readable commands than the random aliases.
-# So most aliases & functions from the OMZ git plugin are removed/modified.
-# And they are fine tuned to my workflows.
-
-# NOTE: Use this plugin along with `git-sh-prompt` script from 'git-core'
-# for git status in the prompt line.
+#
+# Partial code borrowed from ohmyzsh/plugins/git plugin
+#
 
 # --- aliases ---
 # aliases for git commands
@@ -314,7 +309,3 @@ alias gdh='git diff --color | diff-highlight | less -r'
 
 # view git reflog (local changes) in `tig`
 alias grfl='git reflog --pretty=raw | tig --pretty=raw'
-
-# TODO
-#
-# * alias: git worktree add, remove, prune

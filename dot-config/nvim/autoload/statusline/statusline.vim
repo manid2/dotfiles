@@ -8,7 +8,6 @@ let s:git_str_cmd='$SHELL -c '.shellescape(
 	\"GIT_PS1_SHOWUPSTREAM='auto' ".
 	\'__git_ps1')
 
-" TODO: Provide defaults for global variables.
 " Git PS1 string
 let g:vim_git_branch=trim(system(s:git_str_cmd))
 
@@ -26,7 +25,6 @@ function! statusline#statusline#mode_flags() abort
 endfunction
 
 function! statusline#statusline#file_type() abort
-	" TODO: truncate right when exceeding max chars.
 	return '%0.10('.&filetype.'%)'
 endfunction
 
@@ -82,5 +80,3 @@ function! statusline#statusline#toggle_word_count() abort
 		let g:statusline_wordcount_disabled=1
 	endif
 endfunction
-
-" TODO: Add toggle function for status line sections to view them as needed.

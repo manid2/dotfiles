@@ -1,9 +1,6 @@
 " --- nvim colors-- ----------------------------------------------------------
 " Override colors for some highlight groups
 "
-" NOTE: These colors are correct for dark backgrounds.
-" TODO: handle dark and light colors, 256 and 16 colors
-"
 " For xterm256 colors refer:
 " https://vimhelp.org/syntax.txt.html#cterm-colors
 
