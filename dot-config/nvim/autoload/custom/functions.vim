@@ -91,6 +91,20 @@ function! custom#functions#fzf_git_grep(pattern)
 		\ )
 endfunction
 
+function! FzfSpellSink(word)
+	exe 'normal! "_ciw'.a:word
+endfunction
+
+function! custom#functions#fzf_spell_suggest(word)
+	return fzf#run(fzf#wrap({
+		\ 'source': spellsuggest(a:word),
+		\ 'sink': function("FzfSpellSink"),
+		\ 'options': '--prompt="Spelling> " '.
+		\   '--preview="dictls {}" '.
+		\   '--preview-window "70%"',
+		\ }))
+endfunction
+
 " TODO: Add function, command and keymap to format text into table.
 " TODO: Add function, command and keymap to search only in visual selections.
 " TODO: Add custom function to format code using 'formatexpr=mylang#Format()'

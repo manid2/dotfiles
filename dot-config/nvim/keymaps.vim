@@ -77,15 +77,6 @@ nnoremap fbc                 :BCommits<cr>
 nnoremap fcf                 :Commands<cr>
 nnoremap fmf                 :Maps<cr>
 
-" TODO: WIP implement fzf spell suggestions
-"function! FzfSpellSink(word)
-	"exe 'normal! "_ciw'.a:word
-"endfunction
-
-"function! FzfSpellSource(word)
-	"return spellsuggest(a:word)
-"endfunction
-
 " Copy file path/name into clipboard
 exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
 exe 'nnoremap <silent> <Leader>fn :WClipboard '.s:cfn.'<cr>'
