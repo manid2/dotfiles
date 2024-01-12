@@ -86,17 +86,6 @@ nnoremap fmf                 :Maps<cr>
 	"return spellsuggest(a:word)
 "endfunction
 
-command! -bang -nargs=* GGrep
-	\ call fzf#vim#grep(
-	\   'git grep --line-number -- '.shellescape(<q-args>),
-	\   0,
-	\   fzf#vim#with_preview({
-	\     'dir': systemlist('git rev-parse --show-toplevel')[0]}),
-	\   <bang>0)
-
-" Grep word under cursor with git grep useful when no tags.
-exe 'nnoremap fgg :GGrep '.s:cword.'<cr>'
-
 " Copy file path/name into clipboard
 exe 'nnoremap <silent> <Leader>fp :WClipboard '.s:cfp.'<cr>'
 exe 'nnoremap <silent> <Leader>fn :WClipboard '.s:cfn.'<cr>'

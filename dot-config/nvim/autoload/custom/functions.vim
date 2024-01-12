@@ -81,6 +81,16 @@ function! custom#functions#hi_grp() abort
 		\ synIDattr(synIDtrans(l:syn_id), 'name')
 endfunction
 
+function! custom#functions#fzf_git_grep(pattern)
+	return fzf#vim#grep(
+		\ 'git grep --line-number -- '.shellescape(a:pattern),
+		\ 0,
+		\ fzf#vim#with_preview({
+		\   'dir': systemlist('git rev-parse --show-toplevel')[0]
+		\   })
+		\ )
+endfunction
+
 " TODO: Add function, command and keymap to format text into table.
 " TODO: Add function, command and keymap to search only in visual selections.
 " TODO: Add custom function to format code using 'formatexpr=mylang#Format()'

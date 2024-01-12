@@ -15,6 +15,11 @@ command! -nargs=0 DiffOrig call custom#functions#diff_orig()
 command! -nargs=0 DiffGit call custom#functions#diff_git()
 command! -nargs=0 HighlightGroup call custom#functions#hi_grp()
 
+command! -nargs=0 GitGrep
+	\ call custom#functions#fzf_git_grep(expand("<cword>"))
+command! -nargs=* GitGrepPattern
+	\ call custom#functions#fzf_git_grep(<q-args>)
+
 " keymaps
 nnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
 nnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>
@@ -25,3 +30,5 @@ nnoremap <Leader>hll         :ToggleHighlightLongLines<cr>
 nnoremap <Leader>do          :DiffOrig<cr>
 nnoremap <Leader>dg          :DiffGit<cr>
 nnoremap <Leader>hig         :HighlightGroup<cr>
+nnoremap <Leader>fgg         :GitGrep<cr>
+nnoremap <Leader>fgp         :GitGrepPattern<space>
