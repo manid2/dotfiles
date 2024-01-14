@@ -30,6 +30,18 @@ _lnrb () {
 	lnr "$opt" "$dst" "$src" "$dst"
 }
 
+_lnrt () {
+	local opt="$1"
+	local src="$2"
+	local dst="$3"
+
+	if [ -d "$dst" ]; then
+		lnr "$opt" "$dst" "$src" "$dst"
+	else
+		lnr "$opt" "${dst%/*}" "$src" "$dst"
+	fi
+}
+
 _lnrd () {
 	local opt="$1"
 	local sdir="$2"
@@ -45,6 +57,8 @@ alias lnrs='lnr -s '
 alias lnrsf='lnr -sf '
 alias lnrb='_lnrb -s '
 alias lnrbf='_lnrb -sf '
+alias lnrt='_lnrt -s '
+alias lnrtf='_lnrt -sf '
 alias lnrd='_lnrd -s '
 alias lnrdf='_lnrd -sf '
 
