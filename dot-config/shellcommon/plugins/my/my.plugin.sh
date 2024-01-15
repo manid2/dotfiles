@@ -1,8 +1,4 @@
 # shellcheck disable=SC1090,SC1091
-# source shell common file
-if [ -f ~/.config/shellcommon/common/common.sh ]; then
-	source ~/.config/shellcommon/common/common.sh
-fi
 
 # --- aliases ---
 # workspace aliases
