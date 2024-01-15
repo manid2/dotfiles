@@ -11,10 +11,8 @@ bashcompinit
 
 # select from menu of completion matches
 zstyle ':completion:*:*:*:*:*' menu select
-#zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive tab completion
 
 # ignore c object files for vim completion
-# FIXME: ignore these file patterns '*.o-*'
 zstyle ':completion:*:*:vim:*:*files' ignored-patterns '*.o'
 
 # Take advantage of $LS_COLORS for completion as well
