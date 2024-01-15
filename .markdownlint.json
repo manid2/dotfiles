@@ -13,23 +13,28 @@
     "style": "backtick"
   },
   "no-hard-tabs": {
-    "code_blocks": false,
+    "code_blocks": false
   },
   "fenced-code-language": {
     "allowed_languages": [
+      "bash",
       "c",
       "cpp",
-      "py",
-      "sh",
-      "bash",
-      "zsh",
-      "html",
       "css",
-      "scss",
+      "html",
       "js",
       "json",
+      "lua",
       "md",
-      "text"
+      "python",
+      "scss",
+      "sh",
+      "text",
+      "toml",
+      "vim",
+      "xml",
+      "yml",
+      "zsh"
     ],
     "language_only": true
   },
