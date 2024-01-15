@@ -1,0 +1,23 @@
+{
+  "name": "manid2-dotfiles",
+  "version": "1.0.0",
+  "description": "Swiss army knife of Software Engineer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manid2/dotfiles.git"
+  },
+  "keywords": [
+    "dotfiles",
+    "scripts",
+    "configurations",
+    "vimrc",
+    "zshrc",
+    "bashrc"
+  ],
+  "author": "Mani Kumar",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/manid2/dotfiles/issues"
+  },
+  "homepage": "https://github.com/manid2/dotfiles#readme"
+}
