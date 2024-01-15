@@ -35,42 +35,42 @@ if [ -f ~/.config/shellcommon/common/common.sh ]; then
 	source ~/.config/shellcommon/common/common.sh
 fi
 
-# source bash options files
+# source bash options
 if [ -f ~/.config/bashrcparts/options/options.bash ]; then
 	source ~/.config/bashrcparts/options/options.bash
 fi
 
-# source bash keymaps files
+# source bash keymaps
 if [ -f ~/.config/bashrcparts/keymaps/keymaps.bash ]; then
 	source ~/.config/bashrcparts/keymaps/keymaps.bash
 fi
 
-# source bash configs files
+# source bash configurations
 if [ -f ~/.config/bashrcparts/configs/configs.bash ]; then
 	source ~/.config/bashrcparts/configs/configs.bash
 fi
 
-# source bash completions files
+# source bash completions
 if [ -f ~/.config/bashrcparts/completions/completions.bash ]; then
 	source ~/.config/bashrcparts/completions/completions.bash
 fi
 
-# source bash user local files
+# source bash local settings
 if [ -f ~/.config/bashrcparts/local/local.bash ]; then
 	source ~/.config/bashrcparts/local/local.bash
 fi
 
-# source bash aliases files
+# source bash aliases
 if [ -f ~/.config/bashrcparts/aliases/aliases.bash ]; then
 	source ~/.config/bashrcparts/aliases/aliases.bash
 fi
 
-# source plugins files
+# source bash plugins
 if [ -f ~/.config/bashrcparts/plugins/plugins.bash ]; then
 	source ~/.config/bashrcparts/plugins/plugins.bash
 fi
 
-# source prompt files, prompt files are not ready
+# source bash prompt
 if [ -f ~/.config/bashrcparts/prompt/prompt.bash ]; then
 	source ~/.config/bashrcparts/prompt/prompt.bash
 fi

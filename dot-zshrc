@@ -1,53 +1,48 @@
 #!/bin/zsh
-# shellcheck shell=bash disable=SC1090
 #
-# Root zshrc, contains sym links to logically grouped settings
-
-# NOTE: the order of sourcing is important as some commands/plugins will have
-# pre-requisites/dependencies to work correctly.
-# WARN: Hence don't change the order of scripts sourced.
+# shellcheck shell=bash disable=SC1090
 
 # source shell common settings
 if [ -f ~/.config/shellcommon/common/common.sh ]; then
 	source ~/.config/shellcommon/common/common.sh
 fi
 
-# source zsh options files
+# source zsh options
 if [ -f ~/.config/zshrcparts/options/options.zsh ]; then
 	source ~/.config/zshrcparts/options/options.zsh
 fi
 
-# source zsh keymaps files
+# source zsh keymaps
 if [ -f ~/.config/zshrcparts/keymaps/keymaps.zsh ]; then
 	source ~/.config/zshrcparts/keymaps/keymaps.zsh
 fi
 
-# source zsh configs files
+# source zsh configurations
 if [ -f ~/.config/zshrcparts/configs/configs.zsh ]; then
 	source ~/.config/zshrcparts/configs/configs.zsh
 fi
 
-# source zsh completions files
+# source zsh completions
 if [ -f ~/.config/zshrcparts/completions/completions.zsh ]; then
 	source ~/.config/zshrcparts/completions/completions.zsh
 fi
 
-# source zsh user local files
+# source zsh local settings
 if [ -f ~/.config/zshrcparts/local/local.zsh ]; then
 	source ~/.config/zshrcparts/local/local.zsh
 fi
 
-# source zsh aliases files
+# source zsh aliases
 if [ -f ~/.config/zshrcparts/aliases/aliases.zsh ]; then
 	source ~/.config/zshrcparts/aliases/aliases.zsh
 fi
 
-# source prompt files, prompt files are not ready
+# source zsh prompt
 if [ -f ~/.config/zshrcparts/prompt/prompt.zsh ]; then
 	source ~/.config/zshrcparts/prompt/prompt.zsh
 fi
 
-# source plugins files
+# source zsh plugins
 if [ -f ~/.config/zshrcparts/plugins/plugins.zsh ]; then
 	source ~/.config/zshrcparts/plugins/plugins.zsh
 fi
