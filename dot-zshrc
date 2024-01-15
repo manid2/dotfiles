@@ -12,6 +12,11 @@ if [ -f ~/.config/shellcommon/common/common.sh ]; then
 	source ~/.config/shellcommon/common/common.sh
 fi
 
+# source shell common functions
+if [ -f ~/.config/shellcommon/common/functions.sh ]; then
+	source ~/.config/shellcommon/common/functions.sh
+fi
+
 # source shell common aliases
 if [ -f ~/.config/shellcommon/aliases/aliases.sh ]; then
 	source ~/.config/shellcommon/aliases/aliases.sh
