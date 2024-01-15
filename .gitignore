@@ -5,3 +5,6 @@
 # ignore tags
 tags
 TAGS
+
+# ignore node_modules
+/node_modules

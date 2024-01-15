@@ -2,6 +2,12 @@
   "name": "manid2-dotfiles",
   "version": "1.0.0",
   "description": "Swiss army knife of Software Engineer",
+  "scripts": {
+    "m-links-check": "linkinator --config '.linkinator.config.json' 'README.md'",
+    "m-lint": "markdownlint --config '.markdownlint.json' 'README.md'",
+    "lint": "npm run m-lint",
+    "test": "npm run lint && npm run m-links-check"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/manid2/dotfiles.git"
@@ -19,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/manid2/dotfiles/issues"
   },
-  "homepage": "https://github.com/manid2/dotfiles#readme"
+  "homepage": "https://github.com/manid2/dotfiles#readme",
+  "devDependencies": {
+    "linkinator": "^6.0.4",
+    "markdownlint-cli": "^0.38.0"
+  }
 }
