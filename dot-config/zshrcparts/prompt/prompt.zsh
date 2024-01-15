@@ -1,16 +1,6 @@
 # shellcheck shell=bash disable=all
 # zsh prompt file, to be sourced into ~/.zshrc
 
-# Unicode characters
-if [ -f ~/.config/shellcommon/common/unicode-chars.sh ]; then
-	source ~/.config/shellcommon/common/unicode-chars.sh
-fi
-
-# Shell common prompt configs
-if [ -f ~/.config/shellcommon/prompt/prompt.sh ]; then
-	source ~/.config/shellcommon/prompt/prompt.sh
-fi
-
 # Variable to identify the chroot for display in prompt
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)

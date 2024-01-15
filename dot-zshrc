@@ -12,16 +12,6 @@ if [ -f ~/.config/shellcommon/common/common.sh ]; then
 	source ~/.config/shellcommon/common/common.sh
 fi
 
-# source shell common functions
-if [ -f ~/.config/shellcommon/common/functions.sh ]; then
-	source ~/.config/shellcommon/common/functions.sh
-fi
-
-# source shell common aliases
-if [ -f ~/.config/shellcommon/aliases/aliases.sh ]; then
-	source ~/.config/shellcommon/aliases/aliases.sh
-fi
-
 # source zsh options files
 if [ -f ~/.config/zshrcparts/options/options.zsh ]; then
 	source ~/.config/zshrcparts/options/options.zsh
@@ -60,9 +50,4 @@ fi
 # source plugins files
 if [ -f ~/.config/zshrcparts/plugins/plugins.zsh ]; then
 	source ~/.config/zshrcparts/plugins/plugins.zsh
-fi
-
-# source shell common plugins
-if [ -f ~/.config/shellcommon/plugins/plugins.sh ]; then
-	source ~/.config/shellcommon/plugins/plugins.sh
 fi

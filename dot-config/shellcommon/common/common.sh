@@ -28,3 +28,38 @@ mwp="$HOME/Documents/myworkspace"
 export mwp
 
 alias mwp='cd "$mwp"'
+
+# source shell common unicode characters
+if [ -f ~/.config/shellcommon/common/unicode-chars.sh ]; then
+	source ~/.config/shellcommon/common/unicode-chars.sh
+fi
+
+# source shell common colors
+if [ -f ~/.config/shellcommon/common/colors.sh ]; then
+	source ~/.config/shellcommon/common/colors.sh
+fi
+
+# source shell common functions
+if [ -f ~/.config/shellcommon/common/functions.sh ]; then
+	source ~/.config/shellcommon/common/functions.sh
+fi
+
+# source shell common aliases
+if [ -f ~/.config/shellcommon/aliases/aliases.sh ]; then
+	source ~/.config/shellcommon/aliases/aliases.sh
+fi
+
+# source shell common local settings
+if [ -f ~/.config/shellcommon/local/local.sh ]; then
+	source ~/.config/shellcommon/local/local.sh
+fi
+
+# source shell common plugins
+if [ -f ~/.config/shellcommon/plugins/plugins.sh ]; then
+	source ~/.config/shellcommon/plugins/plugins.sh
+fi
+
+# source shell common prompt
+if [ -f ~/.config/shellcommon/prompt/prompt.sh ]; then
+	source ~/.config/shellcommon/prompt/prompt.sh
+fi

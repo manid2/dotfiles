@@ -4,7 +4,6 @@
 set -e
 
 source dot-config/shellcommon/common/common.sh
-source dot-config/shellcommon/common/colors.sh
 
 logfile=$(mktemp -t "dotfiles-install-XXXX")
 
