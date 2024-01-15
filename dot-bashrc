@@ -30,10 +30,6 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-# Below line added by Sandvine logon script
-# shellcheck disable=SC1091
-if [ -f /etc/profile.d/sandvine.rc ]; then . /etc/profile.d/sandvine.rc; fi
-
 # source shell common settings
 if [ -f ~/.config/shellcommon/common/common.sh ]; then
 	source ~/.config/shellcommon/common/common.sh
