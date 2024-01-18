@@ -105,6 +105,15 @@ function! custom#functions#fzf_spell_suggest(word)
 		\ }))
 endfunction
 
+function! custom#functions#date()
+	return strftime('%Y-%m-%dT%H:%M:%S%z')
+endfunction
+
+function! custom#functions#date_append()
+	let date=custom#functions#date()
+	exe "normal! a".date." "
+endfunction
+
 " TODO: Add function, command and keymap to format text into table.
 " TODO: Add function, command and keymap to search only in visual selections.
 " TODO: Add custom function to format code using 'formatexpr=mylang#Format()'

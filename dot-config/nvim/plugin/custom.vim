@@ -25,6 +25,11 @@ command! -nargs=0 SpellSuggest
 command! -nargs=1 SpellSuggestWord
 	\ call custom#functions#fzf_spell_suggest(<q-args>)
 
+command! -nargs=0 Date
+	\ echo custom#functions#date()
+command! -nargs=0 DateAppend
+	\ call custom#functions#date_append()
+
 " keymaps
 nnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
 nnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>
@@ -39,3 +44,6 @@ nnoremap <Leader>fgg         :GitGrep<cr>
 nnoremap <Leader>fgp         :GitGrepPattern<space>
 nnoremap <Leader>z=          :SpellSuggest<cr>
 nnoremap <Leader>zw          :SpellSuggestWord<space>
+nnoremap <Leader>dt          :DateAppend<cr>
+inoremap <C-\>dt             <C-O>:DateAppend<cr>
+iabbrev <expr> dtz           custom#functions#date()
