@@ -1,6 +1,6 @@
 set my_md2wk_id = "manid2.work"
 set my_md2wk_name = "Mani Kumar"
-set my_md2wk_pass = `secret-tool lookup md2work pass`
+set my_md2wk_pass = "`secret-tool lookup md2work pass`"
 
 # refer:
 # https://wiki.archlinux.org/title/mutt
