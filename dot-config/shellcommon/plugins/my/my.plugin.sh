@@ -85,8 +85,3 @@ aliasg () {
 
 # ssh aliases
 alias ssdeb01='ssh mkdeb01@mk-deb-001'
-
-# nvm node version manager
-export NVM_DIR="$myrp/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"

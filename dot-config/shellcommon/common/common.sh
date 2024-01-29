@@ -24,10 +24,16 @@ msg_fmt () {
 }
 
 # Workspace aliases for faster navigation
-mwp="$HOME/Documents/myworkspace"
-export mwp
+export mwp="$HOME/Documents/myworkspace"
+export msp="$HOME/Downloads/softwares"
 
 alias mwp='cd "$mwp"'
+alias msp='cd "$msp"'
+
+# nvm node version manager
+export NVM_DIR="$msp/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 
 # source shell common unicode characters
 if [ -f ~/.config/shellcommon/common/unicode-chars.sh ]; then
