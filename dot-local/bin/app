@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+# Install / Uninstall app/s
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# defaults
+THIS_SCRIPT="${0##*/}"
+APP_D=~/.local/app.d
+
+app_exec () {
+	local cmd="$1"
+	local app="$2"
+
+	local app_dir="$APP_D/$app"
+	echo "$cmd $app"
+	if [ -x "$app_dir/$app.$cmd" ]; then
+		"$app_dir/$app.$cmd"
+	fi
+}
+
+app_exec_all () {
+	while IFS= read -r app_dir;
+	do
+		local app="${app_dir##*/}"
+		app_exec "$1" "$app"
+	done < <(find "$APP_D/" -maxdepth 1 -not -path "$APP_D/" \
+		 -type d -printf "%p\n" | sort)
+}
+
+# print help doc
+_help () {
+	cat <<EOF
+Usage: $THIS_SCRIPT [options]
+
+Options (only one is required):
+    -i, --install      Install app
+    -u, --uninstall    Uninstall app
+    -h, --help         Print this help & exit
+
+Example:
+    $THIS_SCRIPT --install xfce4
+EOF
+}
+
+cmd=""
+app=""
+
+if [ "$#" -eq 0 ] || [ "$#" -gt 2 ]; then
+	_help
+	exit
+fi
+
+# parse command line arguments
+while [[ $# -gt 0 ]]
+do
+	opt="$1"
+	case $opt in
+		-i|--install)
+			cmd="install"
+			app="$2"
+			break
+			;;
+		-u|--uninstall)
+			cmd="uninstall"
+			app="$2"
+			break
+			;;
+		-h|--help)
+			_help
+			exit
+			;;
+		*)
+			echo "Unrecognized option: $opt"
+			exit 1
+			;;
+	esac
+	shift
+done
+
+if [ "$app" = "all" ]; then
+	app_exec_all "$cmd"
+else
+	app_exec "$cmd" "$app"
+fi
