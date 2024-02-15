@@ -30,6 +30,13 @@ command! -nargs=0 Date
 command! -nargs=0 DateAppend
 	\ call custom#functions#date_append()
 
+for level in range(1, 5)
+	exe "command! -nargs=0 AddHeadingMd".level.
+		\ " call custom#functions#add_heading_md(".level.")"
+	exe "command! -nargs=0 AddHeadingRst".level.
+		\ " call custom#functions#add_heading_rst(".level.")"
+endfor
+
 " keymaps
 nnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
 nnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>

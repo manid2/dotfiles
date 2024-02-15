@@ -40,13 +40,19 @@ nnoremap <Leader>sh          :shell<cr>
 " <C-Z> to get same shell as vim was started
 " execute 'fg' command to bring vim back
 
-" TODO: Use generic heading using function and filetype
 " Markdown headings
-nnoremap <Leader>1           m`yypVr=``
-nnoremap <Leader>2           m`yypVr-``
-nnoremap <Leader>3           m`^i### <esc>``4l
-nnoremap <Leader>4           m`^i#### <esc>``5l
-nnoremap <Leader>5           m`^i##### <esc>``6l
+nnoremap <Leader>m1          :AddHeadingMd1<cr>
+nnoremap <Leader>m2          :AddHeadingMd2<cr>
+nnoremap <Leader>m3          :AddHeadingMd3<cr>
+nnoremap <Leader>m4          :AddHeadingMd4<cr>
+nnoremap <Leader>m5          :AddHeadingMd5<cr>
+
+" reStructuredText headings
+nnoremap <Leader>r1          :AddHeadingRst1<cr>
+nnoremap <Leader>r2          :AddHeadingRst2<cr>
+nnoremap <Leader>r3          :AddHeadingRst3<cr>
+nnoremap <Leader>r4          :AddHeadingRst4<cr>
+nnoremap <Leader>r5          :AddHeadingRst5<cr>
 
 " vim plugins keymaps
 nnoremap <Leader>nt          :NERDTreeToggle<cr>
