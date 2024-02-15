@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Command to restore tmux session using tmux-resurrect plugin script
+
+session="dev"
+restore=~/.tmux/plugins/tmux-resurrect/scripts/restore.sh
+
+tmux_has_session () {
+	command tmux has-session -t "$session" 2>/dev/null
+}
+
+if ! $(tmux_has_session); then
+	echo "tmux creating new '$session' session"
+	tmux new-session -d -s "$session"
+fi
+
+echo "tmux restoring '$session' session"
+tmux run-shell $restore
+
+if [ -z $TMUX ]; then
+	echo "tmux attaching to '$session' session"
+	tmux attach -t "$session"
+fi

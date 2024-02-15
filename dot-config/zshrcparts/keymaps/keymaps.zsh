@@ -5,5 +5,5 @@
 bindkey -e                                                # emacs key bindings
 
 # custom command keybindings
-bindkey -s '^X^[t' 'tmux\n'                               # ctrl-x alt-t
+bindkey -s '^X^[t' 'tmxr\n'                               # ctrl-x alt-t
 bindkey -s '^X^[s' 'source ~/.zshrc\n'                    # ctrl-x alt-s
