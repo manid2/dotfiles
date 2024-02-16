@@ -1,0 +1,5 @@
+deb http://mirrors.ocf.berkeley.edu/debian/ testing main contrib non-free non-free-firmware
+deb-src http://mirrors.ocf.berkeley.edu/debian/ testing main contrib non-free non-free-firmware
+
+deb http://mirrors.ocf.berkeley.edu/debian-security testing-security main contrib non-free non-free-firmware
+deb-src http://mirrors.ocf.berkeley.edu/debian-security testing-security main contrib non-free non-free-firmware
