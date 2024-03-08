@@ -1,4 +1,13 @@
 " --- nvim statusline --------------------------------------------------------
+function! SafeTrim(str)
+	if exists('*trim')
+		return trim(a:str)
+	else
+		return substitute(a:str, '^\s*\(.\{-}\)\s*$', '\1', '')
+	endif
+endfunction
+
+" TODO replace git-sh-prompt to use git-fugitive or system git commands
 let s:git_str_cmd='$SHELL -c '.shellescape(
 	\'source ~/.local/bin/git-sh-prompt; '.
 	\"GIT_PS1_SHOWDIRTYSTATE='y' ".
@@ -9,7 +18,7 @@ let s:git_str_cmd='$SHELL -c '.shellescape(
 	\'__git_ps1')
 
 " Git PS1 string
-let g:vim_git_branch=trim(system(s:git_str_cmd))
+let g:vim_git_branch=SafeTrim(system(s:git_str_cmd))
 
 " Disable word count on status line on start as it slows down vim.
 let g:statusline_wordcount_disabled=1

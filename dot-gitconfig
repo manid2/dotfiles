@@ -1,6 +1,28 @@
+# NOTE: Use conditional configs for editor, pager using shell script to check
+# the conditions.
+#
+# Example:
+#
+# [core]
+#    editor = "git_ed.bash"
+#
+# $ cat git_ed.bash
+#   #!/bin/bash
+#   if [ $HOST_DEV ]; then
+#      ED="vim"
+#   else
+#      ED="vi"
+#   fi
+
 [core]
 	editor = vim
 	pager = delta
+
+# NOTE: Disable git compression if EOF error when cloning
+	#packedGitLimit = 512m
+	#packedGitWindowSize = 512m
+	#compression = 9
+
 [interactive]
 	diffFilter = delta --color-only
 [delta]
@@ -33,3 +55,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+# NOTE: Disable git compression if EOF error when cloning
+#[pack]
+#	deltaCacheSize = 2047m
+#	packSizeLimit = 2047m
+#	windowMemory = 2047m

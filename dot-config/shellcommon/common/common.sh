@@ -2,7 +2,12 @@
 
 # Export to command line tools
 if [ "$(command -v fzf)" ]; then
-	_fd='fd --strip-cwd-prefix'
+	if [ "$(command -v fd)" ]; then
+		_fd='fd --strip-cwd-prefix'
+	else
+		_fd='find . -printf "%P\n"'
+	fi
+
 	export FZF_DEFAULT_COMMAND="$_fd"
 	export FZF_CTRL_T_COMMAND="$_fd"
 	export FZF_ALT_C_COMMAND="$_fd"
