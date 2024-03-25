@@ -30,3 +30,7 @@ hi ColorColumn  cterm=bold      ctermfg=White     ctermbg=Magenta
 hi CursorLineNr cterm=bold      ctermfg=DarkGreen ctermbg=DarkGrey
 hi SpellBad     cterm=underline ctermfg=DarkGrey
 hi SpellCap     cterm=underline ctermfg=Red
+
+if has("gui_running")
+	colorscheme retrobox
+endif

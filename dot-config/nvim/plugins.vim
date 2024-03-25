@@ -13,6 +13,13 @@ let g:vim_markdown_new_list_item_indent=2
 " Use '-' as easymotion prefix
 map -                        <Plug>(easymotion-prefix)
 
+" Use 'ga' prefix for EasyAlign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga                      <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga                      <Plug>(EasyAlign)
+
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
 let s:plugged='~/.vim/plugged'
@@ -35,6 +42,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/nerdtree'
 Plug 'milkypostman/vim-togglelist'
+Plug 'yegappan/mru'
 Plug 'manid2/vim-ypclipboard', {'branch': 'dev'}
 Plug 'manid2/vim-grep-replace', {'branch': 'dev'}
 

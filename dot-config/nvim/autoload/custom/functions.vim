@@ -114,10 +114,6 @@ function! custom#functions#date_append()
 	exe "normal! a".date." "
 endfunction
 
-" TODO: Add function, command and keymap to format text into table.
-" TODO: Add function, command and keymap to search only in visual selections.
-" TODO: Add custom function to format code using 'formatexpr=mylang#Format()'
-" TODO: Add abbreviations to reduce typing.
 function! custom#functions#add_heading_md(level)
 	let headers = {1: '=', 2: '-', 3: '#', 4: '#', 5: '#'}
 	let line_num = line('.')
