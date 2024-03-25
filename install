@@ -41,6 +41,8 @@ install_home () {
 }
 
 install_local_bin () {
+	mkdir -pv "$HOME/.local/bin"
+
 	while IFS= read -r pkg;
 	do
 		local pkg_dst="${pkg##*/}"
@@ -145,6 +147,7 @@ link_vimrc () {
 
 install_sshconfig () {
 	pkg="dot-ssh/config"
+	mkdir -pv "$HOME/.ssh"
 	pkg_dst="$HOME/.ssh/config"
 	if [ ! -f "$pkg_dst" ]; then
 		pkg_src="$(realpath --relative-to="$HOME/.ssh" "$pkg")"
