@@ -76,9 +76,9 @@ uninstall_sshconfig () {
 
 uninstall_home
 uninstall_local_bin
-uninstall_local_app_d
+#uninstall_local_app_d
 uninstall_config
 unlink_vimrc
-uninstall_sshconfig
+#uninstall_sshconfig
 column -t "$logfile"
 rm "$logfile"

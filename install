@@ -158,9 +158,9 @@ install_sshconfig () {
 
 install_home
 install_local_bin
-install_local_app_d
+#install_local_app_d
 install_config
 link_vimrc
-install_sshconfig
+#install_sshconfig
 column -t "$logfile"
 rm "$logfile"
