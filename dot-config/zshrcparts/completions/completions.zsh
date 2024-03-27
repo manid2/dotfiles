@@ -9,13 +9,29 @@ zstyle ':completion:*:*:vim:*:*files' ignored-patterns '*.o'
 
 # Take advantage of $LS_COLORS for completion as well
 # shellcheck disable=2296
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors ''
+
+if [ -x /usr/bin/dircolors ]; then
+	zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+	zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+fi
+
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # source bash style completion scripts
 for comp_file in ~/.local/share/zsh/user-completions/*.zsh; do
-    if [ -f "$comp_file" ]; then
-        source "$comp_file"
-    fi
+	if [ -f "$comp_file" ]; then
+		source "$comp_file"
+	fi
 done
 
 # add zsh style completion scripts to fpath
