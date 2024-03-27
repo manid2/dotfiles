@@ -100,14 +100,12 @@ link_vimrc () {
 		link "$pkg_src" "$pkg_dst"
 	fi
 
-	if [ ! -d "$vim_autoload" ]; then
-		mkdir -pv "$vim_autoload"
-	fi
-
 	# link vim-plug in nvim to vim
+	mkdir -pv "$vim_autoload"
 	pkg_dst="$vim_autoload/plug.vim"
 	if [ ! -f "$pkg_dst" ]; then
 		local nvim_plug="$nvim_data/site/autoload/plug.vim"
+		# TODO if vim-plug not exists then try downloading else skip
 		pkg_src="${nvim_plug/"$HOME"/../..}"
 		link_msg "${nvim_plug/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
 		link "$pkg_src" "$pkg_dst"
@@ -117,6 +115,7 @@ link_vimrc () {
 	pkg_dst="$vim_home/plugged"
 	if [ ! -d "$pkg_dst" ]; then
 		local nvim_plugged="$nvim_data/plugged"
+		mkdir -pv "$nvim_plugged"
 		pkg_src="${nvim_plugged/"$HOME"/..}"
 		link_msg "${nvim_plugged/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
 		link "$pkg_src" "$pkg_dst"
@@ -158,9 +157,9 @@ install_sshconfig () {
 
 install_home
 install_local_bin
-install_local_app_d
+#install_local_app_d
 install_config
 link_vimrc
-install_sshconfig
+#install_sshconfig
 column -t "$logfile"
 rm "$logfile"
