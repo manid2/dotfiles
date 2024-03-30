@@ -1,0 +1,11 @@
+vda - 40 GB
+
+vda1
+/boot - 512 MiB
+
+vda2_crypt
+/ - 10 GB
+/var - 10 Gb
+/tmp - 5 GB
+swap - 1 GB
+/home - 13.5 GB
