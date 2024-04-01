@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=xtm
+Icon=xfce4-terminal
+NoDisplay=true
+Encoding=UTF-8
+Type=X-XFCE-Helper
+X-XFCE-Category=TerminalEmulator
+X-XFCE-Commands=/usr/local/bin/xtm
+X-XFCE-CommandsWithParameter=/usr/local/bin/xtm "%s"

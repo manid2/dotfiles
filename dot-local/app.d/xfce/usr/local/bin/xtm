@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cmd=()
+opts=()
+
+if [ -x /usr/bin/qterminal ]; then
+	cmd+=/usr/bin/qterminal
+	opts+=--workdir
+elif [ -x /usr/bin/xfce4-terminal ]; then
+	cmd+=/usr/bin/xfce4-terminal
+	opts+=--maximize --working-directory
+fi
+
+"${cmd[@]}" "${opts[@]}" ~/Documents/myworkspace --execute "$@"
