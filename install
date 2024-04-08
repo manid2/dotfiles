@@ -104,7 +104,6 @@ link_vimrc () {
 	pkg_dst="$vim_autoload/plug.vim"
 	if [ ! -L "$pkg_dst" ] && [ ! -f "$pkg_dst" ]; then
 		local nvim_plug="$nvim_data/site/autoload/plug.vim"
-		# TODO if vim-plug not exists then try downloading else skip
 		pkg_src="${nvim_plug/"$HOME"/../..}"
 		link_msg "${nvim_plug/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
 		link "$pkg_src" "$pkg_dst"

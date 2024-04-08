@@ -32,7 +32,6 @@ silent! if plug#begin(s:plugged)
 " Shorthand notation, fetches https://github.com/{user}/{repo}
 
 " * UI/UX plugins
-" TODO install fzf key bindings and completions
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jlanzarotta/bufexplorer'
