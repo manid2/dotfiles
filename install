@@ -4,15 +4,14 @@
 set -e
 
 source dot-config/shellcommon/common/common.sh
-
-logfile=$(mktemp -t "dotfiles-install-XXXX")
+source dot-config/shellcommon/common/colors.sh
 
 link_msg () {
 	local msg="${GREEN}Linking${RESET} "
 	msg+="${BLUE}$1${RESET} "
 	msg+="${GREEN}to${RESET} "
 	msg+="${CYAN}$2${RESET} "
-	msg_fmt "$logfile" "$msg"
+	echo -e "$msg"
 }
 
 link () {
@@ -161,5 +160,3 @@ install_local_bin
 install_config
 link_vimrc
 #install_sshconfig
-column -t "$logfile"
-rm "$logfile"

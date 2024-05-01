@@ -4,19 +4,20 @@
 set -e
 
 source dot-config/shellcommon/common/common.sh
-
-logfile=$(mktemp -t "dotfiles-uninstall-XXXX")
+source dot-config/shellcommon/common/colors.sh
 
 unlink_msg () {
 	local msg="${RED}Remove${RESET} "
 	msg+="${BLUE}$1${RESET} "
-	msg_fmt "$logfile" "$msg"
+	echo -e "$msg"
 }
 
 unlink () {
 	local pkg="$1"
-	unlink_msg "${pkg/"$HOME"/'~'}"
-	rm -rf "$pkg"
+	if [ -L "$pkg" ]; then
+		unlink_msg "${pkg/"$HOME"/'~'}"
+		/usr/bin/unlink "$pkg"
+	fi
 }
 
 uninstall_home () {
@@ -80,5 +81,3 @@ uninstall_local_bin
 uninstall_config
 unlink_vimrc
 #uninstall_sshconfig
-column -t "$logfile"
-rm "$logfile"
