@@ -9,7 +9,7 @@ endfunction
 
 " TODO replace git-sh-prompt to use git-fugitive or system git commands
 let s:git_str_cmd='$SHELL -c '.shellescape(
-	\'source ~/.local/bin/git-sh-prompt; '.
+	\'source ~/.local/lib/git-sh-prompt; '.
 	\"GIT_PS1_SHOWDIRTYSTATE='y' ".
 	\"GIT_PS1_SHOWSTASHSTATE='y' ".
 	\"GIT_PS1_SHOWUNTRACKEDFILES='y' ".
