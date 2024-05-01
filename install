@@ -25,7 +25,7 @@ install_home () {
 	do
 		local pkg_dst="${pkg##*/}"
 		pkg_dst="$HOME/${pkg_dst/dot-/.}"
-		if [ ! -f "$pkg_dst" ]; then
+		if [ ! -L "$pkg_dst" ] && [ ! -f "$pkg_dst" ]; then
 			local pkg_src="${pkg#"$HOME/"}"
 			link_msg "${pkg#"$PWD/"}" "${pkg_dst/"$HOME"/'~'}"
 			link "$pkg_src" "$pkg_dst"
@@ -46,7 +46,7 @@ install_local_bin () {
 	do
 		local pkg_dst="${pkg##*/}"
 		pkg_dst="$HOME/.local/bin/${pkg_dst/dot-/.}"
-		if [ ! -f "$pkg_dst" ]; then
+		if [ ! -L "$pkg_dst" ] && [ ! -f "$pkg_dst" ]; then
 			pkg_src="$(realpath --relative-to="$HOME/.local/bin/" "$pkg")"
 			link_msg "${pkg#"$PWD/"}" "${pkg_dst/"$HOME"/'~'}"
 			link "$pkg_src" "$pkg_dst"
@@ -70,7 +70,7 @@ install_config () {
 	do
 		local pkg_dst="${pkg##*/}"
 		pkg_dst="$xdg_config/$pkg_dst"
-		if [ ! -d "$pkg_dst" ]; then
+		if [ ! -L "$pkg_dst" ] && [ ! -d "$pkg_dst" ]; then
 			pkg_src="$(realpath --relative-to="$xdg_config" "$pkg")"
 			link_msg "${pkg#"$PWD/"}" "${pkg_dst/"$HOME"/'~'}"
 			link "$pkg_src" "$pkg_dst"
@@ -92,7 +92,7 @@ link_vimrc () {
 
 	# link ~/.vimrc to nvim/init.vim
 	pkg_dst="$HOME/.vimrc"
-	if [ ! -f "$pkg_dst" ]; then
+	if [ ! -L "$pkg_dst" ] && [ ! -f "$pkg_dst" ]; then
 		local nvim_init="$nvim_home/init.vim"
 		pkg_src="${nvim_init#"$HOME/"}"
 		link_msg "${nvim_init/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
@@ -102,7 +102,7 @@ link_vimrc () {
 	# link vim-plug in nvim to vim
 	mkdir -pv "$vim_autoload"
 	pkg_dst="$vim_autoload/plug.vim"
-	if [ ! -f "$pkg_dst" ]; then
+	if [ ! -L "$pkg_dst" ] && [ ! -f "$pkg_dst" ]; then
 		local nvim_plug="$nvim_data/site/autoload/plug.vim"
 		# TODO if vim-plug not exists then try downloading else skip
 		pkg_src="${nvim_plug/"$HOME"/../..}"
@@ -112,7 +112,7 @@ link_vimrc () {
 
 	# link 'plugged' in nvim to vim
 	pkg_dst="$vim_home/plugged"
-	if [ ! -d "$pkg_dst" ]; then
+	if [ ! -L "$pkg_dst" ] && [ ! -d "$pkg_dst" ]; then
 		local nvim_plugged="$nvim_data/plugged"
 		mkdir -pv "$nvim_plugged"
 		pkg_src="${nvim_plugged/"$HOME"/..}"
@@ -124,7 +124,7 @@ link_vimrc () {
 	for nvim_src in "$nvim_home"/*;
 	do
 		local pkg_dst="$vim_home/${nvim_src##*/}"
-		if [ ! -e "$pkg_dst" ]; then
+		if [ ! -L "$pkg_dst" ] && [ ! -e "$pkg_dst" ]; then
 			pkg_src="${nvim_src/"$HOME"/..}"
 			link_msg "${nvim_src/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
 			link "$pkg_src" "$pkg_dst"
@@ -135,7 +135,7 @@ link_vimrc () {
 	for nvim_src in "$nvim_autoload"/*;
 	do
 		local pkg_dst="$vim_autoload/${nvim_src##*/}"
-		if [ ! -e "$pkg_dst" ]; then
+		if [ ! -L "$pkg_dst" ] && [ ! -e "$pkg_dst" ]; then
 			pkg_src="${nvim_src/"$HOME"/../..}"
 			link_msg "${nvim_src/"$HOME"/'~'}" "${pkg_dst/"$HOME"/'~'}"
 			link "$pkg_src" "$pkg_dst"
@@ -147,7 +147,7 @@ install_sshconfig () {
 	pkg="dot-ssh/config"
 	mkdir -pv "$HOME/.ssh"
 	pkg_dst="$HOME/.ssh/config"
-	if [ ! -f "$pkg_dst" ]; then
+	if [ ! -L "$pkg_dst" ] && [ ! -f "$pkg_dst" ]; then
 		pkg_src="$(realpath --relative-to="$HOME/.ssh" "$pkg")"
 		link_msg "$pkg" "${pkg_dst/"$HOME"/'~'}"
 		link "$pkg_src" "$pkg_dst"
