@@ -1,0 +1,43 @@
+#!/bin/bash -e
+#
+# Generate tags from source files
+#
+# Taken from:
+# https://github.com/DPDK/dpdk/blob/main/devtools/build-tags.sh
+
+ignore_git="( -name .git -o -name .github ) -prune -o"
+ignore_venv="( -name .venv ) -prune -o"
+ignore_pycache="( -name .pytest_cache -o -name __pycache__ ) -prune -o"
+
+ignore="$ignore_git $ignore_venv $ignore_pycache"
+
+skip_dirs="( -name docs ) -prune -o"
+
+source_dirs="."
+
+find_sources () {
+	find $source_dirs $ignore $skip_dirs -name $1 -type f -printf "%P\n"
+}
+
+py_sources () {
+	find_sources '*.py'
+}
+
+c_sources () {
+	find_sources '*.[ch]'
+}
+
+cpp_sources () {
+	find_sources '*.[ch]pp'
+}
+
+all_sources () {
+	py_sources
+	c_sources
+	cpp_sources
+}
+
+all_sources > cscope.files
+ctags --totals --fields=fKsSt -L cscope.files 
+cscope -bqv -i cscope.files -f cscope.out
+GTAGSFORCECPP=1 gtags -f cscope.files 
