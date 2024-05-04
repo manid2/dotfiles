@@ -54,6 +54,7 @@ code_pkgs=(
 )
 
 utils_pkgs=(
+	aria2
 	bat
 	cscope
 	curl
@@ -67,8 +68,10 @@ utils_pkgs=(
 	pipx
 	python3-pip
 	ripgrep
+	uget
 	w3m
 	w3m-img
+	weasyprint
 	wget
 	xclip
 )
