@@ -1,23 +1,59 @@
 #!/bin/bash
 #
-# Command to restore tmux session using tmux-resurrect plugin script
+# Command to save & restore tmux sessions using tmux-resurrect plugin script
 
-session="dev"
-restore=~/.tmux/plugins/tmux-resurrect/scripts/restore.sh
+# Stop on first error.
+set -e
+
+tmux_session="dev"
+tmux_resurrect_save=~/.tmux/plugins/tmux-resurrect/scripts/save.sh
+tmux_resurrect_restore=~/.tmux/plugins/tmux-resurrect/scripts/restore.sh
+tmux_resurrect_last=~/.local/share/tmux/resurrect/last
+tmux_session_new=false
 
 tmux_has_session () {
-	command tmux has-session -t "$session" 2>/dev/null
+	command tmux has-session -t "$tmux_session" 2>/dev/null
 }
 
-if ! $(tmux_has_session); then
-	echo "tmux creating new '$session' session"
-	tmux new-session -d -s "$session"
-fi
+tmux_create_windows () {
+	local opts=(new-window -k -c "$mwp")
+	local msg_prefix="tmux creating new window"
+	for i in {0..3};
+	do
+		echo "$msg_prefix 'w$i' in '$tmux_session' session"
+		tmux "${opts[@]}" -t "$tmux_session:$i" -n "w$i" $SHELL
+	done
+	tmux select-window -t "$tmux_session:0"
+}
 
-echo "tmux restoring '$session' session"
-tmux run-shell $restore
+tmux_save_session () {
+	if ! $(tmux_has_session); then
+		echo "tmux creating new '$tmux_session' session"
+		tmux new-session -d -s "$tmux_session"
+		if [ ! -f "$tmux_resurrect_last" ]; then
+			tmux_create_windows
+			tmux run-shell $tmux_resurrect_save
+			tmux_session_new=true
+		fi
+	fi
+}
 
-if [ -z $TMUX ]; then
-	echo "tmux attaching to '$session' session"
-	tmux attach -t "$session"
-fi
+tmux_restore_session () {
+	if ! $(tmux_has_session); then
+		echo "tmux need active '$tmux_session' session to restore"
+		exit 1
+	fi
+
+	if ! $tmux_session_new && [ -f "$tmux_resurrect_last" ]; then
+		echo "tmux restoring '$tmux_session' session"
+		tmux run-shell $tmux_resurrect_restore
+	fi
+
+	if [ -z $TMUX ]; then
+		echo "tmux attaching to '$tmux_session' session"
+		tmux attach -t "$tmux_session"
+	fi
+}
+
+tmux_save_session
+tmux_restore_session
