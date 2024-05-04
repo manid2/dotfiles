@@ -33,3 +33,6 @@ fi
 if [ ! -d ~/.tmux/plugins/tpm ]; then
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
+
+# python packages
+pipx install grip # github readme instant preview

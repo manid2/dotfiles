@@ -19,6 +19,10 @@ install_bin () {
 	install -v -p -m 755 -D -t ~/.local/bin/ "$1"
 }
 
+install_config () {
+	install -v -p -m 644 "$1" -D -t "$2"
+}
+
 safe_link () {
 	if [ ! -L "$2" ] && [ ! -f "$2" ]; then
 		ln -s "$1" "$2"
@@ -26,6 +30,12 @@ safe_link () {
 }
 
 install_bin /usr/share/doc/git/contrib/git-jump/git-jump
+
+install_config dot-local/app.d/xfce/local/share/xfce4/helpers/xtm.desktop \
+~/.local/share/xfce4/helpers/
+
+install_config dot-local/app.d/xfce/config/autostart/Terminal.desktop \
+~/.config/autostart/
 
 safe_link /usr/lib/git-core/git-sh-prompt ~/.local/lib/git-sh-prompt
 safe_link /usr/bin/fdfind ~/.local/bin/fd
