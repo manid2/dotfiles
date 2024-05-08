@@ -49,7 +49,7 @@
 	useConfigOnly = true
 [log]
 	abbrevCommit = false
-	decorate = false
+	decorate = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

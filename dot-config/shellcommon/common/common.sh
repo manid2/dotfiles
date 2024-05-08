@@ -18,6 +18,8 @@ if [ "$(command -v rg)" ]; then
 	export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 fi
 
+export MANPATH="$HOME/.local/share/man:$MANPATH"
+
 # XDG base directories
 xdg_config="${XDG_CONFIG_HOME:-$HOME/.config}"
 xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"

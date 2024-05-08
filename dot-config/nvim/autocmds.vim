@@ -28,6 +28,7 @@ augroup mk_c
 		\ | let c_space_errors=1
 		\ | let c_ansi_typedefs=1
 		\ | let c_ansi_constants=1
+	autocmd FileType cpp setlocal cinoptions+=g0
 augroup end
 
 augroup mk_sh
