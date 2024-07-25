@@ -7,6 +7,9 @@ zstyle ':completion:*:*:*:*:*' menu select
 # ignore c object files for vim completion
 zstyle ':completion:*:*:vim:*:*files' ignored-patterns '*.o'
 
+# complete make tatgets using make command
+zstyle ':completion::complete:make:*:targets' call-command true
+
 # Take advantage of $LS_COLORS for completion as well
 # shellcheck disable=2296
 zstyle ':completion:*' list-colors ''
