@@ -37,6 +37,9 @@ for level in range(1, 5)
 		\ " call custom#functions#add_heading_rst(".level.")"
 endfor
 
+command! -nargs=0 Update
+	\ call custom#functions#update()
+
 " keymaps
 nnoremap <silent> <Leader>tt :TrimTrailingWhitespace<cr>
 nnoremap <silent> <Leader>tl :TrimLeadingWhitespace<cr>

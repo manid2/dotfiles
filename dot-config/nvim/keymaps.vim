@@ -5,11 +5,11 @@ let s:cfp='<C-R>=expand("%")<cr>'
 let s:cfn='<C-R>=expand("%:t")<cr>'
 
 " Save file in normal and also in insert mode
-inoremap <C-S>               <ESC>:update<cr>
-nnoremap <C-S>               :update<cr>
+inoremap <C-S>               <ESC>:Update<cr>
+nnoremap <C-S>               :Update<cr>
 " Alternative to <C-S> when terminal stops updating
-inoremap <C-A>s              <ESC>:update<cr>
-nnoremap <C-A>s              :update<cr>
+inoremap <C-A>s              <ESC>:Update<cr>
+nnoremap <C-A>s              :Update<cr>
 
 " Quit
 inoremap <C-Q>               <ESC>:q<cr>

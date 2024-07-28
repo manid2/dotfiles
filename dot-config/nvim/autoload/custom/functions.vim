@@ -141,3 +141,10 @@ function! custom#functions#add_heading_rst(level)
 		call append(line_num, hline)
 	endif
 endfunction
+
+function! custom#functions#update()
+	let l:winview=winsaveview()
+	normal gggqG
+	update
+	call winrestview(l:winview)
+endfunction
