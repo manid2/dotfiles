@@ -32,12 +32,12 @@ cpp_sources () {
 }
 
 all_sources () {
-	py_sources
+	#py_sources
 	c_sources
 	cpp_sources
 }
 
 all_sources > cscope.files
-ctags --totals --fields=fKsSt -L cscope.files 
+ctags --totals --fields=fKsSt -L cscope.files
 cscope -bqv -i cscope.files -f cscope.out
-GTAGSFORCECPP=1 gtags -f cscope.files 
+#GTAGSFORCECPP=1 gtags -f cscope.files
