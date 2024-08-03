@@ -64,6 +64,7 @@ if has('cscope')
 	Plug 'manid2/vim-cscope-settings', {'branch': 'dev'}
 endif
 Plug 'chrisbra/matchit'
+Plug 'kergoth/vim-bitbake'
 
 " * Text editing plugins
 Plug 'tpope/vim-surround'
