@@ -13,7 +13,7 @@ if [ ! -f ~/.tmux/plugins/tpm-setup-done ]; then
 fi
 
 mkdir -pv ~/.local/{bin,lib,share}
-mkdir -pv ~/.local/share/zsh/user-{completions,functions}
+mkdir -pv ~/.local/share/{ba,z}sh/user-{completions,functions}
 
 install_bin () {
 	install -v -p -m 755 -D -t ~/.local/bin/ "$1"
