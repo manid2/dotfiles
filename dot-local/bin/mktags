@@ -16,11 +16,7 @@ skip_dirs="( -name docs ) -prune -o"
 source_dirs="."
 
 find_sources () {
-	find $source_dirs $ignore $skip_dirs -name $1 -type f -printf "%P\n"
-}
-
-py_sources () {
-	find_sources '*.py'
+	find $source_dirs $ignore $skip_dirs -name "$1" -type f -printf "%P\n"
 }
 
 c_sources () {
@@ -32,12 +28,15 @@ cpp_sources () {
 }
 
 all_sources () {
-	py_sources
 	c_sources
 	cpp_sources
 }
 
 all_sources > cscope.files
-ctags --totals --fields=fKsSt -L cscope.files 
-cscope -bqv -i cscope.files -f cscope.out
-GTAGSFORCECPP=1 gtags -f cscope.files 
+ctags --totals --fields=fKsSt -L cscope.files
+
+if [ "$(command -v gtags)" ]; then
+	GTAGSFORCECPP=1 gtags -f cscope.files
+elif [ "$(command -v cscope)" ]; then
+	cscope -bqv -i cscope.files -f cscope.out
+fi
