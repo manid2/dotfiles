@@ -53,6 +53,14 @@ code_pkgs=(
 	vim-addon-manager
 )
 
+docs_pkgs=(
+	manpages
+	manpages-dev
+	manpages-posix
+	manpages-posix-dev
+	gcc-doc
+)
+
 utils_pkgs=(
 	aria2
 	bat
@@ -87,5 +95,9 @@ apt-get update && \
 apt-get install -y \
   "${sys_admin_pkgs[@]}" \
   "${code_pkgs[@]}" \
+  "${docs_pkgs[@]}" \
   "${utils_pkgs[@]}" \
   "${multimedia_pkgs[@]}"
+
+gcc_version=$(gcc --version | grep ^gcc | sed 's/^.* //g' | cut -d'.' -f1)
+apt-get install -y "libstdc++-$gcc_version-doc"
