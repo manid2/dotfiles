@@ -53,6 +53,13 @@ code_pkgs=(
 	vim-addon-manager
 )
 
+docs_pkgs=(
+	manpages-dev
+	manpages-posix
+	manpages-posix-dev
+	libstdc++-14-doc
+)
+
 utils_pkgs=(
 	aria2
 	bat
@@ -87,5 +94,6 @@ apt-get update && \
 apt-get install -y \
   "${sys_admin_pkgs[@]}" \
   "${code_pkgs[@]}" \
+  "${docs_pkgs[@]}" \
   "${utils_pkgs[@]}" \
   "${multimedia_pkgs[@]}"
