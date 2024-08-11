@@ -82,6 +82,13 @@ function! custom#functions#hi_grp() abort
 endfunction
 
 function! custom#functions#fzf_git_grep(pattern)
+	if empty(a:pattern)
+		echohl WarningMsg
+		echom 'Fzf git grep need an input pattern!'
+		echohl None
+		return
+	endif
+
 	return fzf#vim#grep(
 		\ 'git grep --line-number -- '.shellescape(a:pattern),
 		\ 0,

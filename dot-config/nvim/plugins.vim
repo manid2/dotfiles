@@ -44,7 +44,6 @@ Plug 'preservim/nerdtree'
 Plug 'milkypostman/vim-togglelist'
 Plug 'yegappan/mru'
 Plug 'manid2/vim-ypclipboard', {'branch': 'dev'}
-Plug 'manid2/vim-grep-replace', {'branch': 'dev'}
 
 " * Code editing plugins generic
 Plug 'preservim/tagbar'

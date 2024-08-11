@@ -19,11 +19,9 @@ command! -nargs=0 DiffOrig call custom#functions#diff_orig()
 command! -nargs=0 DiffGit call custom#functions#diff_git()
 command! -nargs=0 HighlightGroup call custom#functions#hi_grp()
 
-command! -nargs=0 GitGrep
-	\ call custom#functions#fzf_git_grep(expand("<cword>"))
-command! -nargs=* GitGrepPattern
-	\ call custom#functions#fzf_git_grep(<q-args>)
 
+command! -nargs=? GitGrep
+	\ call custom#functions#fzf_git_grep(<q-args>)
 command! -nargs=? Spell
 	\ call custom#functions#fzf_spell_suggest(<q-args>)
 command! -nargs=? Dict
@@ -54,8 +52,8 @@ nnoremap <Leader>hll         :ToggleHighlightLongLines<cr>
 nnoremap <Leader>do          :DiffOrig<cr>
 nnoremap <Leader>dg          :DiffGit<cr>
 nnoremap <Leader>hig         :HighlightGroup<cr>
-nnoremap <Leader>fgg         :GitGrep<cr>
-nnoremap <Leader>fgp         :GitGrepPattern<space>
+nnoremap <Leader>gc          :GitGrep <C-r>=expand("<cword>")<cr><cr>
+nnoremap <Leader>gw          :GitGrep<space>
 nnoremap <Leader>z=          :Spell <C-r>=expand("<cword>")<cr><cr>
 nnoremap <Leader>zw          :Spell<space>
 nnoremap <Leader>dc          :Dict <C-r>=expand("<cword>")<cr><cr>
