@@ -105,6 +105,28 @@ function! custom#functions#fzf_spell_suggest(word)
 		\ }))
 endfunction
 
+function! FzfDictSource(word)
+	if empty(a:word)
+		return readfile('/usr/share/dict/words')
+	else
+		return [a:word]
+	endif
+endfunction
+
+function! FzfDictSink(word)
+	call setreg('"', a:word)
+endfunction
+
+function! custom#functions#fzf_dict(word)
+	return fzf#run(fzf#wrap({
+		\ 'source': FzfDictSource(a:word),
+		\ 'sink': function("FzfDictSink"),
+		\ 'options': '--prompt="Dict> " '.
+		\   '--preview="dictls {}" '.
+		\   '--preview-window "70%"',
+		\ }))
+endfunction
+
 function! custom#functions#date()
 	return strftime('%Y-%m-%dT%H:%M:%S%z')
 endfunction
