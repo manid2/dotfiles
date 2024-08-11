@@ -96,6 +96,13 @@ function! FzfSpellSink(word)
 endfunction
 
 function! custom#functions#fzf_spell_suggest(word)
+	if empty(a:word)
+		echohl WarningMsg
+		echom 'Fzf spell suggestion need an input word!'
+		echohl None
+		return
+	endif
+
 	return fzf#run(fzf#wrap({
 		\ 'source': spellsuggest(a:word),
 		\ 'sink': function("FzfSpellSink"),

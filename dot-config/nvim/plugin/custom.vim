@@ -20,11 +20,8 @@ command! -nargs=0 GitGrep
 command! -nargs=* GitGrepPattern
 	\ call custom#functions#fzf_git_grep(<q-args>)
 
-command! -nargs=0 SpellSuggest
-	\ call custom#functions#fzf_spell_suggest(expand("<cword>"))
-command! -nargs=1 SpellSuggestWord
+command! -nargs=? Spell
 	\ call custom#functions#fzf_spell_suggest(<q-args>)
-
 command! -nargs=? Dict
 	\ call custom#functions#fzf_dict(<q-args>)
 
@@ -55,8 +52,8 @@ nnoremap <Leader>dg          :DiffGit<cr>
 nnoremap <Leader>hig         :HighlightGroup<cr>
 nnoremap <Leader>fgg         :GitGrep<cr>
 nnoremap <Leader>fgp         :GitGrepPattern<space>
-nnoremap <Leader>z=          :SpellSuggest<cr>
-nnoremap <Leader>zw          :SpellSuggestWord<space>
+nnoremap <Leader>z=          :Spell <C-r>=expand("<cword>")<cr><cr>
+nnoremap <Leader>zw          :Spell<space>
 nnoremap <Leader>dc          :Dict <C-r>=expand("<cword>")<cr><cr>
 nnoremap <Leader>dw          :Dict<space>
 nnoremap <Leader>dt          :DateAppend<cr>
