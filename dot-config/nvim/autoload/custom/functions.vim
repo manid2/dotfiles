@@ -7,7 +7,7 @@ function! custom#functions#trim_trail_ws() range abort
 	else
 		exe l:cmd.l:pat
 	endif
-	call winrestview(b:winview)
+	update
 endfunction
 
 function! custom#functions#trim_lead_ws() range abort
@@ -18,7 +18,7 @@ function! custom#functions#trim_lead_ws() range abort
 	else
 		exe l:cmd.l:pat
 	endif
-	call winrestview(b:winview)
+	update
 endfunction
 
 function! custom#functions#toggle_syn() abort

@@ -1,11 +1,15 @@
 " --- nvim custom commands ---------------------------------------------------
 command! -range=% TrimTrailingWhitespace
 	\ let b:winview=winsaveview() |
-	\ <line1>,<line2>call custom#functions#trim_trail_ws()
+	\ <line1>,<line2>call custom#functions#trim_trail_ws() |
+	\ call winrestview(b:winview) |
+	\ unlet b:winview
 
 command! -range=% TrimLeadingWhitespace
 	\ let b:winview=winsaveview() |
-	\ <line1>,<line2>call custom#functions#trim_lead_ws()
+	\ <line1>,<line2>call custom#functions#trim_lead_ws() |
+	\ call winrestview(b:winview) |
+	\ unlet b:winview
 
 command! -nargs=0 ToggleSyntax call custom#functions#toggle_syn()
 command! -nargs=0 ToggleMarkdownFolding call custom#functions#toggle_md_fold()
