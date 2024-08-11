@@ -55,9 +55,15 @@ augroup end
 
 augroup mk_md
 	autocmd!
+	autocmd FileType markdown,rst,text
+		\ setlocal keywordprg=:Dict
+
 	autocmd FileType markdown,rst
+		\ setlocal spell textwidth=78
+
+	autocmd FileType markdown
 		\   let g:statusline_wordcount_disabled=0
-		\ | setlocal spell textwidth=78 foldlevel=99 keywordprg=dictls
+		\ | setlocal foldlevel=99
 		\ | nnoremap <Leader>f :ToggleMarkdownFolding<cr>
 augroup end
 
