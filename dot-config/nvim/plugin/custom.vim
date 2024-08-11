@@ -11,14 +11,22 @@ command! -range=% TrimLeadingWhitespace
 	\ call winrestview(b:winview) |
 	\ unlet b:winview
 
-command! -nargs=0 ToggleSyntax call custom#functions#toggle_syn()
-command! -nargs=0 ToggleMarkdownFolding call custom#functions#toggle_md_fold()
+command! -nargs=0 ToggleSyntax
+	\ call custom#functions#toggle_syn()
+
+command! -nargs=0 ToggleMarkdownFolding
+	\ call custom#functions#toggle_md_fold()
+
 command! -nargs=0 ToggleHighlightLongLines
 	\ call custom#functions#toggle_hi_long_lines()
-command! -nargs=0 DiffOrig call custom#functions#diff_orig()
-command! -nargs=0 DiffGit call custom#functions#diff_git()
-command! -nargs=0 HighlightGroup call custom#functions#hi_grp()
 
+command! -nargs=0 DiffOrig
+	\ call custom#functions#diff_orig()
+command! -nargs=0 DiffGit
+	\ call custom#functions#diff_git()
+
+command! -nargs=0 HighlightGroup
+	\ call custom#functions#hi_grp()
 
 command! -nargs=? GitGrep
 	\ call custom#functions#fzf_git_grep(<q-args>)
