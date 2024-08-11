@@ -142,9 +142,17 @@ function! custom#functions#add_heading_rst(level)
 	endif
 endfunction
 
+let s:fmt_cmd_gq_ft=['c', 'cpp']
+
+function! Format()
+	if index(s:fmt_cmd_gq_ft, &ft) >= 0
+		normal gggqG
+	endif
+endfunction
+
 function! custom#functions#update()
 	let l:winview=winsaveview()
-	normal gggqG
+	call Format()
 	update
 	call winrestview(l:winview)
 endfunction

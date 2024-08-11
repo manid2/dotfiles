@@ -1,3 +1,3 @@
 if executable('clang-format')
-	set formatprg=clang-format
+	setlocal formatprg=clang-format
 endif
