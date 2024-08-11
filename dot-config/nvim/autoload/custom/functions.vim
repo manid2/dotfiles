@@ -151,30 +151,31 @@ function! custom#functions#date_append()
 endfunction
 
 function! custom#functions#add_heading_md(level)
-	let headers = {1: '=', 2: '-', 3: '#', 4: '#', 5: '#'}
-	let line_num = line('.')
-	let line_str = getline(line_num)
-	let line_len = strchars(line_str)
+	let l:headers = {1: '=', 2: '-', 3: '#', 4: '#', 5: '#'}
+	let l:line_num = line('.')
+	let l:line_str = getline(l:line_num)
+	let l:line_len = strchars(l:line_str)
 	if a:level == 1 || a:level == 2
-		let hline = repeat(headers[a:level], line_len)
-		call append(line_num, hline)
+		let l:hline = repeat(l:headers[a:level], l:line_len)
+		call append(l:line_num, l:hline)
 	else
-		let hline = repeat(headers[a:level], a:level).' '.line_str
-		call setline(line_num, hline)
+		let l:hline = repeat(l:headers[a:level], a:level).' '
+			\ .l:line_str
+		call setline(l:line_num, l:hline)
 	endif
 endfunction
 
 function! custom#functions#add_heading_rst(level)
-	let headers = {1: '=', 2: '=', 3: '-', 4: '~', 5: '^'}
-	let line_num = line('.')
-	let line_str = getline(line_num)
-	let line_len = strchars(line_str)
-	let hline = repeat(headers[a:level], line_len)
+	let l:headers = {1: '=', 2: '=', 3: '-', 4: '~', 5: '^'}
+	let l:line_num = line('.')
+	let l:line_str = getline(l:line_num)
+	let l:line_len = strchars(l:line_str)
+	let l:hline = repeat(l:headers[a:level], l:line_len)
 	if a:level == 1
-		call append(line_num - 1, hline)
-		call append(line_num + 1, hline)
+		call append(l:line_num - 1, l:hline)
+		call append(l:line_num + 1, l:hline)
 	else
-		call append(line_num, hline)
+		call append(l:line_num, l:hline)
 	endif
 endfunction
 
