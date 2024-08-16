@@ -31,10 +31,10 @@ safe_link () {
 
 install_bin /usr/share/doc/git/contrib/git-jump/git-jump
 
-install_config dot-local/app.d/xfce/local/share/xfce4/helpers/xtm.desktop \
+install_config configs/xfce/local/share/xfce4/helpers/xtm.desktop \
 ~/.local/share/xfce4/helpers/
 
-install_config dot-local/app.d/xfce/config/autostart/Terminal.desktop \
+install_config configs/xfce/config/autostart/Terminal.desktop \
 ~/.config/autostart/
 
 safe_link /usr/lib/git-core/git-sh-prompt ~/.local/lib/git-sh-prompt

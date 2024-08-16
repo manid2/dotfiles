@@ -57,14 +57,6 @@ install_local_bin () {
 	)
 }
 
-install_local_app_d () {
-	local pkg="$PWD/dot-local/app.d"
-	local pkg_dst=~/.local
-	local pkg_src="$(realpath --relative-to="$pkg_dst" "$pkg")"
-	link_msg "${pkg#"$PWD/"}" "${pkg_dst/"$HOME"/'~'}"
-	link "$pkg_src" "$pkg_dst"
-}
-
 install_config () {
 	while IFS= read -r pkg;
 	do
@@ -155,7 +147,6 @@ install_sshconfig () {
 
 install_home
 install_local_bin
-#install_local_app_d
 install_config
 link_vimrc
 #install_sshconfig

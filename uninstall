@@ -43,10 +43,6 @@ uninstall_local_bin () {
 	)
 }
 
-uninstall_local_app_d () {
-	unlink "$HOME/.local/app.d"
-}
-
 uninstall_config () {
 	while IFS= read -r pkg;
 	do
@@ -77,7 +73,6 @@ uninstall_sshconfig () {
 
 uninstall_home
 uninstall_local_bin
-#uninstall_local_app_d
 uninstall_config
 unlink_vimrc
 #uninstall_sshconfig
