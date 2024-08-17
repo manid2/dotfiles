@@ -13,7 +13,3 @@ endfunction
 
 command! -buffer TestFile              call s:MakeCheck()
 nnoremap <buffer> <Leader>t            :TestFile<cr>
-
-if exists(':Make')
-	setlocal errorformat+=%+G%.%#
-endif
