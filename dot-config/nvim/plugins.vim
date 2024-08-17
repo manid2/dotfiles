@@ -27,6 +27,11 @@ if has('nvim')
 	let s:plugged=stdpath('data').'/plugged'
 endif
 
+" Cpp modern syntax higlighing features
+let g:cpp_attributes_highlight = 1
+let g:cpp_member_highlight = 1
+let g:cpp_simple_highlight = 1
+
 silent! if plug#begin(s:plugged)
 " List all plugins here
 " Shorthand notation, fetches https://github.com/{user}/{repo}
@@ -74,6 +79,10 @@ Plug 'google/vim-searchindex'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'nathanalderson/yang.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'bfrg/vim-cpp-modern'
+
+" * Build & test
+Plug 'tpope/vim-dispatch'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
