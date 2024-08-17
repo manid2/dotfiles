@@ -83,6 +83,7 @@ Plug 'bfrg/vim-cpp-modern'
 
 " * Build & test
 Plug 'tpope/vim-dispatch'
+Plug 'preservim/vimux'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
