@@ -69,4 +69,66 @@ alias nvrm='nvim -RM'
 
 # TODO: add hexdump aliases
 # TODO: add tar aliases
-# TODO: add find aliases
+
+# TODO: find aliases
+#
+# Exclude directories
+# find cpp -type d -not -path 'cpp/build*'
+# find cpp -type d -not -path 'cpp/build*' -not -path 'cpp'
+#
+# fd . -t d 'cpp/'
+#
+# exclude paths using -not operator
+# exclude directories.
+# find . -name "*docs*" -not -path '*.git/*'
+# 
+# # exclude files without extensions.
+# find . -not -name "*.**" -not -path '*.git/*' -type f
+# 
+# # exclude paths using -prune option.
+# # excludes both *.git* dir & files [-name '*.git*' -prune]
+# find . -name '*.git*' -prune -o -name '*docs*'
+# 
+# # excludes *.git* dir [-type d -name '*.git*' -prune]
+# find . -type d -name '*.git*' -prune -o -name '*docs*'
+# 
+# # excludes *.git* files [-type f -name '*.git*' -prune]
+# find . -type f -name '*.git*' -prune -o -name '*docs*'
+# 
+# # find files and exec command per file (slow)
+# find . -exec ls -l {} +
+# 
+# # find files and exec command for all files (fast)
+# find . | xargs -I{} ls -l {}
+# 
+# find . -type d -empty -delete
+# 
+# find . -type f -perm /+x
+# 
+# # find using -regex option
+# # use regex file patterns with exclude and include paths
+# # unescaped regex string '.*\/.*\.([ch]pp|c|cc|h|hh|py|pyx)$'
+# find . -path "./<exclude-dir>/*" -prune -o -path "./<include-dir>/*" \
+#   -regex '.*/.*\.\([ch]pp\|c\|cc\|h\|hh\|py\|pyx\)$' -type f -print
+# 
+# # find all files in project for use with ctags and cscope.
+# find $PROJ_SRC_DIRS \( \
+# -iname '*.[chyl]' \
+# -o -iname '*.pyx' \
+# -o -iname '*.py' \
+# -o -iname '*.[ch]pp' \
+# -o -iname '*.semla' \
+# \) \
+# -not \( \
+# -iname "moc_*.h" \
+# -o -iname "moc_*.cpp" \
+# -o -iname "ui_*.h" \
+# -o -path "*.tox*" \
+# -o -path "*pl2py3v*" \
+# -o -path "*plapi*.c" \
+# -o -path "*include/pl_configvalues*.h" \
+#   -o -path "*include/pl_sysdiagdefs.h" \
+#   -o -path "*include/pl_sysdiagenums.h" \
+#   -o -path "*build/*" \
+# \) \
+# -a -type f -printf "%P\n" >$PROJ_SRC_FILE_LIST
