@@ -5,9 +5,9 @@ endif
 function! s:MakeCheck() abort
 	let l:file = expand('%:r').'-check'
 	if exists(':Make')
-		exe 'Make '.l:file
+		exe 'Make SHOW_TEST_OUTPUT=1 '.l:file
 	else
-		exe ':!make '.l:file
+		exe ':!make SHOW_TEST_OUTPUT=1 '.l:file
 	endif
 endfunction
 
