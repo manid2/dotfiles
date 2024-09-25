@@ -36,3 +36,13 @@ fi
 
 # python packages
 pipx install grip # github readme instant preview
+
+ZOXIDE_DIR=~/Downloads/softwares/zoxide
+ZOXIDE_VERSION=0.9.6
+ZOXIDE_URL=https://github.com/ajeetdsouza/zoxide/releases/download/v${ZOXIDE_VERSION}/zoxide-${ZOXIDE_VERSION}-x86_64-pc-windows-msvc.zip
+#curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+if [ ! -f "$ZOXIDE" ]; then
+	mkdir -pv ${ZOXIDE_DIR}
+	wget -q --show-progress ${ZOXIDE_URL} -P ${ZOXIDE_DIR}
+fi

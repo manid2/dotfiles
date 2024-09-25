@@ -14,4 +14,9 @@ if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
 fi
 
+#if (( $+commands[zoxide] )); then
+if [ "$(command -v zoxide)" ]; then
+	eval "$(zoxide init zsh)"
+fi
+
 source_plugins "zsh"
