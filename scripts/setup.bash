@@ -30,6 +30,7 @@ safe_link () {
 }
 
 install_bin /usr/share/doc/git/contrib/git-jump/git-jump
+install_bin ~/Downloads/softwares/zoxide
 
 install_config configs/xfce/local/share/xfce4/helpers/xtm.desktop \
 ~/.local/share/xfce4/helpers/
