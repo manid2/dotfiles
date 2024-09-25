@@ -9,9 +9,14 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 fi
 
 
-# Source command-not-found plugin if available
+# enable command-not-found
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
+fi
+
+# enable zoxide
+if [ "$(command -v zoxide)" ]; then
+	eval "$(zoxide init zsh)"
 fi
 
 source_plugins "zsh"

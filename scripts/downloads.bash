@@ -36,3 +36,6 @@ fi
 
 # python packages
 pipx install grip # github readme instant preview
+
+# install zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
