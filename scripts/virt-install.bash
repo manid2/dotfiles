@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 virt-install \
 	--name debian-linux \

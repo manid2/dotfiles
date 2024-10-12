@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source dot-config/shellcommon/plugins/lnr/lnr.plugin.sh
 

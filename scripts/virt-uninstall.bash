@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 virsh destroy debian-linux
 virsh undefine --managed-save --remove-all-storage debian-linux

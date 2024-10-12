@@ -5,6 +5,10 @@
 # ignore tags
 tags
 TAGS
+GPATH
+GRTAGS
+GTAGS
+cscope.*
 
 # ignore node_modules
 /node_modules
