@@ -16,7 +16,7 @@ skip_dirs="( -name docs ) -prune -o"
 source_dirs="."
 
 find_sources () {
-	find $source_dirs $ignore $skip_dirs -name "$1" -type f -printf "%P\n"
+	gfind $source_dirs $ignore $skip_dirs -name "$1" -type f -printf "%P\n"
 }
 
 c_sources () {

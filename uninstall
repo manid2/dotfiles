@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Stop on first error.
 set -e
@@ -16,7 +16,7 @@ unlink () {
 	local pkg="$1"
 	if [ -L "$pkg" ]; then
 		unlink_msg "${pkg/"$HOME"/'~'}"
-		/usr/bin/unlink "$pkg"
+		/bin/unlink "$pkg"
 	fi
 }
 
@@ -25,7 +25,7 @@ uninstall_home () {
 	do
 		unlink "$pkg"
 	done < <( \
-		find "$HOME" -maxdepth 1 \
+		gfind "$HOME" -maxdepth 1 \
 		\( -name "\.*rc" -o -name "\.gitconfig" \
 		-o -name "\.tmux.conf" \
 		\) -type l -printf "%p\n" | \
@@ -38,7 +38,7 @@ uninstall_local_bin () {
 	do
 		unlink "$HOME/.local/bin/${pkg##*/}"
 	done < <( \
-		find "$PWD/dot-local/bin" -maxdepth 1 -type f -printf "%p\n" \
+		gfind "$PWD/dot-local/bin" -maxdepth 1 -type f -printf "%p\n" \
 		| sort
 	)
 }
@@ -48,7 +48,7 @@ uninstall_config () {
 	do
 		unlink "$pkg"
 	done < <( \
-		find "$xdg_config" -maxdepth 1 -type l -printf "%p\n" | \
+		gfind "$xdg_config" -maxdepth 1 -type l -printf "%p\n" | \
 		sort
 	)
 }
@@ -59,7 +59,7 @@ unlink_vimrc () {
 	do
 		unlink "$pkg"
 	done < <( \
-		find "$vim_home" -type l -printf "%p\n" | \
+		gfind "$vim_home" -type l -printf "%p\n" | \
 		sort
 	)
 }

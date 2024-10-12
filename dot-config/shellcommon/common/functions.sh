@@ -1,6 +1,6 @@
 find_plugins () {
 	local pdir=~/.config/"$1"/plugins/
-	find "$pdir" -maxdepth 1 -not -path "$pdir" -type d \
+	gfind "$pdir" -maxdepth 1 -not -path "$pdir" -type d \
 	     -printf "%p\n" 2>/dev/null | sort
 }
 
