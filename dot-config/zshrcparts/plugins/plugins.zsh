@@ -2,15 +2,15 @@
 # zsh plugins file, to be sourced into ~/.zshrc
 
 # enable auto-suggestions based on the history
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-	source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -f $SYS_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+	source $SYS_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 	# change suggestion color
 	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
 
 # enable syntax-highlighting
-if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f $SYS_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+	source $SYS_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 	ZSH_HIGHLIGHT_STYLES[default]=none
 	ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
@@ -58,6 +58,11 @@ fi
 # enable command-not-found
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
+elif [ "$SYS_NAME" = "Darwin" ]; then
+	HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+	if [ -f "$HB_CNF_HANDLER" ]; then
+		source "$HB_CNF_HANDLER";
+	fi
 fi
 
 # enable zoxide

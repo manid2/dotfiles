@@ -1,5 +1,15 @@
 # shellcheck shell=bash disable=SC2034,SC2059
 
+SYS_NAME=$(uname -s)
+SYS_PREFIX=/usr
+
+if [ "$SYS_NAME" = "Darwin" ]; then
+	export CLICOLOR=1
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+
+	SYS_PREFIX="$(brew --prefix)"
+fi
+
 # Export to command line tools
 if [ "$(command -v fzf)" ]; then
 	if [ "$(command -v fd)" ]; then
