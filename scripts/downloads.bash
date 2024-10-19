@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # vim-plug - vim plugin manager
 VIM_PLUG="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
@@ -19,7 +19,7 @@ PROFILE=/dev/null
 if [ ! -d "$NVM_DIR" ]; then
 	mkdir -pv "$NVM_DIR"
 	# install nvm
-	curl -o- $NVM_URL | PROFILE="$PROFILE" NVM_DIR="$NVM_DIR" /bin/bash
+	curl -o- $NVM_URL | PROFILE="$PROFILE" NVM_DIR="$NVM_DIR" bash
 	# use nvm to install node & npm
 	if [ -s "$NVM_DIR/nvm.sh" ]; then
 		source "$NVM_DIR/nvm.sh"
