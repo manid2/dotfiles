@@ -13,10 +13,15 @@ unlink_msg () {
 }
 
 unlink () {
+	local _unlink=/usr/bin/unlink
+	if [ "$SYS_NAME" = "Darwin" ]; then
+		_unlink=/bin/unlink
+	fi
+
 	local pkg="$1"
 	if [ -L "$pkg" ]; then
 		unlink_msg "${pkg/"$HOME"/'~'}"
-		/usr/bin/unlink "$pkg"
+		$_unlink "$pkg"
 	fi
 }
 

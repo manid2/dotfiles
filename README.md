@@ -7,6 +7,10 @@ tasks. Save, restore & sync configurations.
 This repository is a collection of system configurations and tools for all my
 tasks in coding, admin and general system use.
 
+Tested on Gnu/Linux OS such as Debian and its derivatives Ubuntu and Kali.
+Minimal support for MacOS as it is not "free" and recommended to use Gnu
+variants of Unix tools such as `find`, `xargs`, `ls`, etc using Homebrew.
+
 Install
 -------
 

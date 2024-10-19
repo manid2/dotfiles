@@ -1,5 +1,7 @@
 # Shell common aliases
 
+_set_colors=yes
+
 # enable color support of ls, less and man, and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	if [ -r ~/.dircolors ]; then
@@ -7,7 +9,15 @@ if [ -x /usr/bin/dircolors ]; then
 	else
 		eval "$(dircolors -b)"
 	fi
+elif [ -n "$CLICOLOR" ]; then
+	# macos: set LSCOLORS
+	LSCOLORS='exfxcxdxcxegedabagacadah'	
+	export LSCOLORS
+else
+	_set_colors=no
+fi
 
+if [ "$_set_colors" = 'yes' ]; then
 	# `less` terminal capabilities
 	export LESS_TERMCAP_mb=$'\E[1;31m'  # begin blink
 	export LESS_TERMCAP_md=$'\E[1;36m'  # begin bold
@@ -25,6 +35,7 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 	alias zgrep='zgrep --color=auto'
 fi
+unset _set_colors
 
 # More `ls` aliases
 alias lla='ls -alF'

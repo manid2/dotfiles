@@ -9,6 +9,11 @@ fi
 # fzf check spelling with dictionary preview.
 # shellcheck disable=SC2120
 fzf_spell () {
+	local clip=(xclip -sel clip -i)
+	if [ "$SYS_NAME" = "Darwin" ]; then
+		clip=(pbcopy)
+	fi
+
 	local cmd="command cat /usr/share/dict/words 2>/dev/null"
 
 	local fzf_opts="--height ${FZF_TMUX_HEIGHT:-40%} "
@@ -17,7 +22,7 @@ fzf_spell () {
 	fzf_opts+="--preview 'dictls {}' ${FZF_DEFAULT_OPTS-}"
 
 	eval "$cmd" | FZF_DEFAULT_OPTS="$fzf_opts" $(__fzfcmd) -m "$@" | \
-		xargs -d "\n" -I {} echo -n "{} " | xclip -sel clip -i
+	xargs -d "\n" -I {} echo -n "{} " | "${clip[@]}"
 
 	local ret=$?
 	return $ret
