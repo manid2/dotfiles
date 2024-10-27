@@ -19,9 +19,15 @@ function! s:YPGetSystemClipboard(rw)
 		elseif a:rw == 'r'
 			let l:clip_cmd_args .= ' -o'
 		endif
+	elseif has('macunix')
+		if a:rw == 'w'
+			let l:clip_cmd = 'pbcopy'
+		elseif a:rw == 'r'
+			let l:clip_cmd = 'pbpaste'
+		endif
 	else
 		call s:Message('No suitable clipboard command is found in '.
-			\ 'the system install one of xclip, xsel, tmux.')
+			\ 'the system install one of xclip, pbcopy (macos).')
 	endif
 
 	return l:clip_cmd.l:clip_cmd_args
