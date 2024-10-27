@@ -48,7 +48,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/nerdtree'
 Plug 'milkypostman/vim-togglelist'
 Plug 'yegappan/mru'
-Plug 'manid2/vim-ypclipboard', {'branch': 'dev'}
 
 " * Code editing plugins generic
 Plug 'preservim/tagbar'
@@ -64,9 +63,6 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'bergercookie/vim-deb-preview'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/vim-markdown'
-if has('cscope')
-	Plug 'manid2/vim-cscope-settings', {'branch': 'dev'}
-endif
 Plug 'chrisbra/matchit'
 Plug 'kergoth/vim-bitbake'
 
