@@ -28,7 +28,11 @@ if [ "$_set_colors" = 'yes' ]; then
 	export LESS_TERMCAP_ue=$'\E[0m'     # reset underline
 
 	alias ls='ls --color=auto'
-	alias ip='ip --color=auto'
+
+	if [ "$(uname -s)" != "Darwin" ]; then
+		alias ip='ip --color=auto'
+	fi
+
 	alias diff='diff --color=auto'
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'

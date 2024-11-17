@@ -11,7 +11,7 @@ ignore_pycache="( -name .pytest_cache -o -name __pycache__ ) -prune -o"
 
 ignore="$ignore_git $ignore_venv $ignore_pycache"
 
-skip_dirs="( -name docs ) -prune -o"
+skip_dirs="( -name docs -o -name build ) -prune -o"
 
 source_dirs="."
 
@@ -25,15 +25,21 @@ c_sources () {
 
 cpp_sources () {
 	find_sources '*.[ch]pp'
+	find_sources '*.cc'
+}
+
+py_sources () {
+	find_sources '*.py'
 }
 
 all_sources () {
 	c_sources
 	cpp_sources
+	py_sources
 }
 
 all_sources > cscope.files
-ctags --totals --fields=fKsSt -L cscope.files
+ctags --totals --fields=fKsSt --extras=+q -L cscope.files
 
 if [ "$(command -v gtags)" ]; then
 	GTAGSFORCECPP=1 gtags -f cscope.files

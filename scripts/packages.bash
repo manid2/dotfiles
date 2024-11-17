@@ -16,7 +16,7 @@ fi
 if [ "$(command -v cargo)" ]; then
 	cargo_packages=(
 		bat
-		fd
+		fd-find
 		git-delta
 		ripgrep
 		sd

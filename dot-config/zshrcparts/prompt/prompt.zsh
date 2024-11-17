@@ -66,6 +66,8 @@ if [ "$color_prompt" = yes ]; then
 	# [date time] in dd-Mon-yyyy H:M:S.ms in 24 hr format
 	PROMPT+=$'(%F{magenta}%D{%d-%b-%Y %H:%M:%S.%.}%f$_user_color)$uc_bdl_h'
 
+	# TODO Add time taken for a command in prompt
+
 	# last command exit code with color
 	PROMPT+=$'(%(?.%F{green}%?%f.%F{red}%?%f)$_user_color)'
 

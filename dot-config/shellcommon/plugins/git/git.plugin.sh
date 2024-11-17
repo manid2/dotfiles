@@ -35,7 +35,7 @@ alias gfa='git fetch --all'
 alias gfap='git fetch --all --prune'
 alias gfp='git fetch --prune'
 alias gfpm='git fetch --prune && git merge'
-alias gg='git -c core.pager=less grep -n'
+alias gg='git grep -n'
 alias gpl='git pull'
 alias gps='git push'
 alias gpsa='git push --all'
@@ -102,6 +102,8 @@ alias gfopm='git format-patch origin/main..'
 alias gfopmt='git format-patch origin/main.. -o /tmp/'
 alias ggi='git gui &'
 alias ggk='gitk &'
+alias gsmu='git submodule update --init --recursive'
+alias gclsu='git clone --recurse-submodules -j8'
 
 # --- functions ---
 # Theese functions should be read-only and should not interfere with other
@@ -240,6 +242,12 @@ git_mr () {
 		git checkout "mr/$1/$2"
 }
 
+# compatible with github merge requests
+git_pr () {
+	__git_cmd fetch "$1" "pull/$2/head:pr/$1/$2" &&
+		git checkout "pr/$1/$2"
+}
+
 # * try toggle feature branch and its debug branch
 # * toggle dev branch and main branch
 # useful for debugging feature branch but without making commits in it.
@@ -287,6 +295,8 @@ alias grpn='git_repo_name'
 alias gpsu='git push -u origin $(git_current_branch)'
 alias gmr='git_mr origin'
 alias gmrr='git_mr'
+alias gpr='git_pr origin'
+alias gprr='git_pr'
 alias gbpr='git_prune_local_branches'
 alias gcsun='git_set_user_name'
 alias gcsue='git_set_user_email'

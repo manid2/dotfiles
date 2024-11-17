@@ -38,12 +38,14 @@ augroup mk_sh
 		\ setlocal include=^\\s*\\%(\\.\\\|source\\)\\s
 	autocmd FileType vim
 		\ let g:vim_indent_cont=shiftwidth()
+	autocmd FileType sh
+		\ setlocal syntax=bash
 augroup end
 
 augroup mk_py
 	autocmd!
 	autocmd FileType python
-		\ setlocal spell textwidth=78 tabstop=4 softtabstop=4
+		\ setlocal spell textwidth=88 tabstop=4 softtabstop=4
 		\ shiftwidth=4 expandtab
 augroup end
 
@@ -59,7 +61,7 @@ augroup mk_md
 		\ setlocal keywordprg=:Dict
 
 	autocmd FileType markdown,rst
-		\ setlocal spell textwidth=78
+		\ setlocal spell textwidth=78 syntax=off
 
 	autocmd FileType markdown
 		\   let g:statusline_wordcount_disabled=0
