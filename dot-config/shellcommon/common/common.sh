@@ -8,6 +8,13 @@ if [ "$SYS_NAME" = "Darwin" ]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 
 	SYS_PREFIX="$(brew --prefix)"
+	export HOMEBREW_NO_AUTO_UPDATE=1
+
+	# Set locale after disabling in MacOS Terminal/iTerm2
+	# This solves the issue with zsh prompt, perl warning in MacOS as
+	# Linux tools don't work well with MacOS locale environment "UTF-8". 
+	export LANG="en_US.UTF-8"
+	export LC_ALL="en_US.UTF-8"
 fi
 
 # Export to command line tools

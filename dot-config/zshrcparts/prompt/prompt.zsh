@@ -74,8 +74,6 @@ if [ "$color_prompt" = yes ]; then
 	# add user prompt symbol '$' or '#' if root
 	_gps1_post+=$'\n$uc_bdl_ur$uc_bdl_h%B%F{blue}$_user_sym%b%F{reset} '
 	PROMPT+="$_gps1_post"
-
-	RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 else
 	# set colorless prompt
 	PROMPT='${debian_chroot:+($debian_chroot)}%n@%m:%~%# '
@@ -110,9 +108,12 @@ precmd () {
 	# add git status prompt
 	if [ "$(command -v __git_ps1)" ]; then
 		_gps1_str="$(__git_ps1 '%s')"
+		_gps1_sha="$(git_short_sha)"
 		if [ -n "${_gps1_str// -}" ]; then
 			PROMPT+="$uc_bdl_h("
 			PROMPT+=$'%24<..<$_gps1_str%<<'
+			PROMPT+=" %F{cyan}"
+			PROMPT+=$'%8<..<$_gps1_sha%<<'
 			PROMPT+="$_user_color)"
 		fi
 	fi
