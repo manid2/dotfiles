@@ -25,11 +25,17 @@ c_sources () {
 
 cpp_sources () {
 	find_sources '*.[ch]pp'
+	find_sources '*.cc'
+}
+
+py_sources () {
+	find_sources '*.py'
 }
 
 all_sources () {
 	c_sources
 	cpp_sources
+	py_sources
 }
 
 all_sources > cscope.files
