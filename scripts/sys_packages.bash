@@ -7,97 +7,92 @@ if [ $(id -u) -ne 0 ]; then
 	exit 1
 fi
 
-sys_admin_pkgs=(
-	adduser
-	anacron
-	apt-file
-	bash
-	checksecurity
-	coreutils
-	cpio
-	cron
-	cron-daemon-common
-	debconf
-	debconf-i18n
-	debian-archive-keyring
-	debianutils
-	dkms
-	logrotate
-	zsh
-	zsh-autosuggestions
-	zsh-syntax-highlighting
-)
+has_gui () {
+	ls /usr/share/xsessions/ 2>/dev/null
+}
 
-code_pkgs=(
-	build-essential
-	clang
-	clang-format
-	clang-tidy
-	clang-tools
-	clangd
-	cscope
-	expect
-	git
-	git-delta
-	git-gui
-	gita
-	gitk
-	global
-	global
-	hugo
-	info
-	tig
-	tmux
-	universal-ctags
-	vim
-	vim-addon-manager
-)
+# install apt packages
+install_apt_packages () {
+	apt_packages=(
+		adduser
+		anacron
+		apt-file
+		aria2
+		bash
+		build-essential
+		chafa
+		clang
+		clang-format
+		clang-tidy
+		clang-tools
+		clangd
+		coreutils
+		cpio
+		cron
+		cron-daemon-common
+		curl
+		debconf
+		debconf-i18n
+		debian-archive-keyring
+		debianutils
+		dict
+		diffutils
+		dkms
+		expect
+		findutils
+		gcc-doc
+		git
+		global
+		info
+		libsecret-tools
+		logrotate
+		lynx
+		manpages
+		manpages-dev
+		manpages-posix
+		manpages-posix-dev
+		neofetch
+		pipx
+		tig
+		tmux
+		universal-ctags
+		vim
+		vim-addon-manager
+		w3m
+		w3m-img
+		wget
+		xclip
+		zsh
+		zsh-autosuggestions
+		zsh-syntax-highlighting
+	)
 
-docs_pkgs=(
-	manpages
-	manpages-dev
-	manpages-posix
-	manpages-posix-dev
-	gcc-doc
-)
+	apt_gui_packages=(
+		cheese
+		git-gui
+		gitk
+		hugo
+		shotcut
+		uget
+		vlc
+	)
 
-utils_pkgs=(
-	aria2
-	bat
-	cscope
-	curl
-	dict
-	diffutils
-	fd-find
-	findutils
-	libsecret-tools
-	lynx
-	neofetch
-	pipx
-	python3-pip
-	ripgrep
-	uget
-	w3m
-	w3m-img
-	weasyprint
-	wget
-	xclip
-)
+	gcc_version=$(gcc --version | grep ^gcc | sed 's/^.* //g' | cut -d'.' -f1)
+	apt_gcc_libcpp_docs="libstdc++-$gcc_version-doc"
 
-multimedia_pkgs=(
-	chafa
-	cheese
-	shotcut
-	vlc
-)
+	apt-get update && \
+	apt-get install -y "${apt_packages[@]}" "$apt_gcc_libcpp_docs"
 
-apt-get update && \
-apt-get install -y \
-  "${sys_admin_pkgs[@]}" \
-  "${code_pkgs[@]}" \
-  "${docs_pkgs[@]}" \
-  "${utils_pkgs[@]}" \
-  "${multimedia_pkgs[@]}"
+	has_gui && apt-get install -y "${apt_gui_packages[@]}"
+}
 
-gcc_version=$(gcc --version | grep ^gcc | sed 's/^.* //g' | cut -d'.' -f1)
-apt-get install -y "libstdc++-$gcc_version-doc"
+SYS_NAME=$(uname -s)
+
+if [ "$SYS_NAME" = "Linux" ]; then
+	if [ "$(command -v apt-get)" = "apt-get" ]; then
+		install_apt_packages
+	fi
+elif [ "$SYS_NAME" = "Darwin" ]; then
+	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | \
+	NONINTERACTIVE=1 bash
+fi
