@@ -1,31 +1,29 @@
 #!/usr/bin/env bash
 
+source dot-config/shellcommon/common/common.sh
+
 # vim-plug - vim plugin manager
 VIM_PLUG="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
-VIM_PLUG_VERSION=0.13.0
-VIM_PLUG_URL=https://raw.githubusercontent.com/junegunn/vim-plug/${VIM_PLUG_VERSION}/plug.vim
+VIM_PLUG_URL=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 if [ ! -f "$VIM_PLUG" ]; then
-	curl -fLo "$VIM_PLUG" --create-dirs "$VIM_PLUG_URL"
+	curl -sSfL "$VIM_PLUG_URL" -o "$VIM_PLUG" --create-dirs
 fi
 
 # nvm - node version manager
-NODE_VERSION=20.12.2
-NVM_DIR=~/Downloads/softwares/nvm
-NVM_VERSION=0.39.7
-NVM_URL=https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh
+NVM_URL=https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
 PROFILE=/dev/null
 
 if [ ! -d "$NVM_DIR" ]; then
 	mkdir -pv "$NVM_DIR"
 	# install nvm
-	curl -o- $NVM_URL | PROFILE="$PROFILE" NVM_DIR="$NVM_DIR" bash
+	curl -sSfL $NVM_URL | PROFILE="$PROFILE" NVM_DIR="$NVM_DIR" bash
 	# use nvm to install node & npm
 	if [ -s "$NVM_DIR/nvm.sh" ]; then
 		source "$NVM_DIR/nvm.sh"
-		nvm install ${NODE_VERSION}
-		nvm use v${NODE_VERSION}
-		nvm alias default v${NODE_VERSION}
+		nvm install --lts
+		nvm use --lts
+		nvm alias default node
 	fi
 fi
 
