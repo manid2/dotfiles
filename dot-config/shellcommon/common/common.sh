@@ -53,6 +53,21 @@ export NVM_DIR="$msp/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 
+# rvm ruby version manager
+export RVM_DIR="$msp/rvm"
+export rvm_path="$RVM_DIR"
+[ -s "$RVM_DIR/scripts/rvm" ] && source "$RVM_DIR/scripts/rvm"
+[ -s "$RVM_DIR/scripts/completion" ] && source "$RVM_DIR/scripts/completion"
+
+# rust environment
+RUST_DIR="$msp/rust"
+export RUST_HOME="$RUST_DIR/.rustup"
+export CARGO_HOME="$RUST_DIR/.cargo"
+[ -s "$CARGO_HOME/env" ] && source "$CARGO_HOME/env"
+
+# conda environment
+CONDA_DIR="$msp/conda"
+
 # source shell common unicode characters
 if [ -f ~/.config/shellcommon/common/unicode-chars.sh ]; then
 	source ~/.config/shellcommon/common/unicode-chars.sh

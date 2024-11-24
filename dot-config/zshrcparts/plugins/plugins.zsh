@@ -70,4 +70,13 @@ if [ "$(command -v zoxide)" ]; then
 	eval "$(zoxide init zsh)"
 fi
 
+# intialize conda
+if [ "$(command -v conda)" ]; then
+	conda config --set changeps1 False
+	conda config --set auto_activate_base False
+	eval "$(conda 'shell.zsh' 'hook')"
+	conda deactivate
+	conda env config vars set VIRTUAL_ENV=$CONDA_DEFAULT_ENV
+fi
+
 source_plugins "zsh"
