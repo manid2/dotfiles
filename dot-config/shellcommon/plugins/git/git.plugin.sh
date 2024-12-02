@@ -102,6 +102,8 @@ alias gfopm='git format-patch origin/main..'
 alias gfopmt='git format-patch origin/main.. -o /tmp/'
 alias ggi='git gui &'
 alias ggk='gitk &'
+alias gsmu='git submodule update --init --recursive'
+alias gclsu='git clone --recurse-submodules -j8'
 
 # --- functions ---
 # Theese functions should be read-only and should not interfere with other
