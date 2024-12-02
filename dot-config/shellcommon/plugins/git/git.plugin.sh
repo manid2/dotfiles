@@ -242,6 +242,12 @@ git_mr () {
 		git checkout "mr/$1/$2"
 }
 
+# compatible with github merge requests
+git_pr () {
+	__git_cmd fetch "$1" "pull/$2/head:pr/$1/$2" &&
+		git checkout "pr/$1/$2"
+}
+
 # * try toggle feature branch and its debug branch
 # * toggle dev branch and main branch
 # useful for debugging feature branch but without making commits in it.
@@ -289,6 +295,8 @@ alias grpn='git_repo_name'
 alias gpsu='git push -u origin $(git_current_branch)'
 alias gmr='git_mr origin'
 alias gmrr='git_mr'
+alias gpr='git_pr origin'
+alias gprr='git_pr'
 alias gbpr='git_prune_local_branches'
 alias gcsun='git_set_user_name'
 alias gcsue='git_set_user_email'
