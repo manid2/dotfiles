@@ -39,7 +39,13 @@ if [ "$XDG_CURRENT_DESKTOP" = "xfce" ]; then
 		~/.config/autostart/
 fi
 
-safe_link /usr/lib/git-core/git-sh-prompt ~/.local/lib/git-sh-prompt
+if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+       safe_link /usr/lib/git-core/git-sh-prompt ~/.local/lib/git-sh-prompt
+else
+       wget -q --show-progress -O ~/.local/lib/git-sh-prompt  \
+       https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh
+fi
+
 safe_link /usr/bin/fdfind ~/.local/bin/fd
 safe_link /usr/bin/batcat ~/.local/bin/bat
 
