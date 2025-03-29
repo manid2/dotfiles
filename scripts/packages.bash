@@ -33,6 +33,14 @@ if [ "$(command -v gem)" ]; then
 	gem install "${gem_packages[@]}"
 fi
 
+# install golang packages
+if [ "$(command -v go)" ]; then
+	go_packages=(
+		cobra-cli
+	)
+	go install "${go_packages[@]}"
+fi
+
 safe_link () {
 	if [ ! -L "$2" ] && [ ! -f "$2" ]; then
 		ln -s "$1" "$2"

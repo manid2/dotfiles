@@ -65,6 +65,12 @@ export RUST_HOME="$RUST_DIR/.rustup"
 export CARGO_HOME="$RUST_DIR/.cargo"
 [ -s "$CARGO_HOME/env" ] && source "$CARGO_HOME/env"
 
+# go environment
+GO_DIR="$msp/go"
+export GOPATH="$GO_DIR"
+export GOBIN="$GOPATH/bin"
+export PATH=$PATH:$GOBIN
+
 # conda environment
 CONDA_DIR="$msp/conda"
 
