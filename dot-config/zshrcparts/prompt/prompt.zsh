@@ -8,8 +8,29 @@ fi
 
 # override default virtualenv indicator in prompt
 VIRTUAL_ENV_DISABLE_PROMPT=1
+
+_venv_name() {
+        local env_var="$1"
+        local env_value="${(P)env_var}"
+        if [ -n "$env_value" ]; then
+                echo "($(basename "${env_value}"))$uc_bdl_h"
+        fi
+}
+
 venv_info () {
-	[ $VIRTUAL_ENV ] && echo "(${VIRTUAL_ENV:+$(basename $VIRTUAL_ENV)})$uc_bdl_h"
+	local venv_vars=(
+		CONDA_DEFAULT_ENV
+		VIRTUAL_ENV
+	)
+
+	local _val
+	for env_var in "${venv_vars[@]}"; do
+		_val=$(_venv_name "$env_var")
+		if [ -n "$_val" ]; then
+			echo "$_val"
+			return 0
+		fi
+	done
 }
 
 # set a fancy prompt (non-color, unless we know we "want" color)
