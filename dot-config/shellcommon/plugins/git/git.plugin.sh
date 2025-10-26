@@ -13,6 +13,7 @@ alias gb='git branch'
 alias gbv='git branch -vv'
 alias gcm='git commit'
 alias gcma='git commit --amend'
+alias gcmb='git commit -m "merge back commit 01"'
 alias gcmm='git commit -m'
 alias gcmv='git commit -v'
 alias gcho='git checkout'
@@ -287,6 +288,22 @@ git_tar () {
 	__git_cmd archive --format=tar --prefix="$_prefix/" HEAD -o "$_prefix.tar"
 }
 
+# git merge back into previous commit
+git_merge_back () {
+	local _c=$1
+	local _m=$(__git_cmd log -1 --format=%B HEAD~$_c)
+
+	_c=$((_c + 1))
+	__git_cmd reset --soft HEAD~$_c
+	__git_cmd commit -m "$_m"
+}
+
+git_merge_back1 () {
+	local _c=1
+
+	git_merge_back $_c
+}
+
 # --- aliases ---
 # aliases for above functions
 alias grpp='git_repo_path'
@@ -320,3 +337,10 @@ alias gdh='git diff --color | diff-highlight | less -r'
 
 # view git reflog (local changes) in `tig`
 alias grfl='git reflog --pretty=raw | tig --pretty=raw'
+
+# git merge back commits
+alias gmb='git_merge_back1'
+
+# TODO Add git filter-repo
+# Refer: https://github.com/newren/git-filter-repo
+# git filter-repo --subdirectory-filter --force wca-cli-native
