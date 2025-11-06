@@ -63,3 +63,10 @@ fi
 if [ ! -d ~/.tmux/plugins/tpm ]; then
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
+
+# install uv - An extremely fast Python package and project manager
+UV_BIN="$HOME/.local/bin/uv"
+if [ ! -x "$UV_BIN" ]; then
+	curl -LsSf https://astral.sh/uv/install.sh | \
+	UV_NO_MODIFY_PATH=1 bash
+fi
