@@ -194,13 +194,15 @@ function! s:get_cached_gitdir() abort
 	if empty(l:gitdir)
 		let l:bufdir = expand('%:p:h')
 		if !empty(l:bufdir)
-			let l:gitdir = finddir('.git', l:bufdir . ';')
+			let l:found = finddir('.git', l:bufdir . ';')
+			let l:gitdir = !empty(l:found) ? fnamemodify(l:found, ':p:h') : ''
 		endif
 	endif
 
 	" Last resort: use cwd
 	if empty(l:gitdir)
-		let l:gitdir = finddir('.git', getcwd() . ';')
+		let l:found = finddir('.git', getcwd() . ';')
+		let l:gitdir = !empty(l:found) ? fnamemodify(l:found, ':p:h') : ''
 	endif
 
 	let s:gitdir_cache[l:bufnr] = l:gitdir
@@ -227,8 +229,10 @@ function! s:git_operation_label() abort
 	if filereadable(l:gitdir . '/MERGE_HEAD')
 		let l:label = '|MERGING'
 	elseif isdirectory(l:gitdir . '/rebase-merge')
-		let l:step  = get(readfile(l:gitdir . '/rebase-merge/msgnum'), 0, '?')
-		let l:total = get(readfile(l:gitdir . '/rebase-merge/end'),    0, '?')
+		let l:msgnum_file = l:gitdir . '/rebase-merge/msgnum'
+		let l:end_file = l:gitdir . '/rebase-merge/end'
+		let l:step  = filereadable(l:msgnum_file) ? get(readfile(l:msgnum_file), 0, '?') : '?'
+		let l:total = filereadable(l:end_file) ? get(readfile(l:end_file), 0, '?') : '?'
 		let l:label = '|REBASING ' . l:step . '/' . l:total
 	elseif isdirectory(l:gitdir . '/rebase-apply')
 		let l:label = '|APPLYING'
