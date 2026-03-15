@@ -20,8 +20,6 @@ hi MatchParen   ctermfg=Cyan   ctermbg=DarkGrey
 hi Normal       ctermfg=Grey
 hi NormalFloat                 ctermbg=None
 hi FloatBorder  ctermfg=None   ctermbg=None
-hi StatusLine   ctermfg=Green  ctermbg=None
-hi StatusLineNC ctermfg=Grey   ctermbg=None
 hi Search       ctermfg=Yellow ctermbg=DarkBlue
 hi Visual       ctermfg=White  ctermbg=DarkBlue
 hi SignColumn                  ctermbg=None
@@ -33,4 +31,10 @@ hi SpellCap     cterm=underline ctermfg=Red
 
 if has("gui_running")
 	colorscheme retrobox
+endif
+
+" Set statusline colors when vim-airline is not available
+if !exists('g:loaded_airline')
+	hi StatusLine   ctermfg=Green  ctermbg=None
+	hi StatusLineNC ctermfg=Grey   ctermbg=None
 endif

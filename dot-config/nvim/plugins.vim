@@ -48,6 +48,8 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'preservim/nerdtree'
 Plug 'milkypostman/vim-togglelist'
 Plug 'yegappan/mru'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " * Code editing plugins generic
 Plug 'preservim/tagbar'

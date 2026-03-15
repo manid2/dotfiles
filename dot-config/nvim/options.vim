@@ -28,6 +28,8 @@ endif
 set scrolloff=5      " Show 5 lines of context around the cursor.
 set mouse=           " Disable mouse on startup.
 set history=100      " Command line history.
+
+" Will be overridden when vim-airline is available
 set statusline=%{%statusline#statusline#expr()%}
 
 " Set characters to see invisible characters
