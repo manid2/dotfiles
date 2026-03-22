@@ -59,7 +59,7 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
 	source /etc/zsh_command_not_found
 elif [ "$SYS_NAME" = "Darwin" ]; then
-	HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+	HB_CNF_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
 	if [ -f "$HB_CNF_HANDLER" ]; then
 		source "$HB_CNF_HANDLER";
 	fi
