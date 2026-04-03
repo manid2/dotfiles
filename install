@@ -58,6 +58,8 @@ install_local_bin () {
 }
 
 install_config () {
+	mkdir -pv "$xdg_config"
+
 	while IFS= read -r pkg;
 	do
 		local pkg_dst="${pkg##*/}"

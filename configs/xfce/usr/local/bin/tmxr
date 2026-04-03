@@ -8,7 +8,7 @@ set -e
 tmux_session="dev"
 tmux_resurrect_save=~/.tmux/plugins/tmux-resurrect/scripts/save.sh
 tmux_resurrect_restore=~/.tmux/plugins/tmux-resurrect/scripts/restore.sh
-tmux_resurrect_last=~/.local/share/tmux/resurrect/last
+tmux_resurrect_last="${XDG_DATA_HOME:-$HOME/.local/share}"/tmux/resurrect/last
 tmux_session_new=false
 
 tmux_has_session () {

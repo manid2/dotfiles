@@ -5,7 +5,7 @@ endif
 
 function! s:Message(msg)
 	echohl WarningMsg
-	echomsg 'cscope: ' . a:msg
+	silent! echomsg 'cscope: ' . a:msg
 	echohl None
 endfunction
 
