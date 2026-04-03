@@ -40,10 +40,10 @@ if [ "$XDG_CURRENT_DESKTOP" = "xfce" ]; then
 fi
 
 if [ -f /usr/lib/git-core/git-sh-prompt ]; then
-       safe_link /usr/lib/git-core/git-sh-prompt ~/.local/lib/git-sh-prompt
+	safe_link /usr/lib/git-core/git-sh-prompt ~/.local/lib/git-sh-prompt
 else
-       wget -q --show-progress -O ~/.local/lib/git-sh-prompt  \
-       https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh
+	wget -q --show-progress -O ~/.local/lib/git-sh-prompt  \
+	https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh
 fi
 
 safe_link /usr/bin/fdfind ~/.local/bin/fd
@@ -62,9 +62,9 @@ setup_uv() {
 	local shell comp_dir
 	# TODO move this to common location
 	shell=$(basename "$SHELL")
-	comp_dir="$HOME/.local/share/$shell_name/user-completions"
+	comp_dir="$HOME/.local/share/$shell/user-completions"
 
-	mkdir -p "$comp_root"
+	mkdir -p "$comp_dir"
 
 	for c in uv uvx; do
 		if command -v "$c" >/dev/null 2>&1; then

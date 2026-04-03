@@ -68,5 +68,5 @@ fi
 UV_BIN="$HOME/.local/bin/uv"
 if [ ! -x "$UV_BIN" ]; then
 	curl -LsSf https://astral.sh/uv/install.sh | \
-	UV_NO_MODIFY_PATH=1 bash
+	UV_NO_MODIFY_PATH=1 UV_INSTALL_DIR="$HOME/.local/bin" bash
 fi
