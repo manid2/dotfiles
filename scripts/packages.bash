@@ -114,7 +114,7 @@ install_brew_packages () {
 	done
 }
 
-if [ "$(uname -s)" = "Darwin" ]; then
+if [ "$SYS_NAME" = "Darwin" ]; then
     if [ "$(command -v brew)" ]; then
 	    install_brew_packages
     fi

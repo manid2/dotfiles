@@ -1,82 +1,56 @@
 # shellcheck shell=bash disable=all
 # zsh plugins file, to be sourced into ~/.zshrc
 
-# enable auto-suggestions based on the history
-if [ -f $SYS_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-	source $SYS_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-	# change suggestion color
-	ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
-fi
+enable_plugins() {
+	local plugin_dirs=(
+		"$HOME/.local/share"
+		"$SYS_PREFIX/share"
+	)
 
-# enable syntax-highlighting
-if [ -f $SYS_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-	source $SYS_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-	ZSH_HIGHLIGHT_STYLES[default]=none
-	ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
-	ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=cyan,bold
-	ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=green,underline
-	ZSH_HIGHLIGHT_STYLES[global-alias]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[precommand]=fg=green,underline
-	ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[autodirectory]=fg=green,underline
-	ZSH_HIGHLIGHT_STYLES[path]=underline
-	ZSH_HIGHLIGHT_STYLES[path_pathseparator]=
-	ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]=
-	ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[command-substitution]=none
-	ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[process-substitution]=none
-	ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
-	ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
-	ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
-	ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]=fg=yellow
-	ZSH_HIGHLIGHT_STYLES[rc-quote]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[assign]=none
-	ZSH_HIGHLIGHT_STYLES[redirection]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[comment]=fg=black,bold
-	ZSH_HIGHLIGHT_STYLES[named-fd]=none
-	ZSH_HIGHLIGHT_STYLES[numeric-fd]=none
-	ZSH_HIGHLIGHT_STYLES[arg0]=fg=green
-	ZSH_HIGHLIGHT_STYLES[bracket-error]=fg=red,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-1]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-2]=fg=green,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-3]=fg=magenta,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-4]=fg=yellow,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
-	ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
-fi
+	local plugins=(
+		"zsh-autosuggestions/zsh-autosuggestions.zsh"
+		"zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+	)
 
-# enable command-not-found
-if [ -f /etc/zsh_command_not_found ]; then
-	source /etc/zsh_command_not_found
-elif [ "$SYS_NAME" = "Darwin" ]; then
-	HB_CNF_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
-	if [ -f "$HB_CNF_HANDLER" ]; then
-		source "$HB_CNF_HANDLER";
+	for plugin_dir in "${plugin_dirs[@]}"; do
+		[ -d "$plugin_dir" ] || continue
+
+		for plugin in "${plugins[@]}"; do
+			[ -f "$plugin_dir/$plugin" ] && source "$plugin_dir/$plugin"
+		done
+		return 0
+	done
+	return 1
+}
+
+enable_command_not_found() {
+	if [ -f /etc/zsh_command_not_found ]; then
+		source /etc/zsh_command_not_found
+		return 0
 	fi
-fi
 
-# enable zoxide
-if [ "$(command -v zoxide)" ]; then
+	if [ "$SYS_NAME" = "Darwin" ]; then
+		HB_CNF_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
+		[ -f "$HB_CNF_HANDLER" ] && source "$HB_CNF_HANDLER"
+	fi
+}
+
+init_zoxide() {
+	command -v zoxide >/dev/null 2>&1 || return 0
 	eval "$(zoxide init zsh)"
-fi
+}
 
-# intialize conda
-if [ "$(command -v conda)" ]; then
+init_conda() {
+	command -v conda >/dev/null 2>&1 || return 0
+
 	conda config --set changeps1 False
 	conda config --set auto_activate False
 	eval "$(conda 'shell.zsh' 'hook')"
 	conda deactivate
 	#conda env config vars set VIRTUAL_ENV=$CONDA_DEFAULT_ENV
-fi
+}
 
-source_plugins "zsh"
+enable_plugins
+enable_command_not_found
+init_zoxide
+init_conda
