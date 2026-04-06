@@ -12,15 +12,16 @@ enable_plugins() {
 		"zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 	)
 
-	for plugin_dir in "${plugin_dirs[@]}"; do
-		[ -d "$plugin_dir" ] || continue
+	for plugin in "${plugins[@]}"; do
+		for plugin_dir in "${plugin_dirs[@]}"; do
+			[ -d "$plugin_dir" ] || continue
 
-		for plugin in "${plugins[@]}"; do
-			[ -f "$plugin_dir/$plugin" ] && source "$plugin_dir/$plugin"
+			if [ -f "$plugin_dir/$plugin" ]; then
+				source "$plugin_dir/$plugin"
+				break
+			fi
 		done
-		return 0
 	done
-	return 1
 }
 
 enable_command_not_found() {
@@ -54,3 +55,5 @@ enable_plugins
 enable_command_not_found
 init_zoxide
 init_conda
+
+source_plugins "zsh"
