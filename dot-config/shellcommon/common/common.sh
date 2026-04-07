@@ -67,11 +67,11 @@ export CARGO_HOME="$RUST_DIR/.cargo"
 
 # go environment
 GO_DIR="$msp/go"
-#export GOPATH="$GO_DIR"
-#export GOBIN="$GOPATH/bin"
 export GOROOT="$GO_DIR"
 export GOBIN="$GOROOT/bin"
 export PATH=$PATH:$GOBIN
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
 
 # conda environment
 CONDA_DIR="$msp/conda"

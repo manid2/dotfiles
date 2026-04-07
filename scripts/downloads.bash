@@ -50,6 +50,13 @@ if [ ! -d "$RUST_DIR" ]; then
 	RUST_HOME="$RUST_HOME" CARGO_HOME="$CARGO_HOME" bash -s -- -y
 fi
 
+# install golang
+GO_URL=https://git.io/vQhTU
+
+if [ ! -d "$GO_DIR" ]; then
+	curl -sSfL $GO_URL | bash
+fi
+
 # install conda
 CONDA_URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
 CONDA_SH="$CONDA_DIR/miniforge.sh"
