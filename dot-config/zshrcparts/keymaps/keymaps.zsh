@@ -7,3 +7,4 @@ bindkey -e                                                # emacs key bindings
 # custom command keybindings
 bindkey -s '^X^[t' 'tmxr\n'                               # ctrl-x alt-t
 bindkey -s '^X^[s' 'source ~/.zshrc\n'                    # ctrl-x alt-s
+bindkey '^Xe' _expand_word                                # ctrl-x e: manually expand variables/globs
