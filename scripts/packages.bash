@@ -20,6 +20,7 @@ if [ "$(command -v cargo)" ]; then
 		git-delta
 		ripgrep
 		sd
+		tldr
 		zoxide
 	)
 	cargo install "${cargo_packages[@]}"
@@ -36,7 +37,7 @@ fi
 # install golang packages
 if [ "$(command -v go)" ]; then
 	go_packages=(
-		cobra-cli
+		github.com/file-go/fil@latest
 	)
 	go install "${go_packages[@]}"
 fi
