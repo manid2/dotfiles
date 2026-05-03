@@ -3,8 +3,12 @@
 command! -nargs=0 ToggleStatuslineWordcount
 	\ call statusline#statusline#toggle_word_count()
 
+command! -nargs=0 GitPS1
+	\ call statusline#git#ps1(1)
+
 " statusline keymaps.
 nnoremap <silent> <Leader>wc :ToggleStatuslineWordcount<cr>
+nnoremap <silent> <Leader>gp :GitPS1<cr>
 
 " --- vim-airline setup ------------------------------------------------------
 let g:airline#extensions#default#layout = [
@@ -18,14 +22,9 @@ augroup statusline_airline_init
 	autocmd User AirlineAfterInit call statusline#statusline#define_airline_parts()
 augroup END
 
-" --- Performance cache management -------------------------------------------
-" Initialize and update buffer count cache
-augroup statusline_cache
+" Start async git PS1 updates for statusline
+augroup statusline_git_ps1
 	autocmd!
-	" Initialize buffer count on startup
-	autocmd VimEnter * call statusline#statusline#update_buf_count()
-	" Update buffer count when buffers are added or deleted
-	autocmd BufAdd,BufDelete * call statusline#statusline#update_buf_count()
-	" Clear git directory cache when buffer changes or is written
-	autocmd BufEnter,BufWritePost * if exists('s:gitdir_cache') | unlet! s:gitdir_cache[bufnr('%')] | endif
+	autocmd BufEnter * call statusline#git#start_updates()
+	autocmd VimLeavePre * call statusline#git#stop_updates()
 augroup END

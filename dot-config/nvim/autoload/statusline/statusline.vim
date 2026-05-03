@@ -2,21 +2,14 @@
 " Disable word count on status line on start as it slows down vim.
 let g:statusline_wordcount_disabled=1
 
-" --- Performance caches -----------------------------------------------------
-" Cache buffer count to avoid expensive getbufinfo() calls
-let s:buf_count_cache = -1
-
-function! statusline#statusline#update_buf_count() abort
-	let s:buf_count_cache = len(getbufinfo({'buflisted': 1}))
-endfunction
-
 " --- Statusline sections ----------------------------------------------------
 function! statusline#statusline#mode_flags() abort
 	let l:md=mode(0)
 	let l:ro=&readonly ? 'R' : ''
 	let l:mo=!&modifiable ? 'M' : ''
 	let l:mf=&modified ? '+' : ''
-	let l:bfn=s:buf_count_cache > 1 ? '/'.string(s:buf_count_cache) : ''
+	let l:bfn=len(getbufinfo({'buflisted':1}))
+	let l:bfn=l:bfn > 1 ? '/'.string(l:bfn) : ''
 	return '%0.10('.l:md.l:ro.l:mo.l:mf.' %n'.l:bfn.'%)'
 endfunction
 
@@ -25,7 +18,7 @@ function! statusline#statusline#file_type() abort
 endfunction
 
 function! statusline#statusline#git_str() abort
-	return '%{statusline#git#branch_with_status()}'
+	return '%0.24{statusline#git#ps1()}'
 endfunction
 
 function! statusline#statusline#current_tag() abort
